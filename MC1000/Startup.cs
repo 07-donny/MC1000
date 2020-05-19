@@ -64,6 +64,11 @@ namespace MC1000
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
+                endpoints.MapAreaControllerRoute(
+                       name: "CMS",
+                       areaName: "CMS",
+                       pattern: "CMS/{controller=CMS}/{action=Index}/{id?}");
             });
         }
     }
