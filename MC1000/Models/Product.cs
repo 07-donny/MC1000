@@ -8,13 +8,13 @@ namespace MC1000.Models
     public class Product
     {
         public int Id { get; set; }
-        public int EAN { get; set; }
+        public string EAN { get; set; }
         public string Title { get; set; }
         public string Brand { get; set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         public string Image { get; set; }
-        public decimal Weight { get; set; }
+        public string Weight { get; set; }
         public decimal Price { get; set; }
 
         // Bijbehorende Category
