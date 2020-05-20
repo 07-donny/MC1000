@@ -17,16 +17,16 @@ namespace MC1000.Models
         public string Weight { get; set; }
         public decimal Price { get; set; }
 
-        // Bijbehorende Category
-        public string CategoryId { get; set; }
-        public Category Category { get; set; }
+        //// Bijbehorende Category
+        //public int CategoryId { get; set; }
+        //public Category Category { get; set; }
 
-        // Bijbehorende SubCategory
-        public string SubCategoryId { get; set; }
-        public SubCategory SubCategory { get; set; }
+        //// Bijbehorende SubCategory
+        //public int SubCategoryId { get; set; }
+        //public SubCategory SubCategory { get; set; }
 
         // Bijbehorende SubSubCategory
-        public string SubSubCategoryId { get; set; }
+        public int SubSubCategoryId { get; set; }
         public SubSubCategory SubSubCategory { get; set; }
     }
 }

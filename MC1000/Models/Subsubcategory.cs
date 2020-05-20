@@ -12,7 +12,7 @@ namespace MC1000.Models
         public string BannerImage { get; set; }
 
         // Bijbehorende SubCategory
-        public string SubCategoryId { get; set; }
+        public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
     }
 }

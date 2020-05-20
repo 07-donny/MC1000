@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Data.Migrations
 {
-    public partial class second : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -154,18 +154,17 @@ namespace MC1000.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     BannerImage = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<string>(nullable: true),
-                    CategoryId1 = table.Column<int>(nullable: true)
+                    CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SubCategory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubCategory_Category_CategoryId1",
-                        column: x => x.CategoryId1,
+                        name: "FK_SubCategory_Category_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,18 +202,17 @@ namespace MC1000.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     BannerImage = table.Column<string>(nullable: true),
-                    SubCategoryId = table.Column<string>(nullable: true),
-                    SubCategoryId1 = table.Column<int>(nullable: true)
+                    SubCategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SubSubCategory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubSubCategory_SubCategory_SubCategoryId1",
-                        column: x => x.SubCategoryId1,
+                        name: "FK_SubSubCategory_SubCategory_SubCategoryId",
+                        column: x => x.SubCategoryId,
                         principalTable: "SubCategory",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -229,25 +227,14 @@ namespace MC1000.Data.Migrations
                     ShortDescription = table.Column<string>(nullable: true),
                     FullDescription = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
-                    Weight = table.Column<decimal>(nullable: false),
+                    Weight = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
-                    CategoryId = table.Column<string>(nullable: true),
-                    CategoryId1 = table.Column<int>(nullable: true),
-                    SubCategoryId = table.Column<string>(nullable: true),
-                    SubCategoryId1 = table.Column<int>(nullable: true),
-                    SubSubCategoryId = table.Column<string>(nullable: true),
-                    SubSubCategoryId1 = table.Column<int>(nullable: true),
+                    SubSubCategoryId = table.Column<int>(nullable: false),
                     ShoppingCartId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Product_Category_CategoryId1",
-                        column: x => x.CategoryId1,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_ShoppingCart_ShoppingCartId",
                         column: x => x.ShoppingCartId,
@@ -255,17 +242,11 @@ namespace MC1000.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Product_SubCategory_SubCategoryId1",
-                        column: x => x.SubCategoryId1,
-                        principalTable: "SubCategory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Product_SubSubCategory_SubSubCategoryId1",
-                        column: x => x.SubSubCategoryId1,
+                        name: "FK_Product_SubSubCategory_SubSubCategoryId",
+                        column: x => x.SubSubCategoryId,
                         principalTable: "SubSubCategory",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -376,24 +357,14 @@ namespace MC1000.Data.Migrations
                 column: "PromotionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_CategoryId1",
-                table: "Product",
-                column: "CategoryId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Product_ShoppingCartId",
                 table: "Product",
                 column: "ShoppingCartId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_SubCategoryId1",
+                name: "IX_Product_SubSubCategoryId",
                 table: "Product",
-                column: "SubCategoryId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_SubSubCategoryId1",
-                table: "Product",
-                column: "SubSubCategoryId1");
+                column: "SubSubCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCart_UserId",
@@ -401,14 +372,14 @@ namespace MC1000.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubCategory_CategoryId1",
+                name: "IX_SubCategory_CategoryId",
                 table: "SubCategory",
-                column: "CategoryId1");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubSubCategory_SubCategoryId1",
+                name: "IX_SubSubCategory_SubCategoryId",
                 table: "SubSubCategory",
-                column: "SubCategoryId1");
+                column: "SubCategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

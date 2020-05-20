@@ -176,12 +176,6 @@ namespace MC1000.Data.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CategoryId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("EAN")
                         .HasColumnType("nvarchar(max)");
 
@@ -200,16 +194,7 @@ namespace MC1000.Data.Migrations
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SubCategoryId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SubCategoryId1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SubSubCategoryId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SubSubCategoryId1")
+                    b.Property<int>("SubSubCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -220,13 +205,9 @@ namespace MC1000.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
-
                     b.HasIndex("ShoppingCartId");
 
-                    b.HasIndex("SubCategoryId1");
-
-                    b.HasIndex("SubSubCategoryId1");
+                    b.HasIndex("SubSubCategoryId");
 
                     b.ToTable("Product");
                 });
@@ -273,10 +254,7 @@ namespace MC1000.Data.Migrations
                     b.Property<string>("BannerImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CategoryId1")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -284,7 +262,7 @@ namespace MC1000.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategory");
                 });
@@ -302,15 +280,12 @@ namespace MC1000.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SubCategoryId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SubCategoryId1")
+                    b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubCategoryId1");
+                    b.HasIndex("SubCategoryId");
 
                     b.ToTable("SubSubCategory");
                 });
@@ -628,21 +603,15 @@ namespace MC1000.Data.Migrations
 
             modelBuilder.Entity("MC1000.Models.Product", b =>
                 {
-                    b.HasOne("MC1000.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId1");
-
                     b.HasOne("MC1000.Models.ShoppingCart", null)
                         .WithMany("Products")
                         .HasForeignKey("ShoppingCartId");
 
-                    b.HasOne("MC1000.Models.SubCategory", "SubCategory")
-                        .WithMany()
-                        .HasForeignKey("SubCategoryId1");
-
                     b.HasOne("MC1000.Models.SubSubCategory", "SubSubCategory")
                         .WithMany()
-                        .HasForeignKey("SubSubCategoryId1");
+                        .HasForeignKey("SubSubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MC1000.Models.ShoppingCart", b =>
@@ -656,14 +625,18 @@ namespace MC1000.Data.Migrations
                 {
                     b.HasOne("MC1000.Models.Category", "Category")
                         .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId1");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MC1000.Models.SubSubCategory", b =>
                 {
                     b.HasOne("MC1000.Models.SubCategory", "SubCategory")
                         .WithMany("SubSubCategories")
-                        .HasForeignKey("SubCategoryId1");
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

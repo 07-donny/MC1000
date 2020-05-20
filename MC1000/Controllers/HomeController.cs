@@ -84,11 +84,11 @@ namespace MC1000.Controllers
 
                 var category = product.Descendants("Category").First().Value;
                 var existing1 = _context.Category.FirstOrDefault(a => a.Name == category);
-                p.Category = existing1;
+                //p.Category = existing1;
 
                 var subcategory = product.Descendants("Subcategory").First().Value;
                 var existing2 = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
-                p.SubCategory = existing2;
+                //p.SubCategory = existing2;
 
                 var subsubcategory = product.Descendants("Subsubcategory").First().Value;
                 var existing3 = _context.SubSubCategory.FirstOrDefault(a => a.Name == subsubcategory);

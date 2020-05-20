@@ -22,7 +22,7 @@ namespace MC1000.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.Include(p => p.Category).Include(p => p.SubCategory).Include(p => p.SubSubCategory).ToListAsync());
+            return View(await _context.Product/*.Include(p => p.Category)*//*.Include(p => p.SubCategory)*/.Include(p => p.SubSubCategory).ToListAsync());
         }
 
         // GET: Products/Details/5
