@@ -12,6 +12,8 @@ using MC1000.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MC1000.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MC1000
 {
@@ -30,14 +32,34 @@ namespace MC1000
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest)
+           .AddRazorPagesOptions(options =>
+           {
+               options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+               options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+           });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
