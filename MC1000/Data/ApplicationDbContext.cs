@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MC1000.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -25,7 +25,5 @@ namespace MC1000.Data
             public DbSet<SubCategory> SubCategory { get; set; }
             public DbSet<SubSubCategory> SubSubCategory { get; set; }
             public DbSet<TimeSlot> TimeSlot { get; set; }
-
-            //public DbSet<User> User { get; set; }
     }
 }

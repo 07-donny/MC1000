@@ -80,17 +80,19 @@ namespace MC1000
             app.UseAuthentication();
             app.UseAuthorization();
 
+            Seed.SeedUsers(userManager, roleManager);
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-
                 endpoints.MapAreaControllerRoute(
                        name: "CMS",
                        areaName: "CMS",
                        pattern: "CMS/{controller=CMS}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -15,6 +15,7 @@ namespace MC1000.Models
         
         // Gekoppelde gebruiker
         public string UserId { get; set; }
+        public string UserName { get; set; }
         public User User { get; set; }
     }
 }
