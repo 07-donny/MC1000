@@ -13,7 +13,32 @@ namespace MC1000.Data
             : base(options)
         {
         }
-            public DbSet<Category> Category { get; set; }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+
+        //    //modelBuilder.Entity<Product>()
+        //    //    .HasOne(c => c.SubSubCategory)
+        //    //    .WithMany(p => p.Products)
+        //    //    .OnDelete(DeleteBehavior.Cascade);
+
+        //    //modelBuilder.Entity<Category>()
+        //    //    .HasMany(p => p.SubCategories)
+        //    //    .WithOne(c => c.Category)
+        //    //    .OnDelete(DeleteBehavior.Cascade);
+
+        //    //modelBuilder.Entity<SubCategory>()
+        //    //    .HasMany(p => p.SubSubCategories)
+        //    //    .WithOne(c => c.SubCategory)
+        //    //    .OnDelete(DeleteBehavior.Cascade);
+
+        //    //modelBuilder.Entity<SubSubCategory>()
+        //    //    .HasMany(p => p.Products)
+        //    //    .WithOne(c => c.SubSubCategory)
+        //    //    .OnDelete(DeleteBehavior.Cascade);
+        //}
+
+           
             public DbSet<DeliverySlot> DeliverySlot { get; set; }
             public DbSet<Discount> Discount { get; set; }
             public DbSet<News> News { get; set; }
@@ -22,8 +47,6 @@ namespace MC1000.Data
             public DbSet<Product> Product { get; set; }
             public DbSet<Promotion> Promotion { get; set; }
             public DbSet<ShoppingCart> ShoppingCart { get; set; }
-            public DbSet<SubCategory> SubCategory { get; set; }
-            public DbSet<SubSubCategory> SubSubCategory { get; set; }
             public DbSet<TimeSlot> TimeSlot { get; set; }
     }
 }

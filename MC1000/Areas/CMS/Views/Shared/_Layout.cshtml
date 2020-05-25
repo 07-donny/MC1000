@@ -51,7 +51,7 @@
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link" asp-area="CMS" asp-controller="News" asp-action="Index">
-                <i class="fas fa-fw fa-user"></i>
+                <i class="fas fa-fw fa-book"></i>
                 <span>Nieuws Artikelen</span>
             </a>
         </li>
@@ -61,21 +61,14 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Redactie
+            Admin
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" asp-area="Dashboard" asp-controller="Questions" asp-action="Index">
-                <i class="fas fa-fw fa-question"></i>
-                <span>Questions</span>
-            </a>
-        </li>
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" asp-area="Dashboard" asp-controller="Articles" asp-action="Index">
-                <i class="fas fa-fw fa-paperclip"></i>
-                <span>Articles</span>
+            <a class="nav-link" asp-area="CMS" asp-controller="Users" asp-action="Index">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Gebruikers</span>
             </a>
         </li>
     </ul>
@@ -120,7 +113,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                            <img class="img-profile rounded-circle" src="https://bit.ly/3b7JEyB">
+                            <img class="img-profile rounded-circle" src="https://bit.ly/2WYUD8R">
                         </a>
                         <!-- Dropdown - User Information -->
                         @if (SignInManager.IsSignedIn(User))

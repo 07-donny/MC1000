@@ -39,6 +39,7 @@ namespace MC1000.Data
                 {
                     UserName = "customer@MC1000.com",
                     Email = "customer@MC1000.com",
+                    IsEnabled = true
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "Password123!").Result;
@@ -56,6 +57,7 @@ namespace MC1000.Data
                 {
                     UserName = "redactie@MC1000.com",
                     Email = "redactie@MC1000.com",
+                    IsEnabled = true
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "Password123!").Result;
@@ -73,6 +75,7 @@ namespace MC1000.Data
                 {
                     UserName = "admin@MC1000.com",
                     Email = "admin@MC1000.com",
+                    IsEnabled = true
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "Password123!").Result;
