@@ -27,6 +27,11 @@ namespace MC1000.Controllers
             return View();
         }
 
+        public IActionResult Categories()
+        {
+            return View();
+        }
+
         public IActionResult ImportXml()
         {
             XDocument xdoc = XDocument.Load("http://supermaco.starwave.nl/api/products");
