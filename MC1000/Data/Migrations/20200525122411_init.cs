@@ -2,7 +2,7 @@
 
 namespace MC1000.Data.Migrations
 {
-    public partial class cmsInit2 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

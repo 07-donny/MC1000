@@ -55,17 +55,17 @@ namespace MC1000.Controllers
             //    }
             //}
 
-            var subsubcategorys = xdoc.Descendants("Subsubcategory").Select(a => a.Value).Distinct();
-            foreach (var subsubcategory in subsubcategorys)
-            {
-                var existing = _context.SubSubCategory.FirstOrDefault(a => a.Name == subsubcategory);
-                if (existing == null)
-                {
-                    SubSubCategory c = new SubSubCategory();
-                    c.Name = subsubcategory;
-                    _context.Add(c);
-                }
-            }
+            //var subsubcategorys = xdoc.Descendants("Subsubcategory").Select(a => a.Value).Distinct();
+            //foreach (var subsubcategory in subsubcategorys)
+            //{
+            //    var existing = _context.SubSubCategory.FirstOrDefault(a => a.Name == subsubcategory);
+            //    if (existing == null)
+            //    {
+            //        SubSubCategory c = new SubSubCategory();
+            //        c.Name = subsubcategory;
+            //        _context.Add(c);
+            //    }
+            //}
 
             var products = xdoc.Descendants("Product");
 
@@ -90,9 +90,9 @@ namespace MC1000.Controllers
                 //var existing2 = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
                 //p.SubCategory = existing2;
 
-                var subsubcategory = product.Descendants("Subsubcategory").First().Value;
-                var existing3 = _context.SubSubCategory.FirstOrDefault(a => a.Name == subsubcategory);
-                p.SubSubCategory = existing3;
+                //var subsubcategory = product.Descendants("Subsubcategory").First().Value;
+                //var existing3 = _context.SubSubCategory.FirstOrDefault(a => a.Name == subsubcategory);
+                //p.SubSubCategory = existing3;
 
                 _context.Add(p);
             }

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace MC1000.Areas.CMS.Controllers
 {
     [Area("CMS")]
-    //[Authorize(Roles = "Admin, Redactie")]
+    [Authorize(Roles = "Admin, Redactie")]
     public class NewsController : Controller
     {
         private readonly ApplicationDbContext _context;

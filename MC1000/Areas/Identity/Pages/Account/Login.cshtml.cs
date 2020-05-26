@@ -80,12 +80,27 @@ namespace MC1000.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var user = _userManager.FindByEmailAsync(Input.Email).Result;
+
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+
+                if (user.IsEnabled == false)
+                {
+                    await _userManager.SetLockoutEnabledAsync(user, true);
+
+                    await _userManager.SetLockoutEndDateAsync(user, DateTime.Today.AddYears(100));
+                    await _signInManager.SignOutAsync();
+
+                    ModelState.AddModelError(string.Empty, "Je account is geblokkeerd door de beheerder.");
+                    return Page();
+                }
+
+                if (result.Succeeded && user.IsEnabled == true)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
@@ -95,6 +110,8 @@ namespace MC1000.Areas.Identity.Pages.Account
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
+
+
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
