@@ -31,29 +31,29 @@ namespace MC1000.Controllers
         {
             XDocument xdoc = XDocument.Load("http://supermaco.starwave.nl/api/products");
 
-            var categorys = xdoc.Descendants("Category").Select(a => a.Value).Distinct();
-            foreach(var category in categorys)
-            {
-                var existing = _context.Category.FirstOrDefault(a => a.Name == category);
-                if (existing == null)
-                {
-                    Category c = new Category();
-                    c.Name = category;
-                    _context.Add(c);
-                }
-            }
+            //var categorys = xdoc.Descendants("Category").Select(a => a.Value).Distinct();
+            //foreach(var category in categorys)
+            //{
+            //    var existing = _context.Category.FirstOrDefault(a => a.Name == category);
+            //    if (existing == null)
+            //    {
+            //        Category c = new Category();
+            //        c.Name = category;
+            //        _context.Add(c);
+            //    }
+            //}
 
-            var subcategorys = xdoc.Descendants("Subcategory").Select(a => a.Value).Distinct();
-            foreach (var subcategory in subcategorys)
-            {
-                var existing = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
-                if (existing == null)
-                {
-                    SubCategory c = new SubCategory();
-                    c.Name = subcategory;
-                    _context.Add(c);
-                }
-            }
+            //var subcategorys = xdoc.Descendants("Subcategory").Select(a => a.Value).Distinct();
+            //foreach (var subcategory in subcategorys)
+            //{
+            //    var existing = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
+            //    if (existing == null)
+            //    {
+            //        SubCategory c = new SubCategory();
+            //        c.Name = subcategory;
+            //        _context.Add(c);
+            //    }
+            //}
 
             var subsubcategorys = xdoc.Descendants("Subsubcategory").Select(a => a.Value).Distinct();
             foreach (var subsubcategory in subsubcategorys)
@@ -82,12 +82,12 @@ namespace MC1000.Controllers
                 p.Weight = product.Descendants("Weight").First().Value;
                 p.Price = Decimal.Parse(product.Descendants("Price").First().Value);
 
-                var category = product.Descendants("Category").First().Value;
-                var existing1 = _context.Category.FirstOrDefault(a => a.Name == category);
+                //var category = product.Descendants("Category").First().Value;
+                //var existing1 = _context.Category.FirstOrDefault(a => a.Name == category);
                 //p.Category = existing1;
 
-                var subcategory = product.Descendants("Subcategory").First().Value;
-                var existing2 = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
+                //var subcategory = product.Descendants("Subcategory").First().Value;
+                //var existing2 = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
                 //p.SubCategory = existing2;
 
                 var subsubcategory = product.Descendants("Subsubcategory").First().Value;

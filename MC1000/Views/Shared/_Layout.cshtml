@@ -23,8 +23,35 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="CMS" asp-controller="CMS" asp-action="Index">CMS</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Producten">Producten</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Categorieen">Categorieen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Producten">Aanbiedingen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Winkelwagen">Winkelwagen</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BezorgMomentKiezen">Bestellen</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Bestellen</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="CMS" asp-controller="CMS" asp-action="Index">Beheerderspaneel</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -38,7 +65,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - MC1000 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - MC1000 - <a asp-area="" asp-controller="Home" asp-action="AlgemeneVoorwaarden">Algemene Voorwaarden</a> - <a asp-area="" asp-controller="Home" asp-action="LeveringVerzending">Levering & verzending</a> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacybeleid</a> - <a asp-area="" asp-controller="Home" asp-action="OnzeOrganisatie">Onze organisatie</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
