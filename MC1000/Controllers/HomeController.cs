@@ -80,6 +80,7 @@ namespace MC1000.Controllers
                         u.SubCategory = s;
                         s.SubSubCategories.Add(u);
                     }
+
                 }
                 _context.Add(c);
             }
@@ -105,9 +106,36 @@ namespace MC1000.Controllers
                 }
                 _context.Add(p);
             }
-            _context.SaveChanges();
-            return View();
+
+
+            //Load deliveryslots into DB
+            XDocument xdocDeliveryslot = XDocument.Load("http://supermaco.starwave.nl/api/deliveryslots");
+
+            var deliveryslots = xdocDeliveryslot.Descendants("Deliveryslot");
+            foreach (var deliveryslot in deliveryslots)
+            {
+                DeliverySlot d = new DeliverySlot();
+                {
+                    d.DeliveryDate = DateTime.Parse(deliveryslot.Descendants("Date").First().Value);
+
+                    var timeslots = xdocDeliveryslot.Descendants("Timeslot");
+                    d.TimeSlots = new List<TimeSlot>();
+                    foreach (var timeslot in timeslots)
+                    {
+                        TimeSlot t = new TimeSlot();
+                        t.StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value);
+                        t.EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value);
+                        t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value);
+                        d.TimeSlots.Add(t);
+                    }
+                }
+                _context.Add(d);
+            }
+            //Deliveryslots Loaded
         }
+        _context.SaveChanges();
+        return View();
+    }
 
         public IActionResult Privacy()
         {
