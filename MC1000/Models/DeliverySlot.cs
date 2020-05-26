@@ -12,6 +12,6 @@ namespace MC1000.Models
         [DataType(DataType.Date)] // Dit zorgt ervoor dat de datum gedisplayed wordt als bijv "15-10-2020" ipv "15-10-2020 00:00:00"
         public DateTime DeliveryDate { get; set; }
         
-        public List<DeliverySlot> DeliverySlots { get; set; }
+        public List<TimeSlot> TimeSlots { get; set; }
     }
 }

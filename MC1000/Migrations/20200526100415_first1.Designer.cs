@@ -4,14 +4,16 @@ using MC1000.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MC1000.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200526100415_first1")]
+    partial class first1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +49,12 @@ namespace MC1000.Migrations
                     b.Property<DateTime>("DeliveryDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DeliverySlotId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DeliverySlotId");
 
                     b.ToTable("DeliverySlot");
                 });
@@ -290,9 +297,6 @@ namespace MC1000.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DeliverySlotId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -303,8 +307,6 @@ namespace MC1000.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeliverySlotId");
 
                     b.ToTable("TimeSlot");
                 });
@@ -526,6 +528,13 @@ namespace MC1000.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MC1000.Models.DeliverySlot", b =>
+                {
+                    b.HasOne("MC1000.Models.DeliverySlot", null)
+                        .WithMany("DeliverySlots")
+                        .HasForeignKey("DeliverySlotId");
+                });
+
             modelBuilder.Entity("MC1000.Models.Discount", b =>
                 {
                     b.HasOne("MC1000.Models.Product", "Product")
@@ -606,15 +615,6 @@ namespace MC1000.Migrations
                     b.HasOne("MC1000.Models.SubCategory", "SubCategory")
                         .WithMany("SubSubCategories")
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MC1000.Models.TimeSlot", b =>
-                {
-                    b.HasOne("MC1000.Models.DeliverySlot", "DeliverySlot")
-                        .WithMany("TimeSlots")
-                        .HasForeignKey("DeliverySlotId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
