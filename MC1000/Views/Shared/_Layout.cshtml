@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - MC1000</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", false)
 </head>
 <body>
     <header>
@@ -46,7 +47,7 @@
                                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Bestellen</a>
                             </li>
                         }
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Admin, Redactie"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="CMS" asp-controller="CMS" asp-action="Index">Beheerderspaneel</a>

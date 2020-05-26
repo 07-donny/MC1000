@@ -1,0 +1,12 @@
+﻿.category {
+    width: 20%;
+    border: 1px solid;
+    overflow: hidden;
+    float: left;
+    text-align: center;
+}
+
+.categoryImg {
+    width: 60%;
+    margin-top:10%;
+}
