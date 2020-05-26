@@ -14,7 +14,7 @@ namespace MC1000.Data
         {
         }
 
-        public DbSet<Category> Category { get; set; }
+            //public DbSet<Category> Category { get; set; }
             public DbSet<DeliverySlot> DeliverySlot { get; set; }
             public DbSet<Discount> Discount { get; set; }
             public DbSet<News> News { get; set; }

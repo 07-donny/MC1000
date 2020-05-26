@@ -8,97 +8,82 @@ using Microsoft.Extensions.Logging;
 using MC1000.Models;
 using System.Xml.Linq;
 using MC1000.Data;
+using System.ComponentModel;
 
 namespace MC1000.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
             _context = context;
         }
-
         public IActionResult Index()
         {
-            return View();
-        }
+            //Load products into DB
+            XDocument xdocProduct = XDocument.Load("http://supermaco.starwave.nl/api/products");
 
-        public IActionResult ImportXml()
-        {
-            XDocument xdoc = XDocument.Load("http://supermaco.starwave.nl/api/products");
+            var products = xdocProduct.Descendants("Product");
 
-            //var categorys = xdoc.Descendants("Category").Select(a => a.Value).Distinct();
-            //foreach(var category in categorys)
-            //{
-            //    var existing = _context.Category.FirstOrDefault(a => a.Name == category);
-            //    if (existing == null)
-            //    {
-            //        Category c = new Category();
-            //        c.Name = category;
-            //        _context.Add(c);
-            //    }
-            //}
-
-            //var subcategorys = xdoc.Descendants("Subcategory").Select(a => a.Value).Distinct();
-            //foreach (var subcategory in subcategorys)
-            //{
-            //    var existing = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
-            //    if (existing == null)
-            //    {
-            //        SubCategory c = new SubCategory();
-            //        c.Name = subcategory;
-            //        _context.Add(c);
-            //    }
-            //}
-
-            //var subsubcategorys = xdoc.Descendants("Subsubcategory").Select(a => a.Value).Distinct();
-            //foreach (var subsubcategory in subsubcategorys)
-            //{
-            //    var existing = _context.SubSubCategory.FirstOrDefault(a => a.Name == subsubcategory);
-            //    if (existing == null)
-            //    {
-            //        SubSubCategory c = new SubSubCategory();
-            //        c.Name = subsubcategory;
-            //        _context.Add(c);
-            //    }
-            //}
-
-            var products = xdoc.Descendants("Product");
-
-            foreach(var product in products)
+            foreach (var product in products)
             {
-                Product p = new Product();
-
-                p.EAN = product.Descendants("EAN").First().Value;
-                p.Title = product.Descendants("Title").First().Value;
-                p.Brand = product.Descendants("Brand").First().Value;
-                p.ShortDescription = product.Descendants("Shortdescription").First().Value;
-                p.FullDescription = product.Descendants("Fulldescription").First().Value;
-                p.Image = product.Descendants("Image").First().Value;
-                p.Weight = product.Descendants("Weight").First().Value;
-                p.Price = Decimal.Parse(product.Descendants("Price").First().Value);
-
-                //var category = product.Descendants("Category").First().Value;
-                //var existing1 = _context.Category.FirstOrDefault(a => a.Name == category);
-                //p.Category = existing1;
-
-                //var subcategory = product.Descendants("Subcategory").First().Value;
-                //var existing2 = _context.SubCategory.FirstOrDefault(a => a.Name == subcategory);
-                //p.SubCategory = existing2;
-
-                //var subsubcategory = product.Descendants("Subsubcategory").First().Value;
-                //var existing3 = _context.SubSubCategory.FirstOrDefault(a => a.Name == subsubcategory);
-                //p.SubSubCategory = existing3;
+                Product p = new Product
+                {
+                    EAN = product.Descendants("EAN").First().Value,
+                    Title = product.Descendants("Title").First().Value,
+                    Brand = product.Descendants("Brand").First().Value,
+                    ShortDescription = product.Descendants("Shortdescription").First().Value,
+                    FullDescription = product.Descendants("Fulldescription").First().Value,
+                    Image = product.Descendants("Image").First().Value,
+                    Weight = product.Descendants("Weight").First().Value,
+                    Price = Decimal.Parse(product.Descendants("Price").First().Value)
+                };
 
                 _context.Add(p);
             }
+            //Products Loaded
+
+            //Load Categories into DB
+            XDocument xdocCategory = XDocument.Load("http://supermaco.starwave.nl/api/categories");
+
+            var categories = xdocCategory.Descendants("Category");
+            foreach (var category in categories)
+            {
+                Category c = new Category();
+                c.Name = category.Descendants("Name").First().Value;
+
+                //Load Subcategories to DB and link to Category
+                var subCategories = category.Descendants("Subcategory");
+
+                c.SubCategories = new List<SubCategory>();
+                foreach (var sub in subCategories)
+                {
+                    SubCategory s = new SubCategory();
+                    s.Name = sub.Descendants("Name").First().Value;
+                    s.Category = c;
+                    c.SubCategories.Add(s);
+
+                    //Load SubSubcategories to DB and link to SubCategory
+                    var subSubCategories = category.Descendants("Subsubcategory");
+
+                    s.SubSubCategories = new List<SubSubCategory>();
+
+                    foreach (var subsub in subSubCategories)
+                    {
+                        SubSubCategory u = new SubSubCategory();
+                        u.Name = subsub.Descendants("Name").First().Value;
+                        u.SubCategory = s;
+                        s.SubSubCategories.Add(u);
+                    }
+                }
+                _context.Add(c);
+            }
+
+
 
             _context.SaveChanges();
-
             return View();
         }
 
