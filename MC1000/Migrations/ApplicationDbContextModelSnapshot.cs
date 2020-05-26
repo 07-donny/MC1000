@@ -19,6 +19,24 @@ namespace MC1000.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("MC1000.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("MC1000.Models.DeliverySlot", b =>
                 {
                     b.Property<int>("Id")
@@ -49,10 +67,13 @@ namespace MC1000.Migrations
                     b.Property<decimal>("DiscountedPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("EAN")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PromotionId")
+                    b.Property<int>("PromotionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ValidUntil")
@@ -222,6 +243,52 @@ namespace MC1000.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ShoppingCart");
+                });
+
+            modelBuilder.Entity("MC1000.Models.SubCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategory");
+                });
+
+            modelBuilder.Entity("MC1000.Models.SubSubCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BannerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubCategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("SubSubCategory");
                 });
 
             modelBuilder.Entity("MC1000.Models.TimeSlot", b =>
@@ -475,9 +542,11 @@ namespace MC1000.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("MC1000.Models.Promotion", null)
+                    b.HasOne("MC1000.Models.Promotion", "Promotion")
                         .WithMany("Discounts")
-                        .HasForeignKey("PromotionId");
+                        .HasForeignKey("PromotionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MC1000.Models.News", b =>
@@ -533,6 +602,24 @@ namespace MC1000.Migrations
                     b.HasOne("MC1000.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("MC1000.Models.SubCategory", b =>
+                {
+                    b.HasOne("MC1000.Models.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MC1000.Models.SubSubCategory", b =>
+                {
+                    b.HasOne("MC1000.Models.SubCategory", "SubCategory")
+                        .WithMany("SubSubCategories")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

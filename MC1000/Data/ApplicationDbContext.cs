@@ -26,6 +26,18 @@ namespace MC1000.Data
             .HasMany(p => p.SubSubCategories)
             .WithOne(c => c.SubCategory)
             .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Promotion>()
+            .HasMany(p => p.Discounts)
+            .WithOne(c => c.Promotion)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<Discount>()
+            //.HasOne(p => p.Product)
+            //.WithOne(d => d.Discount)
+            //.HasForeignKey<Product>(k => k.DiscountId);
+
+
         }
         public DbSet<DeliverySlot> DeliverySlot { get; set; }
         public DbSet<Discount> Discount { get; set; }

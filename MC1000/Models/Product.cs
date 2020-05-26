@@ -18,5 +18,7 @@ namespace MC1000.Models
         public string Weight { get; set; }
         [AllowNull]
         public decimal Price { get; set; }
+        //public int DiscountId { get; set; }
+        //public Discount Discount { get; set; }
     }
 }

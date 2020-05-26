@@ -40,7 +40,6 @@ namespace MC1000.Controllers
                     Weight = product.Descendants("Weight").First().Value,
                     Price = Decimal.Parse(product.Descendants("Price").First().Value)
                 };
-
                 _context.Add(p);
             }
             //Products Loaded
@@ -81,8 +80,27 @@ namespace MC1000.Controllers
                 _context.Add(c);
             }
 
+            //Load promotions to DB
+            XDocument xdocPromo = XDocument.Load("http://supermaco.starwave.nl/api/promotions");
+            var promotions = xdocPromo.Descendants("Promotion");
+            foreach (var promotion in promotions)
+            {
+                Promotion p = new Promotion();
+                p.Title = promotion.Descendants("Title").First().Value;
 
-
+                //Load discounts to DB and link to Promotion
+                var discounts = promotion.Descendants("Discount");
+                p.Discounts = new List<Discount>();
+                foreach (var discount in discounts)
+                {
+                    Discount d = new Discount();
+                    d.EAN = discount.Descendants("EAN").First().Value;
+                    d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value);
+                    d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+                    p.Discounts.Add(d);
+                }
+                _context.Add(p);
+            }
             _context.SaveChanges();
             return View();
         }

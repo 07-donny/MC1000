@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class Initial : Migration
+    public partial class promo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,6 +51,20 @@ namespace MC1000.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    BannerImage = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,6 +264,27 @@ namespace MC1000.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    BannerImage = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubCategory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubCategory_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
@@ -304,6 +339,27 @@ namespace MC1000.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubSubCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    BannerImage = table.Column<string>(nullable: true),
+                    SubCategoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubSubCategory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubSubCategory_SubCategory_SubCategoryId",
+                        column: x => x.SubCategoryId,
+                        principalTable: "SubCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Discount",
                 columns: table => new
                 {
@@ -311,8 +367,9 @@ namespace MC1000.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DiscountedPrice = table.Column<decimal>(nullable: false),
                     ValidUntil = table.Column<DateTime>(nullable: false),
+                    PromotionId = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: true),
-                    PromotionId = table.Column<int>(nullable: true)
+                    EAN = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -328,7 +385,7 @@ namespace MC1000.Migrations
                         column: x => x.PromotionId,
                         principalTable: "Promotion",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -458,6 +515,16 @@ namespace MC1000.Migrations
                 name: "IX_ShoppingCart_UserId",
                 table: "ShoppingCart",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategory_CategoryId",
+                table: "SubCategory",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubSubCategory_SubCategoryId",
+                table: "SubSubCategory",
+                column: "SubCategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -487,6 +554,9 @@ namespace MC1000.Migrations
                 name: "OrderLine");
 
             migrationBuilder.DropTable(
+                name: "SubSubCategory");
+
+            migrationBuilder.DropTable(
                 name: "TimeSlot");
 
             migrationBuilder.DropTable(
@@ -502,10 +572,16 @@ namespace MC1000.Migrations
                 name: "Promotion");
 
             migrationBuilder.DropTable(
+                name: "SubCategory");
+
+            migrationBuilder.DropTable(
                 name: "DeliverySlot");
 
             migrationBuilder.DropTable(
                 name: "ShoppingCart");
+
+            migrationBuilder.DropTable(
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
