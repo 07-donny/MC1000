@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class promo : Migration
+    public partial class @decimal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -98,21 +98,6 @@ namespace MC1000.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Promotion", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TimeSlot",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TimeSlot", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -309,6 +294,28 @@ namespace MC1000.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TimeSlot",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    DeliverySlotId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TimeSlot", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TimeSlot_DeliverySlot_DeliverySlotId",
+                        column: x => x.DeliverySlotId,
+                        principalTable: "DeliverySlot",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -525,6 +532,11 @@ namespace MC1000.Migrations
                 name: "IX_SubSubCategory_SubCategoryId",
                 table: "SubSubCategory",
                 column: "SubCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeSlot_DeliverySlotId",
+                table: "TimeSlot",
+                column: "DeliverySlotId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

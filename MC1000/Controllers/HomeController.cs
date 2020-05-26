@@ -9,6 +9,7 @@ using MC1000.Models;
 using System.Xml.Linq;
 using MC1000.Data;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace MC1000.Controllers
 {
@@ -22,6 +23,9 @@ namespace MC1000.Controllers
         }
         public IActionResult Index()
         {
+
+            var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
+            var provider = new CultureInfo("en-GB");
             //Load products into DB
             XDocument xdocProduct = XDocument.Load("http://supermaco.starwave.nl/api/products");
 
@@ -38,7 +42,7 @@ namespace MC1000.Controllers
                     FullDescription = product.Descendants("Fulldescription").First().Value,
                     Image = product.Descendants("Image").First().Value,
                     Weight = product.Descendants("Weight").First().Value,
-                    Price = Decimal.Parse(product.Descendants("Price").First().Value)
+                    Price = Decimal.Parse(product.Descendants("Price").First().Value, style, provider)
                 };
                 _context.Add(p);
             }
@@ -95,8 +99,8 @@ namespace MC1000.Controllers
                 {
                     Discount d = new Discount();
                     d.EAN = discount.Descendants("EAN").First().Value;
-                    d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value);
-                    d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+                    d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
+                    d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value, style, provider);
                     p.Discounts.Add(d);
                 }
                 _context.Add(p);
@@ -106,6 +110,11 @@ namespace MC1000.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Categories()
         {
             return View();
         }
