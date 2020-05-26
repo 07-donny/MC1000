@@ -84,6 +84,7 @@ namespace MC1000.Controllers
                 }
                 _context.Add(c);
             }
+        
 
             //Load promotions to DB
             XDocument xdocPromo = XDocument.Load("http://supermaco.starwave.nl/api/promotions");
@@ -101,7 +102,7 @@ namespace MC1000.Controllers
                     Discount d = new Discount();
                     d.EAN = discount.Descendants("EAN").First().Value;
                     d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
-                    d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value, style, provider);
+                    d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
                     p.Discounts.Add(d);
                 }
                 _context.Add(p);
@@ -125,14 +126,14 @@ namespace MC1000.Controllers
                         TimeSlot t = new TimeSlot();
                         t.StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value);
                         t.EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value);
-                        t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value);
+                        t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider);
                         d.TimeSlots.Add(t);
                     }
                 }
                 _context.Add(d);
             }
             //Deliveryslots Loaded
-        }
+        
         _context.SaveChanges();
         return View();
     }

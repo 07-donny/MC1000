@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class @decimal : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,18 +73,11 @@ namespace MC1000.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DeliveryDate = table.Column<DateTime>(nullable: false),
-                    DeliverySlotId = table.Column<int>(nullable: true)
+                    DeliveryDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeliverySlot", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DeliverySlot_DeliverySlot_DeliverySlotId",
-                        column: x => x.DeliverySlotId,
-                        principalTable: "DeliverySlot",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -467,11 +460,6 @@ namespace MC1000.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DeliverySlot_DeliverySlotId",
-                table: "DeliverySlot",
-                column: "DeliverySlotId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discount_ProductId",

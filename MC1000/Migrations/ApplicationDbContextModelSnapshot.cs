@@ -62,10 +62,13 @@ namespace MC1000.Migrations
                     b.Property<decimal>("DiscountedPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("EAN")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PromotionId")
+                    b.Property<int>("PromotionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ValidUntil")
@@ -532,9 +535,11 @@ namespace MC1000.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("MC1000.Models.Promotion", null)
+                    b.HasOne("MC1000.Models.Promotion", "Promotion")
                         .WithMany("Discounts")
-                        .HasForeignKey("PromotionId");
+                        .HasForeignKey("PromotionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MC1000.Models.News", b =>
