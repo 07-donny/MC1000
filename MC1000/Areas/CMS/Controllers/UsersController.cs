@@ -83,61 +83,6 @@ namespace MC1000.Areas.CMS.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult BlockUser(string id)
-        {
-            var user = _userManager.FindByIdAsync(id).Result;
-
-            UserViewModel uvm = new UserViewModel();
-            uvm.Id = user.Id;
-            uvm.Email = user.Email;
-            uvm.IsEnabled = user.IsEnabled;
-
-            return View(uvm);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> BlockUser(string id, bool isEnabled)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var user = _userManager.FindByIdAsync(id).Result;
-
-
-            UserViewModel uvm = new UserViewModel();
-            uvm.IsEnabled = user.IsEnabled;
-
-            _context.Update(user);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Index");
-        }
-        //public IActionResult Edit(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var user = _userManager.FindByIdAsync(id).Result;
-
-        //    UserViewModel uvm = new UserViewModel();
-        //    uvm.Id = user.Id;
-        //    uvm.Email = user.Email;
-        //    uvm.UserName = user.UserName;
-        //    uvm.Image = user.Image;
-        //    uvm.StreetName = user.StreetName;
-        //    uvm.HouseNumber = user.HouseNumber;
-        //    uvm.ZipCode = user.ZipCode;
-        //    uvm.City = user.City;
-        //    uvm.Country = user.Country;
-        //    uvm.Roles = _userManager.GetRolesAsync(user).Result;
-        //    uvm.IsEnabled = user.IsEnabled;
-
-        //    return View(uvm);
-        //}
-
         public IActionResult Details(string id)
         {
 

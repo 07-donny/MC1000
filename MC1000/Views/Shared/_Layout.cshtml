@@ -47,7 +47,7 @@
                                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Bestellen</a>
                             </li>
                         }
-                        @if (User.IsInRole("Admin, Redactie"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("Redactie"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="CMS" asp-controller="CMS" asp-action="Index">Beheerderspaneel</a>

@@ -84,7 +84,7 @@ namespace MC1000.Controllers
                 }
                 _context.Add(c);
             }
-        
+
 
             //Load promotions to DB
             XDocument xdocPromo = XDocument.Load("http://supermaco.starwave.nl/api/promotions");
@@ -133,9 +133,9 @@ namespace MC1000.Controllers
                 _context.Add(d);
             }
             //Deliveryslots Loaded
-        
-        _context.SaveChanges();
-        return View();
+
+            _context.SaveChanges();
+            return View();
     }
 
         public IActionResult Privacy()

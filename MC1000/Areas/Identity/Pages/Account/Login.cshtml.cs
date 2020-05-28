@@ -18,14 +18,16 @@ namespace MC1000.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(SignInManager<User> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<User> userManager)
+            UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -81,21 +83,21 @@ namespace MC1000.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var user = _userManager.FindByEmailAsync(Input.Email).Result;
-
+                var role = _roleManager.Roles;
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
-                if (user.IsEnabled == false)
+                if (await _userManager.IsInRoleAsync(user, "blocked"))
                 {
-                    await _userManager.SetLockoutEnabledAsync(user, true);
+                    //await _userManager.SetLockoutEnabledAsync(user, true);
 
-                    await _userManager.SetLockoutEndDateAsync(user, DateTime.Today.AddYears(100));
+                    //await _userManager.SetLockoutEndDateAsync(user, DateTime.Today.AddYears(100));
                     await _signInManager.SignOutAsync();
 
-                    ModelState.AddModelError(string.Empty, "Je account is geblokkeerd door de beheerder.");
+                    ModelState.AddModelError(string.Empty, "Uw account is geblokkeerd door de beheerder.");
                     return Page();
                 }
 
-                if (result.Succeeded && user.IsEnabled == true)
+                if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
