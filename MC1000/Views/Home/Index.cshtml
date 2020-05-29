@@ -1,8 +1,101 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" type="text/css" />
+}
+@*Search function  *@
+<div class="SearchBar" div style="border: 1px solid black;">
+    <fieldset>
+        <p>
+            <input type="text" />
+            @*Glass icon  *@
+            <label>
+                <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg>
+            </label>
+        </p>
+    </fieldset>
+</div>
+<div class="text-center" div style="border: 1px solid black;">
+    <div class="row">
+        <div class="col-4" id="item">
+            <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+        </div>
+        <div class="col-5">
+            <img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Ribbons-and-Banners-PNG/Red_Banner_PNG_Clipart_Picture.png?m=1507172114" alt="Test" class="HomeImg" />
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-sm" id="kolum" div style="border: 1px solid black; margin-bottom:20px;">
+            <div class="row">
+                <div class="col-6" id="text">
+                    <p>Lorem Ipsum Lorem</p>
+                </div>
+                <div class="col-4">
+                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
+                </div>
+            </div>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <div class="col-sm" id="kolum" div style="border: 1px solid black; margin-bottom:20px;">
+            <div class="row">
+                <div class="col-6" id="text">
+                    <p>Lorem Ipsum Lorem</p>
+                </div>
+                <div class="col-4">
+                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-sm" id="kolum" div style="border: 1px solid black; margin-bottom: 20px;">
+            <div class="row">
+                <div class="col-6" id="text">
+                    <p>Lorem Ipsum Lorem</p>
+                </div>
+                <div class="col-4">
+                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="text-center" div style="border: 1px solid black;">
+        <div class="row">
+            <div class="col-4">
+                Text test
+            </div>
+            <div class="col-5">
+                <img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Ribbons-and-Banners-PNG/Red_Banner_PNG_Clipart_Picture.png?m=1507172114" alt="Test" class="BannerImg" />
+            </div>
+        </div>
+    </div>
+
+
+<div class="container-fluid" id="home-onder">
+    <div class="row" div style="border: 1px solid black;">
+        <div class="col-1">
+
+        </div>
+        <div class=" col-3" id="item" div style="border: 1px solid black; margin-bottom:20px;">
+
+            <h1> Test kolumn 1</h1>
+        </div>
+
+        <div class="col-3" id="item" div style="border: 1px solid black; margin-bottom:20px;">
+            <h1>Test kolumn 2</h1>
+        </div>
+
+        <div class=" col-3" id="item" div style="border: 1px solid black; margin-bottom: 20px;">
+
+            <h1> test column 3</h1>
+        </div>
+        
+    </div>
 </div>
