@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MC1000.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -36,18 +38,39 @@ namespace MC1000.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            public string Street { get; set; }
+            public string HouseNumber { get; set; }
+            public string ZipCode { get; set; }
+            public string City { get; set; }
+            public string Country { get; set; }
+            public string Image { get; set; }
+            public IFormFile ImageUpload { get; set; }
         }
+
 
         private async Task LoadAsync(User user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var street = user.StreetName;
+            var houseNr = user.HouseNumber;
+            var zip = user.ZipCode;
+            var city = user.City;
+            var country = user.Country;
+            var image = user.Image;
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Street = street,
+                HouseNumber = houseNr,
+                ZipCode = zip,
+                City = city,
+                Country = country,
+                Image = image
+
             };
         }
 
@@ -78,6 +101,7 @@ namespace MC1000.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
@@ -87,6 +111,33 @@ namespace MC1000.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            user.StreetName = Input.Street;
+            user.HouseNumber = Input.HouseNumber;
+            user.ZipCode = Input.ZipCode;
+            user.City = Input.City;
+            user.Country = Input.Country;
+
+            //Load the image
+            string g = Guid.NewGuid().ToString();
+            var imageUpload = Input.ImageUpload;
+
+            var fileExtension = Path.GetExtension(imageUpload.FileName);
+            var filePath = Url.Content("wwwroot/uploads/images/avatars/" + g + "." + user.Id + fileExtension);
+
+            var url = g + "." + user.Id + fileExtension;
+            user.Image = url;
+
+            if (imageUpload.Length > 0)
+            {
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageUpload.CopyToAsync(stream);
+                }
+            }
+            user.Image = url;
+
+            _ = await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
