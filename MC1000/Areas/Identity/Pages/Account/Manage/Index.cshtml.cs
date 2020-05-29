@@ -119,23 +119,26 @@ namespace MC1000.Areas.Identity.Pages.Account.Manage
             user.Country = Input.Country;
 
             //Load the image
-            string g = Guid.NewGuid().ToString();
             var imageUpload = Input.ImageUpload;
-
-            var fileExtension = Path.GetExtension(imageUpload.FileName);
-            var filePath = Url.Content("wwwroot/uploads/images/avatars/" + g + "." + user.Id + fileExtension);
-
-            var url = g + "." + user.Id + fileExtension;
-            user.Image = url;
-
-            if (imageUpload.Length > 0)
+            if (imageUpload != null)
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                string g = Guid.NewGuid().ToString();
+
+                var fileExtension = Path.GetExtension(imageUpload.FileName);
+                var filePath = Url.Content("wwwroot/uploads/images/avatars/" + g + "." + user.Id + fileExtension);
+
+                var url = g + "." + user.Id + fileExtension;
+                user.Image = url;
+
+                if (imageUpload.Length > 0)
                 {
-                    await imageUpload.CopyToAsync(stream);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageUpload.CopyToAsync(stream);
+                    }
                 }
+                user.Image = url;
             }
-            user.Image = url;
 
             _ = await _userManager.UpdateAsync(user);
 
