@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,8 +45,7 @@ namespace MC1000.Migrations
                     HouseNumber = table.Column<string>(nullable: true),
                     ZipCode = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
-                    IsEnabled = table.Column<bool>(nullable: false)
+                    Country = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -9,9 +9,9 @@ namespace MC1000.Models
     public class TimeSlot
     {
         public int Id { get; set; }
-        [DataType(DataType.Time)] // Dit zorgt ervoor dat de tijd wordt opgeslagen inplaats van de datum en tijd
+        [DataType(DataType.Time)] // Dit zorgt ervoor dat de tijd wordt displayed inplaats van de datum en tijd
         public DateTime StartTime { get; set; }
-        [DataType(DataType.Time)] // Dit zorgt ervoor dat de tijd wordt opgeslagen inplaats van de datum en tijd
+        [DataType(DataType.Time)] // Dit zorgt ervoor dat de tijd wordt displayed inplaats van de datum en tijd
         public DateTime EndTime { get; set; }
         public decimal Price { get; set; }
 

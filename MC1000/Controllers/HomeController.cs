@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using MC1000.Data;
 using System.ComponentModel;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace MC1000.Controllers
 {
@@ -143,9 +144,19 @@ namespace MC1000.Controllers
             return View();
         }
 
-        public IActionResult Categories()
+        public async Task<IActionResult> CategoriesAsync()
         {
-            return View();
+            return View(await _context.Category.ToListAsync());
+        }
+
+        public async Task<IActionResult> SubCategoriesAsync()
+        {
+            return View(await _context.SubCategory.ToListAsync());
+        }
+
+        public async Task<IActionResult> SubSubCategoriesAsync()
+        {
+            return View(await _context.SubSubCategory.ToListAsync());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
