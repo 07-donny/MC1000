@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class Initial : Migration
+    public partial class categorybanner : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,12 +45,25 @@ namespace MC1000.Migrations
                     HouseNumber = table.Column<string>(nullable: true),
                     ZipCode = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
-                    IsEnabled = table.Column<bool>(nullable: false)
+                    Country = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategorieBanner",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titel = table.Column<string>(nullable: true),
+                    AfbeeldingUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategorieBanner", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,6 +91,21 @@ namespace MC1000.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeliverySlot", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HomeBanner",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titel = table.Column<string>(nullable: true),
+                    Afbeelding = table.Column<string>(nullable: true),
+                    AfbeeldingUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HomeBanner", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -545,7 +573,13 @@ namespace MC1000.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CategorieBanner");
+
+            migrationBuilder.DropTable(
                 name: "Discount");
+
+            migrationBuilder.DropTable(
+                name: "HomeBanner");
 
             migrationBuilder.DropTable(
                 name: "News");

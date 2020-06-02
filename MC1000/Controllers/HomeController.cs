@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using MC1000.Data;
 using System.ComponentModel;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace MC1000.Controllers
 {
@@ -21,7 +22,7 @@ namespace MC1000.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
 
             var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
@@ -135,7 +136,7 @@ namespace MC1000.Controllers
             //Deliveryslots Loaded
 
             _context.SaveChanges();
-            return View();
+            return View(await _context.HomeBanner.ToListAsync());
     }
 
         public IActionResult Privacy()

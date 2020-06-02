@@ -2,7 +2,7 @@
 
 namespace MC1000.Migrations
 {
-    public partial class first2 : Migration
+    public partial class categorybanner2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -26,9 +26,6 @@ namespace MC1000.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Afbeelding")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("AfbeeldingUrl")
                         .HasColumnType("nvarchar(max)");
 
