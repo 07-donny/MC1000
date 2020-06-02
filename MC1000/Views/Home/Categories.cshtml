@@ -1,4 +1,5 @@
-﻿
+﻿@model List<MC1000.Models.CategorieBanner>
+
 @{
     ViewData["Title"] = "Categories";
 }
@@ -6,6 +7,15 @@
     <link rel="stylesheet" href="~/css/category.css" type="text/css" />
 }
 
+<div>
+    @foreach (var item in Model)
+    {
+        @if (item.AfbeeldingUrl != null)
+        {
+            <img src="~/banners/@item.AfbeeldingUrl" alt="Category Banner"/>
+        }
+    }
+</div>
 <h1>Categories</h1>
 <div class="category">
 

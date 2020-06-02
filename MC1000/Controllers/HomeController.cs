@@ -136,7 +136,7 @@ namespace MC1000.Controllers
             //Deliveryslots Loaded
 
             _context.SaveChanges();
-            return View(await _context.HomeBanner.ToListAsync());
+            return View(await _context.HomeBanner.OrderByDescending(x => x.Id).Take(1).ToListAsync());
     }
 
         public IActionResult Privacy()
@@ -146,7 +146,7 @@ namespace MC1000.Controllers
 
         public IActionResult Categories()
         {
-            return View();
+            return View(_context.CategorieBanner.OrderByDescending(x => x.Id).Take(1).ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
