@@ -31,21 +31,24 @@ namespace MC1000.Controllers
             XDocument xdocProduct = XDocument.Load("http://supermaco.starwave.nl/api/products");
 
             var products = xdocProduct.Descendants("Product");
-
             foreach (var product in products)
             {
-                Product p = new Product
+                var productEAN = product.Descendants("EAN").First().Value;
+                if (!_context.Product.Any(u => u.EAN == productEAN))
                 {
-                    EAN = product.Descendants("EAN").First().Value,
-                    Title = product.Descendants("Title").First().Value,
-                    Brand = product.Descendants("Brand").First().Value,
-                    ShortDescription = product.Descendants("Shortdescription").First().Value,
-                    FullDescription = product.Descendants("Fulldescription").First().Value,
-                    Image = product.Descendants("Image").First().Value,
-                    Weight = product.Descendants("Weight").First().Value,
-                    Price = Decimal.Parse(product.Descendants("Price").First().Value, style, provider)
-                };
-                _context.Add(p);
+                    Product p = new Product
+                    {
+                        EAN = product.Descendants("EAN").First().Value,
+                        Title = product.Descendants("Title").First().Value,
+                        Brand = product.Descendants("Brand").First().Value,
+                        ShortDescription = product.Descendants("Shortdescription").First().Value,
+                        FullDescription = product.Descendants("Fulldescription").First().Value,
+                        Image = product.Descendants("Image").First().Value,
+                        Weight = product.Descendants("Weight").First().Value,
+                        Price = Decimal.Parse(product.Descendants("Price").First().Value, style, provider)
+                    };
+                    _context.Add(p);
+                }
             }
             //Products Loaded
 
@@ -55,35 +58,41 @@ namespace MC1000.Controllers
             var categories = xdocCategory.Descendants("Category");
             foreach (var category in categories)
             {
-                Category c = new Category();
-                c.Name = category.Descendants("Name").First().Value;
+                var categoryName = category.Descendants("Name").First().Value;
 
-                //Load Subcategories to DB and link to Category
-                var subCategories = category.Descendants("Subcategory");
-
-                c.SubCategories = new List<SubCategory>();
-                foreach (var sub in subCategories)
+                if (!_context.Category.Any(u => u.Name == categoryName))
                 {
-                    SubCategory s = new SubCategory();
-                    s.Name = sub.Descendants("Name").First().Value;
-                    s.Category = c;
-                    c.SubCategories.Add(s);
 
-                    //Load SubSubcategories to DB and link to SubCategory
-                    var subSubCategories = category.Descendants("Subsubcategory");
+                    Category c = new Category();
+                    c.Name = category.Descendants("Name").First().Value;
 
-                    s.SubSubCategories = new List<SubSubCategory>();
+                    //Load Subcategories to DB and link to Category
+                    var subCategories = category.Descendants("Subcategory");
 
-                    foreach (var subsub in subSubCategories)
+                    c.SubCategories = new List<SubCategory>();
+                    foreach (var sub in subCategories)
                     {
-                        SubSubCategory u = new SubSubCategory();
-                        u.Name = subsub.Descendants("Name").First().Value;
-                        u.SubCategory = s;
-                        s.SubSubCategories.Add(u);
-                    }
+                        SubCategory s = new SubCategory();
+                        s.Name = sub.Descendants("Name").First().Value;
+                        s.Category = c;
+                        c.SubCategories.Add(s);
 
+                        //Load SubSubcategories to DB and link to SubCategory
+                        var subSubCategories = category.Descendants("Subsubcategory");
+
+                        s.SubSubCategories = new List<SubSubCategory>();
+
+                        foreach (var subsub in subSubCategories)
+                        {
+                            SubSubCategory u = new SubSubCategory();
+                            u.Name = subsub.Descendants("Name").First().Value;
+                            u.SubCategory = s;
+                            s.SubSubCategories.Add(u);
+                        }
+
+                    }
+                    _context.Add(c);
                 }
-                _context.Add(c);
             }
 
 
@@ -100,11 +109,18 @@ namespace MC1000.Controllers
                 p.Discounts = new List<Discount>();
                 foreach (var discount in discounts)
                 {
-                    Discount d = new Discount();
-                    d.EAN = discount.Descendants("EAN").First().Value;
-                    d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
-                    d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
-                    p.Discounts.Add(d);
+                    var discountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
+                    var discountValid = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+
+                    if (!_context.Discount.Any(u => u.DiscountedPrice == discountedPrice &&
+                    u.ValidUntil == discountValid))
+                    {
+                        Discount d = new Discount();
+                        d.EAN = discount.Descendants("EAN").First().Value;
+                        d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
+                        d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+                        p.Discounts.Add(d);
+                    }
                 }
                 _context.Add(p);
             }
@@ -116,22 +132,29 @@ namespace MC1000.Controllers
             var deliveryslots = xdocDeliveryslot.Descendants("Deliveryslot");
             foreach (var deliveryslot in deliveryslots)
             {
-                DeliverySlot d = new DeliverySlot();
-                {
-                    d.DeliveryDate = DateTime.Parse(deliveryslot.Descendants("Date").First().Value);
+                var date = DateTime.Parse(deliveryslot.Descendants("Date").First().Value);
 
-                    var timeslots = xdocDeliveryslot.Descendants("Timeslot");
-                    d.TimeSlots = new List<TimeSlot>();
-                    foreach (var timeslot in timeslots)
+                if (!_context.DeliverySlot.Any(u => u.DeliveryDate == date))
+                {
+
+
+                    DeliverySlot d = new DeliverySlot();
                     {
-                        TimeSlot t = new TimeSlot();
-                        t.StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value);
-                        t.EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value);
-                        t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider);
-                        d.TimeSlots.Add(t);
+                        d.DeliveryDate = DateTime.Parse(deliveryslot.Descendants("Date").First().Value);
+
+                        var timeslots = xdocDeliveryslot.Descendants("Timeslot");
+                        d.TimeSlots = new List<TimeSlot>();
+                        foreach (var timeslot in timeslots)
+                        {
+                            TimeSlot t = new TimeSlot();
+                            t.StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value);
+                            t.EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value);
+                            t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider);
+                            d.TimeSlots.Add(t);
+                        }
                     }
+                    _context.Add(d);
                 }
-                _context.Add(d);
             }
             //Deliveryslots Loaded
 
