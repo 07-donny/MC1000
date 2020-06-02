@@ -47,5 +47,7 @@ namespace MC1000.Data
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
         public DbSet<TimeSlot> TimeSlot { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<MC1000.Models.HomeBanner> HomeBanner { get; set; }
+        public DbSet<MC1000.Models.CategorieBanner> CategorieBanner { get; set; }
     }
 }

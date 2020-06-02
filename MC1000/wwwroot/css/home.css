@@ -1,0 +1,48 @@
+﻿body {
+}
+
+input {
+    margin: 5px;
+    width: 225px;
+}
+
+text-center {
+    height: 225px;
+}
+
+#kolum.col-sm {
+    height: 175px;
+}
+
+SearchBar {
+    width: 100%;
+}
+
+#item.col-3 {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+
+#item.col-4 {
+    margin-top: 160px;
+}
+
+#home-onder.container-fluid {
+    padding-top: 20px;
+}
+
+#home.HomeImg {
+    width: 140px;
+    padding-top: 40px;
+    padding-left: 8px;
+}
+
+#text.col-6 {
+    text-align: center;
+    padding-top: 110px;
+}
+
+:root {
+    --black: #000;
+}
