@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<MC1000.Models.HomeBanner>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 @section Styles {
@@ -25,8 +27,14 @@
             <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
         </div>
         <div class="col-5">
-            <img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Ribbons-and-Banners-PNG/Red_Banner_PNG_Clipart_Picture.png?m=1507172114" alt="Test" class="HomeImg" />
-        </div>
+            @foreach (var item in Model)
+            {
+                @if (item.AfbeeldingUrl != null)
+                {
+                    <img src="~/banners/@item.AfbeeldingUrl" alt="Home Banner" class="HomeImg"/>
+                }
+            }
+         </div>
     </div>
 </div>
 <div class="container-fluid">
@@ -66,16 +74,16 @@
     </div>
 </div>
 
-    <div class="text-center" div style="border: 1px solid black;">
-        <div class="row">
-            <div class="col-4">
-                Text test
-            </div>
-            <div class="col-5">
-                <img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Ribbons-and-Banners-PNG/Red_Banner_PNG_Clipart_Picture.png?m=1507172114" alt="Test" class="BannerImg" />
-            </div>
+<div class="text-center" div style="border: 1px solid black;">
+    <div class="row">
+        <div class="col-4">
+            Text test
+        </div>
+        <div class="col-5">
+            <img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Ribbons-and-Banners-PNG/Red_Banner_PNG_Clipart_Picture.png?m=1507172114" alt="Test" class="BannerImg" />
         </div>
     </div>
+</div>
 
 
 <div class="container-fluid" id="home-onder">
@@ -96,6 +104,5 @@
 
             <h1> test column 3</h1>
         </div>
-        
     </div>
 </div>

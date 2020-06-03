@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MC1000.Models.HomeBanner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" enctype="multipart/form-data">
+    <thead>
+        <tr>
+            <th>
+                Bannerfoto Naam
+            </th>
+            <th>
+                Afbeelding
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AfbeeldingUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titel)
+            </td>
+            <td>
+                <!--Toont de bannerfoto-->
+                <img src="~/banners/@Html.DisplayFor(modelItem => item.AfbeeldingUrl)" width="100" height="100" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AfbeeldingUrl)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

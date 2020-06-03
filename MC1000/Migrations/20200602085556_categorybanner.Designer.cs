@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MC1000.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<< HEAD:MC1000/Migrations/20200601125625_init.Designer.cs
-    [Migration("20200601125625_init")]
-    partial class init
-=======
-    [Migration("20200602101159_first8")]
-    partial class first8
->>>>>>> Banner_Afbeelding:MC1000/Migrations/20200602101159_first8.Designer.cs
+    [Migration("20200602085556_categorybanner")]
+    partial class categorybanner
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -114,6 +109,9 @@ namespace MC1000.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Afbeelding")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AfbeeldingUrl")
                         .HasColumnType("nvarchar(max)");

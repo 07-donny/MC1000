@@ -22,7 +22,7 @@ namespace MC1000.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
 
             var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
@@ -159,7 +159,7 @@ namespace MC1000.Controllers
             //Deliveryslots Loaded
 
             _context.SaveChanges();
-            return View();
+            return View(await _context.HomeBanner.OrderByDescending(x => x.Id).Take(1).ToListAsync());
     }
 
         public IActionResult Privacy()
@@ -169,17 +169,7 @@ namespace MC1000.Controllers
 
         public async Task<IActionResult> CategoriesAsync()
         {
-            return View(await _context.Category.ToListAsync());
-        }
-
-        public async Task<IActionResult> SubCategoriesAsync()
-        {
-            return View(await _context.SubCategory.ToListAsync());
-        }
-
-        public async Task<IActionResult> SubSubCategoriesAsync()
-        {
-            return View(await _context.SubSubCategory.ToListAsync());
+            return View(_context.CategorieBanner.OrderByDescending(x => x.Id).Take(1).ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
