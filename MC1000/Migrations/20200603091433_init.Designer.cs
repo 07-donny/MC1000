@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MC1000.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<< HEAD:MC1000/Migrations/20200601125625_init.Designer.cs
-    [Migration("20200601125625_init")]
+    [Migration("20200603091433_init")]
     partial class init
-=======
-    [Migration("20200602101159_first8")]
-    partial class first8
->>>>>>> Banner_Afbeelding:MC1000/Migrations/20200602101159_first8.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

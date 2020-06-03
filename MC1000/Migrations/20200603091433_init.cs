@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-<<<<<<< HEAD:MC1000/Migrations/20200601125625_init.cs
     public partial class init : Migration
-=======
-    public partial class categorybanner : Migration
->>>>>>> Banner_Afbeelding:MC1000/Migrations/20200602085556_categorybanner.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,7 +100,6 @@ namespace MC1000.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titel = table.Column<string>(nullable: true),
-                    Afbeelding = table.Column<string>(nullable: true),
                     AfbeeldingUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
