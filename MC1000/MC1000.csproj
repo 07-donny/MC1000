@@ -40,7 +40,8 @@
     <Folder Include="Areas\CMS\Data\" />
     <Folder Include="Areas\CMS\Models\" />
     <Folder Include="Data\Migrations\" />
-    <Folder Include="wwwroot\banners\" />
+    <Folder Include="wwwroot\banners\categories\" />
+    <Folder Include="wwwroot\banners\home\" />
   </ItemGroup>
 
   <ItemGroup>

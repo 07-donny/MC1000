@@ -31,8 +31,11 @@
                 @Html.DisplayFor(modelItem => item.Titel)
             </td>
             <td>
-                <!--Toont de bannerfoto-->
-                <img src="~/banners/@Html.DisplayFor(modelItem => item.AfbeeldingUrl)" width="100" height="100" />
+                @if (item.AfbeeldingUrl != null)
+                {
+                    <!--Toont de bannerfoto-->
+                    <img src="~/banners/home/@Html.DisplayFor(modelItem => item.AfbeeldingUrl)" width="100" height="100" />
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AfbeeldingUrl)

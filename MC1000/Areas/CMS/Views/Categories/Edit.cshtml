@@ -1,4 +1,4 @@
-﻿@model MC1000.Models.CategorieBanner
+﻿@model MC1000.Models.Category
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,33 +6,24 @@
 
 <h1>Edit</h1>
 
-<h4>CategorieBanner</h4>
+<h4>Category</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label>Bannerfoto Naam</label>
-                <input asp-for="Titel" class="form-control" />
-                <span asp-validation-for="Titel" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Name" />
             <div class="form-group">
                 <!--Toont de bannerfoto-->
-                @if (!string.IsNullOrEmpty(Model.AfbeeldingUrl))
+                @if (!string.IsNullOrEmpty(Model.BannerImage))
                 {
-                    <img src="~/banners/@Model.AfbeeldingUrl" width="100" height="100" />
+                    <img src="~/banners/categories/@Model.BannerImage" width="100" height="100" />
                 }
             </div>
             <div class="form-group">
                 <label class="control-label">Afbeelding</label>
                 <input type="file" name="Afbeelding" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="AfbeeldingUrl" class="control-label"></label>
-                <input asp-for="AfbeeldingUrl" class="form-control" />
-                <span asp-validation-for="AfbeeldingUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

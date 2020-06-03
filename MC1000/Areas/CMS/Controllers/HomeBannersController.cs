@@ -66,7 +66,7 @@ namespace MC1000.Areas.CMS
                 {
                     string fileGuid = Guid.NewGuid().ToString();
                     string extension = Path.GetExtension(Afbeelding.FileName);
-                    string filePath = Url.Content($"wwwroot/banners/{fileGuid}{extension}");
+                    string filePath = Url.Content($"wwwroot/banners/home/{fileGuid}{extension}");
 
                     homeBanner.AfbeeldingUrl = $"{fileGuid}{extension}";
 
@@ -118,7 +118,7 @@ namespace MC1000.Areas.CMS
                     {
                         string fileGuid = Guid.NewGuid().ToString();
                         string extension = Path.GetExtension(Afbeelding.FileName);
-                        string filePath = Url.Content($"wwwroot/banners/{fileGuid}{extension}");
+                        string filePath = Url.Content($"wwwroot/banners/home/{fileGuid}{extension}");
 
                         homeBanner.AfbeeldingUrl = $"{fileGuid}{extension}";
 

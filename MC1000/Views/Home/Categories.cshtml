@@ -1,4 +1,4 @@
-﻿@model List<MC1000.Models.CategorieBanner>
+﻿@model IEnumerable<MC1000.Models.Category>
 
 @{
     ViewData["Title"] = "Categories";
@@ -8,21 +8,12 @@
     <link rel="stylesheet" href="~/css/category.css" type="text/css" />
 }
 
-<div>
-    @foreach (var item in Model)
-    {
-        @if (item.AfbeeldingUrl != null)
-        {
-            <img src="~/banners/@item.AfbeeldingUrl" alt="Category Banner"/>
-        }
-    }
-</div>
 <h1>Categories</h1>
 
 @foreach (var item in Model)
 {
     <div class="category">
-        <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="categoryImg" />
-        <p class="categoryText">@item.Titel</p>
+        <img src="~/banners/categories/@item.BannerImage" alt="Test" class="categoryImg" />
+        <p class="categoryText">@item.Name</p>
     </div>
 }
