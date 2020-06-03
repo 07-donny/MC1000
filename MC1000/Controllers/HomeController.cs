@@ -169,7 +169,7 @@ namespace MC1000.Controllers
 
         public async Task<IActionResult> CategoriesAsync()
         {
-            return View(_context.Category.OrderByDescending(x => x.Id).Take(1).ToList());
+            return View(_context.Category.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

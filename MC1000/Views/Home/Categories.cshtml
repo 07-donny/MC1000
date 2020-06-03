@@ -12,8 +12,11 @@
 
 @foreach (var item in Model)
 {
-    <div class="category">
+<div class="category">
+    @if (item.BannerImage != null)
+    {
         <img src="~/banners/categories/@item.BannerImage" alt="Test" class="categoryImg" />
-        <p class="categoryText">@item.Name</p>
-    </div>
+    }
+    <p class="categoryText">@item.Name</p>
+</div>
 }
