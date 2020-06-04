@@ -46,30 +46,6 @@ namespace MC1000.Areas.CMS.Controllers
             return View(discount);
         }
 
-        // GET: CMS/Discounts/Create
-        public IActionResult Create()
-        {
-            ViewData["PromotionId"] = new SelectList(_context.Promotion, "Id", "Id");
-            return View();
-        }
-
-        // POST: CMS/Discounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DiscountedPrice,ValidUntil,PromotionId,EAN")] Discount discount)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(discount);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PromotionId"] = new SelectList(_context.Promotion, "Id", "Id", discount.PromotionId);
-            return View(discount);
-        }
-
         // GET: CMS/Discounts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

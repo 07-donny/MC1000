@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MC1000.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200604062009_ini")]
-    partial class ini
+    [Migration("20200604080804_discount")]
+    partial class discount
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,24 +83,6 @@ namespace MC1000.Migrations
                     b.HasIndex("PromotionId");
 
                     b.ToTable("Discount");
-                });
-
-            modelBuilder.Entity("MC1000.Models.HomeBanner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AfbeeldingUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Titel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HomeBanner");
                 });
 
             modelBuilder.Entity("MC1000.Models.News", b =>
