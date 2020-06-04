@@ -1,7 +1,7 @@
-﻿@model List<MC1000.Models.HomeBanner>
-
+﻿
 @{
     ViewData["Title"] = "Home Page";
+    IEnumerable<HomeBanner> banners = ViewData["Banners"] as IEnumerable<HomeBanner>;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" type="text/css" />
@@ -27,14 +27,14 @@
             <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
         </div>
         <div class="col-5">
-            @foreach (var item in Model)
+            @foreach (var item in banners)
             {
                 @if (item.AfbeeldingUrl != null)
                 {
-                    <img src="~/banners/home/@item.AfbeeldingUrl" alt="Home Banner" class="HomeImg"/>
+                    <img src="~/banners/home/@item.AfbeeldingUrl" alt="Home Banner" class="HomeImg" />
                 }
             }
-         </div>
+        </div>
     </div>
 </div>
 <div class="container-fluid">
@@ -45,7 +45,7 @@
                     <p>Lorem Ipsum Lorem</p>
                 </div>
                 <div class="col-4">
-                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
+
                 </div>
             </div>
         </div>

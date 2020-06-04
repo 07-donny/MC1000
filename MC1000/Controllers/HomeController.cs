@@ -11,6 +11,7 @@ using MC1000.Data;
 using System.ComponentModel;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 
 namespace MC1000.Controllers
 {
@@ -160,8 +161,14 @@ namespace MC1000.Controllers
             //Deliveryslots Loaded
 
             _context.SaveChanges();
-            return View(await _context.HomeBanner.OrderByDescending(x => x.Id).Take(1).ToListAsync());
-    }
+            
+            ViewData["Banners"] = LoadBanner();
+            //Lists.News = LoadNews();
+            //Lists.Promotions = LoadPromotion();
+
+
+            return View();
+        }
 
         public IActionResult Privacy()
         {
@@ -178,5 +185,46 @@ namespace MC1000.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        private List<News> LoadNews()
+        {
+            var news = _context.News;
+            List<News> NewsList = new List<News>();
+            foreach (var item in news)
+            {
+                News n = new News();
+                item.Title = n.Title;
+                item.Text = n.Text;
+                NewsList.Add(n);
+            }
+            return NewsList;
+
+        }
+
+        private List<HomeBanner> LoadBanner()
+        {
+            var homebanner = _context.HomeBanner;
+            List<HomeBanner> BannerList = new List<HomeBanner>();
+            foreach (var item in homebanner)
+            {
+                HomeBanner h = new HomeBanner();
+                item.Titel = h.Titel;
+                item.AfbeeldingUrl = h.AfbeeldingUrl;
+                BannerList.Add(h);
+            }
+            return BannerList;
+        }
+        private List<Promotion> LoadPromotion()
+        {
+            var promotion = _context.Promotion;
+            List<Promotion> PromotionList = new List<Promotion>();
+            foreach (var item in promotion)
+            {
+                Promotion p = new Promotion();
+                item.Title = p.Title;
+                PromotionList.Add(p);
+            }
+            return PromotionList;
+        }
+
     }
 }
