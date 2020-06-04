@@ -163,8 +163,8 @@ namespace MC1000.Controllers
             _context.SaveChanges();
             
             ViewData["Banners"] = LoadBanner();
-            //Lists.News = LoadNews();
-            //Lists.Promotions = LoadPromotion();
+            ViewData["News"] = LoadNews();
+            ViewData["Promotions"] = LoadPromotion();
 
 
             return View();
@@ -187,13 +187,13 @@ namespace MC1000.Controllers
         }
         private List<News> LoadNews()
         {
-            var news = _context.News;
+            var newss = _context.News;
             List<News> NewsList = new List<News>();
-            foreach (var item in news)
+            foreach (var item in newss)
             {
                 News n = new News();
-                item.Title = n.Title;
-                item.Text = n.Text;
+                n.Title = item.Title;
+                n.Text = item.Text;
                 NewsList.Add(n);
             }
             return NewsList;
@@ -207,8 +207,8 @@ namespace MC1000.Controllers
             foreach (var item in homebanner)
             {
                 HomeBanner h = new HomeBanner();
-                item.Titel = h.Titel;
-                item.AfbeeldingUrl = h.AfbeeldingUrl;
+                h.Titel = item.Titel;
+                h.AfbeeldingUrl = item.AfbeeldingUrl;
                 BannerList.Add(h);
             }
             return BannerList;
@@ -220,7 +220,7 @@ namespace MC1000.Controllers
             foreach (var item in promotion)
             {
                 Promotion p = new Promotion();
-                item.Title = p.Title;
+                p.Title = item.Title;
                 PromotionList.Add(p);
             }
             return PromotionList;

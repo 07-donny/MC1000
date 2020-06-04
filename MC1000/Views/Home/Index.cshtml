@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Home Page";
     IEnumerable<HomeBanner> banners = ViewData["Banners"] as IEnumerable<HomeBanner>;
+    IEnumerable<News> news = ViewData["News"] as IEnumerable<News>;
+    IEnumerable<Promotion> promotions = ViewData["Promotions"] as IEnumerable<Promotion>;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" type="text/css" />
@@ -45,7 +47,7 @@
                     <p>Lorem Ipsum Lorem</p>
                 </div>
                 <div class="col-4">
-
+                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
                 </div>
             </div>
         </div>
@@ -93,11 +95,29 @@
         </div>
         <div class=" col-3" id="item" div style="border: 1px solid black; margin-bottom:20px;">
 
-            <h1> Test kolumn 1</h1>
+            @foreach (var item in news)
+            {
+                @if (item.Title != null)
+                {
+                    <h3>@item.Title</h3>
+                    <h4>@item.Text</h4>
+                    @item.Date
+                }
+                @if (item.Title == null)
+                {
+                    <h1>er zijn geen nieuwe berichten</h1>
+                }
+            }
         </div>
 
         <div class="col-3" id="item" div style="border: 1px solid black; margin-bottom:20px;">
-            <h1>Test kolumn 2</h1>
+            @foreach (var item in promotions)
+            {
+                @if (item.Title != null)
+                {
+            <h1>@item.Title </h1>
+                }
+            }
         </div>
 
         <div class=" col-3" id="item" div style="border: 1px solid black; margin-bottom: 20px;">
