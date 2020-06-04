@@ -7,13 +7,6 @@
 
 <h1>Discounts</h1>
 
-<p>
-    @foreach (var item in Model)
-    {
-        <a asp-action="DiscountCreate" asp-route-PromotionId="@item.PromotionId">Create new</a>
-    }
-
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -33,26 +26,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountedPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValidUntil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Promotion.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EAN)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountedPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValidUntil)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Promotion.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EAN)
+                </td>
+                <td>
+                    <a asp-area="CMS" asp-controller="Discounts" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-area="CMS" asp-controller="Discounts" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-area="CMS" asp-controller="Discounts" asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    <a asp-action="DiscountCreate" asp-route-promoid="@item.PromotionId">Create another discount</a>
+
+                </td>
+            </tr>
+        }
     </tbody>
+
 </table>

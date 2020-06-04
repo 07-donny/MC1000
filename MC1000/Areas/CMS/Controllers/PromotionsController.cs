@@ -26,24 +26,6 @@ namespace MC1000.Areas.CMS.Controllers
             return View(await _context.Promotion.ToListAsync());
         }
 
-        // GET: CMS/Promotions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var promotion = await _context.Promotion
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (promotion == null)
-            {
-                return NotFound();
-            }
-
-            return View(promotion);
-        }
-
         // GET: CMS/Promotions/Create
         public IActionResult Create()
         {
@@ -145,7 +127,7 @@ namespace MC1000.Areas.CMS.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        //===============================================================================================================
         //Discount beheer
         public async Task<IActionResult> Discounts(int? id) //index
         {
@@ -173,11 +155,13 @@ namespace MC1000.Areas.CMS.Controllers
             return View("Discounts", discountList);
         }
 
-        public IActionResult DiscountCreate()
+        public IActionResult DiscountCreate(int promoid)
         {
-            return View();
+            Discount d = new Discount();
+            d.PromotionId = promoid;
+
+            return View(d);
         }
-        //Wanneer ik een discount probeer te maken wordt het niet opgeslagen. En het lukt nog niet om de promotie te bereiken en op te slaan.
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -192,83 +176,13 @@ namespace MC1000.Areas.CMS.Controllers
             return View(discount);
         }
 
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var promotion = await _context.Promotion.FindAsync(id);
-        //    if (promotion == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(promotion);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] Promotion promotion)
-        //{
-        //    if (id != promotion.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(promotion);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!PromotionExists(promotion.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(promotion);
-        //}
-
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var promotion = await _context.Promotion
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (promotion == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(promotion);
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var promotion = await _context.Promotion.FindAsync(id);
-        //    _context.Promotion.Remove(promotion);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
         private bool PromotionExists(int id)
         {
             return _context.Promotion.Any(e => e.Id == id);
+        }
+        private bool DiscountExists(int id)
+        {
+            return _context.Discount.Any(e => e.Id == id);
         }
     }
 }

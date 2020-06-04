@@ -110,10 +110,10 @@ namespace MC1000.Controllers
                     {
                         var discountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
                         var discountValid = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
-                        int discountId = Int32.Parse(discount.Descendants("PromotionId").First().Value);
+                        var EAN = discount.Descendants("EAN").First().Value;
 
                         if (!_context.Discount.Any(u => u.DiscountedPrice == discountedPrice &&
-                        u.ValidUntil == discountValid && u.PromotionId == discountId))
+                        u.ValidUntil == discountValid && u.EAN == EAN))
                         {
                             Discount d = new Discount();
                             d.EAN = discount.Descendants("EAN").First().Value;
