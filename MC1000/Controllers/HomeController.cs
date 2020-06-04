@@ -94,8 +94,6 @@ namespace MC1000.Controllers
                     _context.Add(c);
                 }
             }
-
-
             //Load promotions to DB
             XDocument xdocPromo = XDocument.Load("http://supermaco.starwave.nl/api/promotions");
             var promotions = xdocPromo.Descendants("Promotion");
@@ -103,26 +101,29 @@ namespace MC1000.Controllers
             {
                 Promotion p = new Promotion();
                 p.Title = promotion.Descendants("Title").First().Value;
-
-                //Load discounts to DB and link to Promotion
-                var discounts = promotion.Descendants("Discount");
-                p.Discounts = new List<Discount>();
-                foreach (var discount in discounts)
+                if (!_context.Promotion.Any(u => u.Title == p.Title))
                 {
-                    var discountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
-                    var discountValid = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
-
-                    if (!_context.Discount.Any(u => u.DiscountedPrice == discountedPrice &&
-                    u.ValidUntil == discountValid))
+                    //Load discounts to DB and link to Promotion
+                    var discounts = promotion.Descendants("Discount");
+                    p.Discounts = new List<Discount>();
+                    foreach (var discount in discounts)
                     {
-                        Discount d = new Discount();
-                        d.EAN = discount.Descendants("EAN").First().Value;
-                        d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
-                        d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
-                        p.Discounts.Add(d);
+                        var discountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
+                        var discountValid = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+                        int discountId = Int32.Parse(discount.Descendants("PromotionId").First().Value);
+
+                        if (!_context.Discount.Any(u => u.DiscountedPrice == discountedPrice &&
+                        u.ValidUntil == discountValid && u.PromotionId == discountId))
+                        {
+                            Discount d = new Discount();
+                            d.EAN = discount.Descendants("EAN").First().Value;
+                            d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
+                            d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+                            p.Discounts.Add(d);
+                        }
                     }
+                    _context.Add(p);
                 }
-                _context.Add(p);
             }
 
 

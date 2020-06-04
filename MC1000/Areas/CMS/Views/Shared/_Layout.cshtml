@@ -32,52 +32,59 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="nav-link text-dark" </a>
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" asp-area="CMS" asp-controller="CMS" asp-action="Index">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Home - CMS</span>
-            </a>
-        </li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" asp-area="CMS" asp-controller="CMS" asp-action="Index">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Home - CMS</span>
+                </a>
+            </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Redactie
-        </div>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Redactie
+            </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" asp-area="CMS" asp-controller="News" asp-action="Index">
-                <i class="fas fa-fw fa-book"></i>
-                <span>Nieuws Artikelen</span>
-            </a>
-        </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" asp-area="CMS" asp-controller="News" asp-action="Index">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Nieuws Artikelen</span>
+                </a>
+            </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Admin
-        </div>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Admin
+            </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" asp-area="CMS" asp-controller="Users" asp-action="Index">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Gebruikers</span>
-            </a>
-            <a class="nav-link" asp-area="CMS" asp-controller="HomeBanners" asp-action="Index">
-                <span>Home Banners</span>
-            </a>
-            <a class="nav-link" asp-area="CMS" asp-controller="Categories" asp-action="Index">
-                <span>Categorie Banners</span>
-            </a>
-        </li>
-    </ul>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" asp-area="CMS" asp-controller="Users" asp-action="Index">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Gebruikers</span>
+                </a>
+            </li>
+            <div class="sidebar-heading">
+                Promotie Beheer
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="CMS" asp-controller="Promotions" asp-action="Index">
+                    <i class="fas fa-fw fa-dollar-sign"></i>
+                    <span>Promoties</span>
+                </a>
+                <a class="nav-link" asp-area="CMS" asp-controller="Discounts" asp-action="Index">
+                    <i class="fas fa-fw fa-percent"></i>
+                    <span>Kortingen</span>
+                </a>
+            </li>
+        </ul>
     <!-- End of Sidebar -->
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
