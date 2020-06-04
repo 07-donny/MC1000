@@ -1,19 +1,19 @@
-﻿@model IEnumerable<MC1000.Models.Category>
+﻿@model IEnumerable<MC1000.Models.SubSubCategory>
 
 @{
-    ViewData["Title"] = "Categories";
+    ViewData["Title"] = "SubSubCategories";
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/category.css" type="text/css" />
 }
 
-<h1>Categories</h1>
+<h1>SubSubCategories</h1>
 
 @foreach (var item in Model)
 {
     <div class="category">
         <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="categoryImg" />
-        <a asp-action="SubCategories" asp-route-id="@item.Id"><p class="categoryText">@item.Name</p></a>
+        <a asp-action="Product" asp-route-id="@item.Id"><p class="categoryText">@item.Name</p></a>
     </div>
 }

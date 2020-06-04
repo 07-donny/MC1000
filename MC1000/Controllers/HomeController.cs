@@ -172,14 +172,14 @@ namespace MC1000.Controllers
             return View(await _context.Category.ToListAsync());
         }
 
-        public async Task<IActionResult> SubCategoriesAsync()
+        public async Task<IActionResult> SubCategories(int id)
         {
-            return View(await _context.SubCategory.ToListAsync());
+            return View(await _context.SubCategory.Where(sc => sc.CategoryId == id).ToListAsync());
         }
 
-        public async Task<IActionResult> SubSubCategoriesAsync()
+        public async Task<IActionResult> SubSubCategories(int id)
         {
-            return View(await _context.SubSubCategory.ToListAsync());
+            return View(await _context.SubSubCategory.Where(ssc => ssc.SubCategoryId == id).ToListAsync());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
