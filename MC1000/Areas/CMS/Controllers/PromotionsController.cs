@@ -177,7 +177,7 @@ namespace MC1000.Areas.CMS.Controllers
         {
             return View();
         }
-
+        //Wanneer ik een discount probeer te maken wordt het niet opgeslagen. En het lukt nog niet om de promotie te bereiken en op te slaan.
 
         [HttpPost]
         [ValidateAntiForgeryToken]
