@@ -29,14 +29,6 @@ namespace MC1000.Controllers
             ViewData["News"] = LoadNews();
             ViewData["Promotions"] = LoadPromotion();
 
-            //var producten = from a in _context.Product
-            //                select a;
-
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    producten = producten.Where(v => v.Title.Contains(searchString));
-            //}
-
             return View();
         }
 
@@ -44,6 +36,7 @@ namespace MC1000.Controllers
         {
             var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
             var provider = new CultureInfo("en-GB");
+
             //Load products into DB
             XDocument xdocProduct = XDocument.Load("http://supermaco.starwave.nl/api/products");
 
@@ -67,7 +60,7 @@ namespace MC1000.Controllers
                     _context.Add(p);
                 }
             }
-            //Products Loaded
+            //=========================
 
             //Load Categories into DB
             XDocument xdocCategory = XDocument.Load("http://supermaco.starwave.nl/api/categories");
@@ -77,7 +70,7 @@ namespace MC1000.Controllers
             {
                 var categoryName = category.Descendants("Name").First().Value;
 
-                if (!_context.Category.Any(u => u.Name == categoryName))
+                if (!_context.Category.Any(u => u.Name == categoryName)) //check for dupe
                 {
 
                     Category c = new Category();
@@ -89,24 +82,32 @@ namespace MC1000.Controllers
                     c.SubCategories = new List<SubCategory>();
                     foreach (var sub in subCategories)
                     {
+                        var subcategoryName = sub.Descendants("Name").First().Value;
                         SubCategory s = new SubCategory();
-                        s.Name = sub.Descendants("Name").First().Value;
-                        s.Category = c;
-                        c.SubCategories.Add(s);
+                        if (!_context.SubCategory.Any(u => u.Name == subcategoryName)) //check for dupe
+                        {
+                            s.Name = sub.Descendants("Name").First().Value;
+                            s.Category = c;
+                            c.SubCategories.Add(s);
+                        }
 
                         //Load SubSubcategories to DB and link to SubCategory
                         var subSubCategories = category.Descendants("Subsubcategory");
 
                         s.SubSubCategories = new List<SubSubCategory>();
 
+
                         foreach (var subsub in subSubCategories)
                         {
+                            var subsubcategoryName = subsub.Descendants("Name").First().Value;
                             SubSubCategory u = new SubSubCategory();
-                            u.Name = subsub.Descendants("Name").First().Value;
-                            u.SubCategory = s;
-                            s.SubSubCategories.Add(u);
+                            if (!_context.SubSubCategory.Any(u => u.Name == subsubcategoryName)) //check for dupe
+                            {
+                                u.Name = subsub.Descendants("Name").First().Value;
+                                u.SubCategory = s;
+                                s.SubSubCategories.Add(u);
+                            }
                         }
-
                     }
                     _context.Add(c);
                 }
