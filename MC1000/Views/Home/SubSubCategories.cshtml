@@ -17,6 +17,6 @@
         {
             <img src="~/banners/subsubcategories/@item.BannerImage" alt="Test" class="categoryImg" />
         }
-        <a asp-action="Product" asp-route-id="@item.Id"><p class="categoryText">@item.Name</p></a>
+        <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><p class="categoryText">@item.Name</p></a>
     </div>
 }
