@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,6 +77,20 @@ namespace MC1000.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeliverySlot", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HomeBanner",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titel = table.Column<string>(nullable: true),
+                    AfbeeldingUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HomeBanner", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -545,6 +559,9 @@ namespace MC1000.Migrations
 
             migrationBuilder.DropTable(
                 name: "Discount");
+
+            migrationBuilder.DropTable(
+                name: "HomeBanner");
 
             migrationBuilder.DropTable(
                 name: "News");

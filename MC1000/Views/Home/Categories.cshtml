@@ -12,11 +12,11 @@
 
 @foreach (var item in Model)
 {
-<div class="category">
-    @if (item.BannerImage != null)
-    {
-        <img src="~/banners/categories/@item.BannerImage" alt="Test" class="categoryImg" />
-    }
-    <p class="categoryText">@item.Name</p>
-</div>
+    <div class="category">
+        @if (item.BannerImage != null)
+        {
+            <img src="~/banners/categories/@item.BannerImage" alt="Test" class="categoryImg" />
+        }
+        <a asp-action="SubCategories" asp-route-id="@item.Id"><p class="categoryText">@item.Name</p></a>
+    </div>
 }
