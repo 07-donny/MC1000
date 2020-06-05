@@ -186,6 +186,14 @@ namespace MC1000.Controllers
             return View(await _context.Category.ToListAsync());
         }
 
+        public IActionResult Aanbiedingen()
+        {
+            ViewData["Promotions"] = LoadPromotion();
+            ViewData["Discounts"] = LoadDiscounts();
+
+            return View();
+        }
+
         public async Task<IActionResult> SubCategories(int id)
         {
             return View(await _context.SubCategory.Where(sc => sc.CategoryId == id).ToListAsync());
@@ -241,6 +249,19 @@ namespace MC1000.Controllers
             }
             return PromotionList;
         }
-
+        private List<Discount> LoadDiscounts()
+        {
+            var discounts = _context.Discount;
+            List<Discount> DList = new List<Discount>();
+            foreach (var item in DList)
+            {
+                Discount n = new Discount();
+                n.EAN = item.EAN;
+                n.DiscountedPrice = item.DiscountedPrice;
+                n.ValidUntil = item.ValidUntil;
+                DList.Add(n);
+            }
+            return DList;
+        }
     }
-}
+ }

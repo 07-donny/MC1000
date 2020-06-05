@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Aanbiedingen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<Promotion> promos = ViewData["Promotions"] as IEnumerable<Promotion>;
+    IEnumerable<Discount> discounts = ViewData["Discounts"] as IEnumerable<Discount>;
+
+}
+
+<h1>Aanbiedingen</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Titel promotie:
+            </th>
+            <th>
+                Kortingen:
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in promos)
+        {
+            <tr>
+                <td>
+                    @p.Title
+                </td>
+                <td>
+                    @foreach (var d in discounts)
+                    {
+                        <ul>
+                            @if (d.PromotionId == p.Id)
+                            {
+                                <li>Product: @d.EAN</li>
+                                <li>Prijs: @d.DiscountedPrice</li>
+                                <li>Geldig tot: @d.ValidUntil</li>
+                            }
+                        </ul>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@p.Id">Details</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
