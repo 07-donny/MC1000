@@ -33,9 +33,14 @@ namespace MC1000.Data
             .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<DeliverySlot>()
-            .HasMany(p => p.TimeSlots)
-            .WithOne(c => c.DeliverySlot)
-            .OnDelete(DeleteBehavior.Cascade);
+                .HasMany(p => p.TimeSlots)
+                .WithOne(c => c.DeliverySlot)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<SubSubCategory>()
+            //    .HasMany(p => p.Products)
+            //    .WithOne(c => c.SubSubCategory)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<DeliverySlot> DeliverySlot { get; set; }
