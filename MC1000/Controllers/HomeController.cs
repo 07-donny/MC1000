@@ -223,7 +223,6 @@ namespace MC1000.Controllers
             return NewsList;
 
         }
-
         private List<HomeBanner> LoadBanner()
         {
             var homebanner = _context.HomeBanner;

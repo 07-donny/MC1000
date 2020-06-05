@@ -19,17 +19,11 @@
 </div>
 <div class="text-center" div style="border: 1px solid black;">
     <div class="row">
-        <div class="col-4" id="item">
-            <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-        </div>
         <div class="col-5">
-            @foreach (var item in banners)
-            {
-                @if (item.AfbeeldingUrl != null)
+                @if (@banners.Last().AfbeeldingUrl != null)
                 {
-                    <img src="~/banners/home/@item.AfbeeldingUrl" alt="Home Banner" class="HomeImg" />
+                    <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="HomeImg" />
                 }
-            }
         </div>
     </div>
 </div>
@@ -94,7 +88,7 @@
                 @if (item.Title != null)
                 {
                     <h3>@item.Title</h3>
-                    <h4>@item.Text</h4>
+                    <h4>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Text))</h4>
                     @item.Date
                 }
                 @if (item.Title == null)
