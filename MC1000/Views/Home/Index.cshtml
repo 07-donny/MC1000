@@ -11,10 +11,12 @@
 @*Search function  *@
 <div class="SearchBar" div style="border: 1px solid black;">
     <fieldset>
-        <p>
-            <input type="text" name="SearchString" class="search" placeholder="Zoek een product...">
-            <input type="submit" class="search-btn" value="Zoek"> 
-        </p>
+        <form asp-controller="Products" asp-action="ProductList">
+            <p>
+                <input type="text" name="SearchString" class="search" placeholder="Zoek naar een product...">
+                <input type="submit" class="search-btn" value="Zoek" />
+            </p>
+        </form>
     </fieldset>
 </div>
 <div class="text-center" div style="border: 1px solid black;">
