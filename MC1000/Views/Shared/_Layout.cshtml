@@ -33,12 +33,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Aanbiedingen">Aanbiedingen</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Winkelwagen">Winkelwagen</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Winkelwagen"><strike>Winkelwagen</strike></a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BezorgMomentKiezen">Bestellen</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BezorgMomentKiezen"><strike>Bestellen</strike></a>
                             </li>
                         }
                         else

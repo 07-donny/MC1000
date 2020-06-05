@@ -253,7 +253,7 @@ namespace MC1000.Controllers
         {
             var discounts = _context.Discount;
             List<Discount> DList = new List<Discount>();
-            foreach (var item in DList)
+            foreach (var item in discounts)
             {
                 Discount n = new Discount();
                 n.EAN = item.EAN;
