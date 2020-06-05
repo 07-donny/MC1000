@@ -33,10 +33,11 @@ namespace MC1000.Data
             .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<DeliverySlot>()
-                .HasMany(p => p.TimeSlots)
-                .WithOne(c => c.DeliverySlot)
-                .OnDelete(DeleteBehavior.Cascade);
+            .HasMany(p => p.TimeSlots)
+            .WithOne(c => c.DeliverySlot)
+            .OnDelete(DeleteBehavior.Cascade);
         }
+
         public DbSet<DeliverySlot> DeliverySlot { get; set; }
         public DbSet<Discount> Discount { get; set; }
         public DbSet<News> News { get; set; }

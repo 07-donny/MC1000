@@ -8,7 +8,19 @@
     <link rel="stylesheet" href="~/css/category.css" type="text/css" />
 }
 
+
 <h1>Categories</h1>
+@*Search function  *@
+<div class="SearchBar" div style="border: 1px solid black;">
+    <fieldset>
+        <form asp-controller="Products" asp-action="ProductList">
+            <p>
+                <input type="text" name="SearchString" class="search" placeholder="Zoek hier op de titel van het artikel">
+                <input type="submit" class="search-btn" value="Zoek" />
+            </p>
+        </form>
+    </fieldset>
+</div>
 
 @foreach (var item in Model)
 {

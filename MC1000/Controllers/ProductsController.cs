@@ -36,5 +36,16 @@ namespace MC1000.Controllers
 
             return View(product);
         }
+        public IActionResult ProductList(string searchString)
+        {
+            var products = from a in _context.Product
+                            select a;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(v => v.Title.Contains(searchString));
+            }
+            return View(products);
+        }
     }
 }
