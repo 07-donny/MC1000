@@ -23,9 +23,25 @@ namespace MC1000.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
+            ViewData["Banners"] = LoadBanner();
+            ViewData["News"] = LoadNews();
+            ViewData["Promotions"] = LoadPromotion();
 
+            //var producten = from a in _context.Product
+            //                select a;
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    producten = producten.Where(v => v.Title.Contains(searchString));
+            //}
+
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
             var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
             var provider = new CultureInfo("en-GB");
             //Load products into DB
@@ -161,17 +177,6 @@ namespace MC1000.Controllers
             //Deliveryslots Loaded
 
             _context.SaveChanges();
-            
-            ViewData["Banners"] = LoadBanner();
-            ViewData["News"] = LoadNews();
-            ViewData["Promotions"] = LoadPromotion();
-
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
             return View();
         }
 
