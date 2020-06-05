@@ -48,5 +48,7 @@ namespace MC1000.Data
         public DbSet<TimeSlot> TimeSlot { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<HomeBanner> HomeBanner { get; set; }
+        public DbSet<SubCategory> SubCategory { get; set; }
+        public DbSet<SubSubCategory> SubSubCategory { get; set; }
     }
 }

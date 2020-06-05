@@ -1,0 +1,22 @@
+﻿@model IEnumerable<MC1000.Models.SubSubCategory>
+
+@{
+    ViewData["Title"] = "SubSubCategories";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/category.css" type="text/css" />
+}
+
+<h1>SubSubCategories</h1>
+
+@foreach (var item in Model)
+{
+    <div class="category">
+        @if (item.BannerImage != null)
+        {
+            <img src="~/banners/subsubcategories/@item.BannerImage" alt="Test" class="categoryImg" />
+        }
+        <a asp-action="Product" asp-route-id="@item.Id"><p class="categoryText">@item.Name</p></a>
+    </div>
+}
