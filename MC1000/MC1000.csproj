@@ -32,8 +32,14 @@
     <Compile Remove="Migrations\20200605083900_Init.Designer.cs" />
     <Compile Remove="Migrations\20200605085124_Init.cs" />
     <Compile Remove="Migrations\20200605085124_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200605085648_categoryfix.cs" />
+    <Compile Remove="Migrations\20200605085648_categoryfix.Designer.cs" />
     <Compile Remove="Migrations\20200605090741_Init.cs" />
     <Compile Remove="Migrations\20200605090741_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200605091529_Init.cs" />
+    <Compile Remove="Migrations\20200605091529_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200605094612_Init.cs" />
+    <Compile Remove="Migrations\20200605094612_Init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
