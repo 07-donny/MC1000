@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MC1000.Data;
 using MC1000.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace MC1000.Controllers
 {
@@ -46,6 +48,47 @@ namespace MC1000.Controllers
                 products = products.Where(v => v.Title.Contains(searchString));
             }
             return View(products);
+        }
+
+        public IActionResult AddToCart(int id)
+        {
+            List<CartItem> cart = new List<CartItem>();
+            var cartStr = HttpContext.Session.GetString("cart");
+            if (cartStr != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
+            }
+
+            CartItem i = new CartItem { ProductId = id, Amount = 1 };
+            cart.Add(i);
+
+            cartStr = JsonConvert.SerializeObject(cart);
+            HttpContext.Session.SetString("cart", cartStr);
+
+            return RedirectToAction("ShowCart");
+        }
+
+        public IActionResult ShowCart()
+        {
+            List<CartItem> cart = new List<CartItem>();
+            var cartStr = HttpContext.Session.GetString("cart");
+            if (cartStr != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
+            }
+            List<CartItemViewModel> civm = (from product in _context.Product.AsEnumerable()
+                                           join cartItem in cart
+                                           on product.Id equals cartItem.ProductId
+                                           select new CartItemViewModel
+                                           {
+                                               Amount = cartItem.Amount,
+                                               Title = product.Title,
+                                               Price = product.Price,
+                                               ProductId = cartItem.ProductId,
+                                               Image = product.Image
+                                           }).ToList();
+
+            return View(civm);
         }
     }
 }

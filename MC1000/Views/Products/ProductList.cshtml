@@ -59,13 +59,16 @@
                 @Html.DisplayFor(modelItem => item.FullDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                <img src="@item.Image" height="150px" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Weight)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a class="btn btn-success btn-block" asp-action="AddToCart" asp-route-id="@item.Id">Aan winkelwagen toevoegen</a>
             </td>
         </tr>
 }

@@ -17,7 +17,7 @@ namespace MC1000.Models
         public string Image { get; set; }
         public string Weight { get; set; }
         [AllowNull]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         //// Bijbehorende SubSubCategory
         //public int SubSubCategoryId { get; set; }

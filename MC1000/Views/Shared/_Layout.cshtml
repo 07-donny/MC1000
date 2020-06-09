@@ -24,16 +24,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">(TEMP) Vul DB</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="ProductList">Producten</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Categories">Categorieen</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Aanbiedingen">Aanbiedingen</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Winkelwagen"><strike>Winkelwagen</strike></a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="ShowCart">Winkelwagen</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {

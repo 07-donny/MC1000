@@ -57,7 +57,6 @@
     <Folder Include="Areas\CMS\Models\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\banners\categories\" />
-    <Folder Include="wwwroot\banners\home\" />
     <Folder Include="wwwroot\banners\subsubcategories\" />
     <Folder Include="wwwroot\banners\subcategories\" />
   </ItemGroup>

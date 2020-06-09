@@ -50,7 +50,6 @@ namespace MC1000.Data
         public DbSet<OrderLine> OrderLine { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Promotion> Promotion { get; set; }
-        public DbSet<ShoppingCart> ShoppingCart { get; set; }
         public DbSet<TimeSlot> TimeSlot { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<SubCategory> SubCategory { get; set; }
