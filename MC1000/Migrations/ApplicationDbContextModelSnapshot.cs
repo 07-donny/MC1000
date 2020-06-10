@@ -65,9 +65,6 @@ namespace MC1000.Migrations
                     b.Property<string>("EAN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PromotionId")
                         .HasColumnType("int");
 
@@ -75,8 +72,6 @@ namespace MC1000.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.HasIndex("PromotionId");
 
@@ -195,6 +190,9 @@ namespace MC1000.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DiscountId")
+                        .HasColumnType("int");
+
                     b.Property<string>("EAN")
                         .HasColumnType("nvarchar(max)");
 
@@ -210,6 +208,9 @@ namespace MC1000.Migrations
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SubSubCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -217,6 +218,11 @@ namespace MC1000.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DiscountId")
+                        .IsUnique();
+
+                    b.HasIndex("SubSubCategoryId");
 
                     b.ToTable("Product");
                 });
@@ -524,10 +530,6 @@ namespace MC1000.Migrations
 
             modelBuilder.Entity("MC1000.Models.Discount", b =>
                 {
-                    b.HasOne("MC1000.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
                     b.HasOne("MC1000.Models.Promotion", "Promotion")
                         .WithMany("Discounts")
                         .HasForeignKey("PromotionId")
@@ -572,6 +574,21 @@ namespace MC1000.Migrations
                     b.HasOne("MC1000.Models.Promotion", "Promotion")
                         .WithMany()
                         .HasForeignKey("PromotionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MC1000.Models.Product", b =>
+                {
+                    b.HasOne("MC1000.Models.Discount", "Discount")
+                        .WithOne("Product")
+                        .HasForeignKey("MC1000.Models.Product", "DiscountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MC1000.Models.SubSubCategory", "SubSubCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("SubSubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
