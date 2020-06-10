@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,6 +91,26 @@ namespace MC1000.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_HomeBanner", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Product",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EAN = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Brand = table.Column<string>(nullable: true),
+                    ShortDescription = table.Column<string>(nullable: true),
+                    FullDescription = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
+                    Weight = table.Column<string>(nullable: true),
+                    Price = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Product", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,25 +256,6 @@ namespace MC1000.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCart",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShoppingCart", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ShoppingCart_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubCategory",
                 columns: table => new
                 {
@@ -282,6 +283,7 @@ namespace MC1000.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DatePlaced = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
                     DeliverySlotId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
@@ -325,54 +327,6 @@ namespace MC1000.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EAN = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Brand = table.Column<string>(nullable: true),
-                    ShortDescription = table.Column<string>(nullable: true),
-                    FullDescription = table.Column<string>(nullable: true),
-                    Image = table.Column<string>(nullable: true),
-                    Weight = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
-                    ShoppingCartId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Product", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Product_ShoppingCart_ShoppingCartId",
-                        column: x => x.ShoppingCartId,
-                        principalTable: "ShoppingCart",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubSubCategory",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    BannerImage = table.Column<string>(nullable: true),
-                    SubCategoryId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubSubCategory", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SubSubCategory_SubCategory_SubCategoryId",
-                        column: x => x.SubCategoryId,
-                        principalTable: "SubCategory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Discount",
                 columns: table => new
                 {
@@ -402,13 +356,33 @@ namespace MC1000.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubSubCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    BannerImage = table.Column<string>(nullable: true),
+                    SubCategoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubSubCategory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubSubCategory_SubCategory_SubCategoryId",
+                        column: x => x.SubCategoryId,
+                        principalTable: "SubCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderLine",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(nullable: false),
-                    PromotionId = table.Column<int>(nullable: false),
                     Amount = table.Column<int>(nullable: false),
                     OrderId = table.Column<int>(nullable: false)
                 },
@@ -425,12 +399,6 @@ namespace MC1000.Migrations
                         name: "FK_OrderLine_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderLine_Promotion_PromotionId",
-                        column: x => x.PromotionId,
-                        principalTable: "Promotion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -510,21 +478,6 @@ namespace MC1000.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderLine_PromotionId",
-                table: "OrderLine",
-                column: "PromotionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_ShoppingCartId",
-                table: "Product",
-                column: "ShoppingCartId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCart_UserId",
-                table: "ShoppingCart",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SubCategory_CategoryId",
                 table: "SubCategory",
                 column: "CategoryId");
@@ -579,13 +532,13 @@ namespace MC1000.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Promotion");
+
+            migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Product");
-
-            migrationBuilder.DropTable(
-                name: "Promotion");
 
             migrationBuilder.DropTable(
                 name: "SubCategory");
@@ -594,13 +547,10 @@ namespace MC1000.Migrations
                 name: "DeliverySlot");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCart");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Category");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }
