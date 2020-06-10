@@ -9,8 +9,8 @@ namespace MC1000.Models
 {
     public class User : IdentityUser
     {
-        // Veel van de properties uit de normalisatie tabel staan al in de IdentityUser class
         public override string Id { get; set; }
+
         public override string Email { get; set; }
         public override string UserName { get; set; }
         public string Image { get; set; }

@@ -11,16 +11,18 @@ namespace MC1000.Models
 
         // Bijbehorend Product
         public int ProductId { get; set; }
+
         public Product Product { get; set; }
 
-        // Bijbehorende Promotion, kan leeg zijn
-        public int PromotionId { get; set; }
-        public Promotion Promotion { get; set; }
+        //// Bijbehorende Promotion, kan leeg zijn
+        //public int PromotionId { get; set; }
+        //public Promotion Promotion { get; set; }
 
         public int Amount { get; set; }
 
         // Bijbehorende Order
         public int OrderId { get; set; }
+
         public Order Order { get; set; }
     }
 }
