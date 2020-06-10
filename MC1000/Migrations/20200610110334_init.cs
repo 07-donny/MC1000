@@ -94,26 +94,6 @@ namespace MC1000.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EAN = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Brand = table.Column<string>(nullable: true),
-                    ShortDescription = table.Column<string>(nullable: true),
-                    FullDescription = table.Column<string>(nullable: true),
-                    Image = table.Column<string>(nullable: true),
-                    Weight = table.Column<string>(nullable: true),
-                    Price = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Product", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Promotion",
                 columns: table => new
                 {
@@ -335,18 +315,11 @@ namespace MC1000.Migrations
                     DiscountedPrice = table.Column<decimal>(nullable: false),
                     ValidUntil = table.Column<DateTime>(nullable: false),
                     PromotionId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: true),
                     EAN = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discount", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Discount_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Discount_Promotion_PromotionId",
                         column: x => x.PromotionId,
@@ -372,6 +345,40 @@ namespace MC1000.Migrations
                         name: "FK_SubSubCategory_SubCategory_SubCategoryId",
                         column: x => x.SubCategoryId,
                         principalTable: "SubCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Product",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EAN = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Brand = table.Column<string>(nullable: true),
+                    ShortDescription = table.Column<string>(nullable: true),
+                    FullDescription = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
+                    Weight = table.Column<string>(nullable: true),
+                    Price = table.Column<double>(nullable: false),
+                    SubSubCategoryId = table.Column<int>(nullable: false),
+                    DiscountId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Product_Discount_DiscountId",
+                        column: x => x.DiscountId,
+                        principalTable: "Discount",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Product_SubSubCategory_SubSubCategoryId",
+                        column: x => x.SubSubCategoryId,
+                        principalTable: "SubSubCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -443,11 +450,6 @@ namespace MC1000.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discount_ProductId",
-                table: "Discount",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Discount_PromotionId",
                 table: "Discount",
                 column: "PromotionId");
@@ -476,6 +478,17 @@ namespace MC1000.Migrations
                 name: "IX_OrderLine_ProductId",
                 table: "OrderLine",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_DiscountId",
+                table: "Product",
+                column: "DiscountId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_SubSubCategoryId",
+                table: "Product",
+                column: "SubSubCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategory_CategoryId",
@@ -511,9 +524,6 @@ namespace MC1000.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Discount");
-
-            migrationBuilder.DropTable(
                 name: "HomeBanner");
 
             migrationBuilder.DropTable(
@@ -523,16 +533,10 @@ namespace MC1000.Migrations
                 name: "OrderLine");
 
             migrationBuilder.DropTable(
-                name: "SubSubCategory");
-
-            migrationBuilder.DropTable(
                 name: "TimeSlot");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Promotion");
 
             migrationBuilder.DropTable(
                 name: "Order");
@@ -541,13 +545,22 @@ namespace MC1000.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "SubCategory");
-
-            migrationBuilder.DropTable(
                 name: "DeliverySlot");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Discount");
+
+            migrationBuilder.DropTable(
+                name: "SubSubCategory");
+
+            migrationBuilder.DropTable(
+                name: "Promotion");
+
+            migrationBuilder.DropTable(
+                name: "SubCategory");
 
             migrationBuilder.DropTable(
                 name: "Category");

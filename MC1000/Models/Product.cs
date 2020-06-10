@@ -19,11 +19,15 @@ namespace MC1000.Models
         [AllowNull]
         public double Price { get; set; }
 
-        //// Bijbehorende SubSubCategory
-        //public int SubSubCategoryId { get; set; }
-        //public SubSubCategory SubSubCategory { get; set; }
+        // Bijbehorende SubSubCategory
+        [AllowNull]
+        public int SubSubCategoryId { get; set; }
+        [AllowNull]
+        public SubSubCategory SubSubCategory { get; set; }
 
-        //public int DiscountId { get; set; }
-        //public Discount Discount { get; set; }
+        [AllowNull]
+        public int DiscountId { get; set; }
+        [AllowNull]
+        public Discount Discount { get; set; }
     }
 }

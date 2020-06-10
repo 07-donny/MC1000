@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace MC1000.Models
         // Bijbehorende SubCategory
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
-        //public List<Product> Products { get; set; }
+        [AllowNull]
+        public List<Product> Products { get; set; }
     }
 }

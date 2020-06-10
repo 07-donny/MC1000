@@ -44,6 +44,11 @@ namespace MC1000.Data
 
             modelBuilder.Entity<OrderLine>()
             .HasOne(p => p.Product);
+
+            modelBuilder.Entity<SubSubCategory>()
+                .HasMany(p => p.Products)
+                .WithOne(c => c.SubSubCategory)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<DeliverySlot> DeliverySlot { get; set; }
