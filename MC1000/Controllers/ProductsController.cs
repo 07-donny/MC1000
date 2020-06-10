@@ -49,7 +49,6 @@ namespace MC1000.Controllers
             }
             return View(products);
         }
-
         public IActionResult AddToCart(int id)
         {
             List<CartItem> cart = new List<CartItem>();
@@ -89,6 +88,42 @@ namespace MC1000.Controllers
                                            }).ToList();
 
             return View(civm);
+        }
+
+        public IActionResult IncreaseAmount(int id)
+        {
+            List<CartItem> cart = new List<CartItem>();
+            var cartStr = HttpContext.Session.GetString("cart");
+            if (cartStr != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
+            }
+            var product = cart.FirstOrDefault(p => p.ProductId == id);
+            product.Amount++;
+
+            cartStr = JsonConvert.SerializeObject(cart);
+            HttpContext.Session.SetString("cart", cartStr);
+
+            return RedirectToAction("ShowCart");
+
+        }
+
+        public IActionResult DeleteFromCart(int id)
+        {
+            List<CartItem> cart = new List<CartItem>();
+            var cartStr = HttpContext.Session.GetString("cart");
+            if (cartStr != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
+            }
+            var product = cart.FirstOrDefault(p => p.ProductId == id);
+
+            cart.Remove(product);
+
+            cartStr = JsonConvert.SerializeObject(cart);
+            HttpContext.Session.SetString("cart", cartStr);
+
+            return RedirectToAction("ShowCart");
         }
     }
 }
