@@ -107,6 +107,29 @@ namespace MC1000.Controllers
             return RedirectToAction("ShowCart");
 
         }
+        public IActionResult DecreaseAmount(int id)
+        {
+            List<CartItem> cart = new List<CartItem>();
+            var cartStr = HttpContext.Session.GetString("cart");
+            if (cartStr != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
+            }
+            var product = cart.FirstOrDefault(p => p.ProductId == id);
+            if (product.Amount <= 0)
+            {
+                product.Amount = 0;
+            } else
+            {
+                product.Amount--;
+            }
+
+            cartStr = JsonConvert.SerializeObject(cart);
+            HttpContext.Session.SetString("cart", cartStr);
+
+            return RedirectToAction("ShowCart");
+
+        }
 
         public IActionResult DeleteFromCart(int id)
         {
