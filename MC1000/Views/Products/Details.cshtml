@@ -3,9 +3,6 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
-
 <div>
     <h4>Product</h4>
     <hr />
@@ -17,31 +14,31 @@
             @Html.DisplayFor(model => model.EAN)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+            Product
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Brand)
+            Merk
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Brand)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ShortDescription)
+            Korte Beschrijving
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ShortDescription)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FullDescription)
+            Lange Beschrijving
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FullDescription)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
+            Afbeelding
         </dt>
         <dd class="col-sm-10">
             @if (Model.Image != null)
@@ -50,13 +47,13 @@
             }
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Weight)
+            Gewicht
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Weight)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            Prijs
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)

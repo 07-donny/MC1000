@@ -59,7 +59,7 @@
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.Price)
+                                €@Html.DisplayFor(modelItem => item.Price)
                             </td>
                             <td>
                                 <div class="col-4 col-sm-4 col-md-4">
@@ -72,7 +72,7 @@
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.TotalPrice)
+                                €@Html.DisplayFor(modelItem => item.TotalPrice)
                             </td>
                             <td>
                                 <a class="btn btn-outline-danger btn-xs" asp-action="DeleteFromCart" asp-route-id="@item.ProductId"><i class="fa fa-trash" aria-hidden="true"></i></a>

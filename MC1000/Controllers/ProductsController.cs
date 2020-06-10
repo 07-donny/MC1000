@@ -38,10 +38,11 @@ namespace MC1000.Controllers
 
             return View(product);
         }
+
         public IActionResult ProductList(string searchString)
         {
             var products = from a in _context.Product
-                            select a;
+                           select a;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -49,6 +50,7 @@ namespace MC1000.Controllers
             }
             return View(products);
         }
+
         public IActionResult AddToCart(int id)
         {
             List<CartItem> cart = new List<CartItem>();
@@ -76,16 +78,16 @@ namespace MC1000.Controllers
                 cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
             }
             List<CartItemViewModel> civm = (from product in _context.Product.AsEnumerable()
-                                           join cartItem in cart
-                                           on product.Id equals cartItem.ProductId
-                                           select new CartItemViewModel
-                                           {
-                                               Amount = cartItem.Amount,
-                                               Title = product.Title,
-                                               Price = product.Price,
-                                               ProductId = cartItem.ProductId,
-                                               Image = product.Image
-                                           }).ToList();
+                                            join cartItem in cart
+                                            on product.Id equals cartItem.ProductId
+                                            select new CartItemViewModel
+                                            {
+                                                Amount = cartItem.Amount,
+                                                Title = product.Title,
+                                                Price = product.Price,
+                                                ProductId = cartItem.ProductId,
+                                                Image = product.Image
+                                            }).ToList();
 
             return View(civm);
         }
@@ -105,8 +107,8 @@ namespace MC1000.Controllers
             HttpContext.Session.SetString("cart", cartStr);
 
             return RedirectToAction("ShowCart");
-
         }
+
         public IActionResult DecreaseAmount(int id)
         {
             List<CartItem> cart = new List<CartItem>();
@@ -116,10 +118,11 @@ namespace MC1000.Controllers
                 cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
             }
             var product = cart.FirstOrDefault(p => p.ProductId == id);
-            if (product.Amount <= 0)
+            if (product.Amount <= 1)
             {
-                product.Amount = 0;
-            } else
+                product.Amount = 1;
+            }
+            else
             {
                 product.Amount--;
             }
@@ -128,7 +131,6 @@ namespace MC1000.Controllers
             HttpContext.Session.SetString("cart", cartStr);
 
             return RedirectToAction("ShowCart");
-
         }
 
         public IActionResult DeleteFromCart(int id)

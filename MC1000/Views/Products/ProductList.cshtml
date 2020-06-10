@@ -5,11 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ProductList</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Producten</h1>
 <table class="table">
     <thead>
         <tr>
@@ -17,60 +13,61 @@
                 @Html.DisplayNameFor(model => model.EAN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Product
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Brand)
+                Merk
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShortDescription)
+                Korte Beschrijving
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullDescription)
+                Lange Beschrijving
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
+                Afbeelding
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Weight)
+                Gewicht
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Prijs
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EAN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullDescription)
-            </td>
-            <td>
-                <img src="@item.Image" height="150px" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a class="btn btn-success btn-block" asp-action="AddToCart" asp-route-id="@item.Id">Aan winkelwagen toevoegen</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EAN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullDescription)
+                </td>
+                <td>
+                    <img src="@item.Image" height="150px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a class="btn btn-success btn-block" asp-action="AddToCart" asp-route-id="@item.Id">Aan winkelwagen toevoegen</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
