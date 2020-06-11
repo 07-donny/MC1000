@@ -22,16 +22,12 @@
 <div class="text-center" div style="border: 1px solid black;">
     <div class="row">
         <div class="col-5">
-
-            @if (@banners.Last().AfbeeldingUrl != null)
-            {
-                <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="HomeImg" />
-             }
-
-            else
-            {
-            <img src="~/banners/home/defaultbanner.jpg" alt="Home Banner" class="HomeImg" />
-            }
+                @if (@banners.Last().AfbeeldingUrl != null)
+                {
+                    <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="HomeImg" />
+                } else {
+                    <img src="~/banners/home/defaultbanner.jpg" alt="Home Banner" class="HomeImg" />
+                }
         </div>
     </div>
 </div>
