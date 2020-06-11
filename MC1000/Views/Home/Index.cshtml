@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
     IEnumerable<HomeBanner> banners = ViewData["Banners"] as IEnumerable<HomeBanner>;
     IEnumerable<News> news = ViewData["News"] as IEnumerable<News>;
@@ -20,14 +19,16 @@
     </fieldset>
 </div>
 <div class="text-center" div style="border: 1px solid black;">
-    <div class="row">
-        <div class="col-5">
-                @if (@banners.Last().AfbeeldingUrl != null)
-                {
-                    <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="HomeImg" />
-                } else {
-                    <img src="~/banners/home/defaultbanner.jpg" alt="Home Banner" class="HomeImg" />
-                }
+    <div class="row" id="home">
+        <div class="d-flex justify-content-center">
+            @if (@banners.Last().AfbeeldingUrl != null)
+            {
+                <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="BannerImg" id="home" />
+            }
+            else
+            {
+                <img src="~/banners/home/defaultbanner.jpg" alt="Home Banner" class="BannerImg" id="home" />
+            }
         </div>
     </div>
 </div>
@@ -35,33 +36,29 @@
     <div class="row">
         <div class=" col-sm" id="kolum" div style="border: 1px solid black; margin-bottom:20px;">
             <div class="row">
-                <div class="col-6" id="text">
-                    <p>Lorem Ipsum Lorem</p>
+
+                <img src="~/uploads/images/Img/discounts.png" alt="Test" class="CatImg" id="home" />
+                <div class="discountsTekst" id="Tekst">
+                    <a asp-area="" asp-controller="Home" asp-action="Aanbiedingen"><h4>Onze aanbiedingen!</h4></a>
                 </div>
-                <div class="col-4">
-                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
-                </div>
+
             </div>
         </div>
 
         <div class="col-sm" id="kolum" div style="border: 1px solid black; margin-bottom:20px;">
             <div class="row">
-                <div class="col-6" id="text">
-                    <p>Lorem Ipsum Lorem</p>
-                </div>
-                <div class="col-4">
-                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
+                <img src="~/uploads/images/Img/products.png" alt="Test" class="CatImg" id="home" />
+                <div class="productTekst" id="Tekst">
+                    <a asp-area="" asp-controller="Home" asp-action="Aanbiedingen"><h4>Onze producten!</h4></a>
                 </div>
             </div>
         </div>
 
         <div class=" col-sm" id="kolum" div style="border: 1px solid black; margin-bottom: 20px;">
             <div class="row">
-                <div class="col-6" id="text">
-                    <p>Lorem Ipsum Lorem</p>
-                </div>
-                <div class="col-4">
-                    <img src="https://previews.123rf.com/images/victoroancea/victoroancea1201/victoroancea120100059/12055848-tv-color-test-pattern-test-card-for-pal-and-ntsc.jpg" alt="Test" class="HomeImg" id="home" />
+                <img src="~/uploads/images/Img/shoppingcart.png" alt="Test" class="CatImg" id="home" />
+                <div class="MandTekst" id="Tekst">
+                    <a asp-area="" asp-controller="Products" asp-action="ShowCart"><h4>Winkelwagen</h4></a>
                 </div>
             </div>
         </div>
@@ -69,52 +66,53 @@
 </div>
 
 <div class="text-center" div style="border: 1px solid black;">
-    <div class="row">
-        <div class="col-4">
-            Text test
-        </div>
-        <div class="col-5">
-            <img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Ribbons-and-Banners-PNG/Red_Banner_PNG_Clipart_Picture.png?m=1507172114" alt="Test" class="BannerImg" />
-        </div>
+    <div class="row" id="home">
+        <img src="~/uploads/images/Img/banner2.jpg" alt="Test" class="Banner2" id="home" />
     </div>
 </div>
 
 
-<div class="container-fluid" id="home-onder">
-    <div class="row" div style="border: 1px solid black;">
-        <div class="col-1">
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-sm" id="item" div style="border: 1px solid black; margin-bottom:20px;">
+            <div class="row" id="news">
 
-        </div>
-        <div class=" col-3" id="item" div style="border: 1px solid black; margin-bottom:20px;">
+                @foreach (var item in news)
+                {
+                    @if (item.Title != null)
+                    {
+                        <ul id="news">
+                            <li><h2>@item.Title</h2></li>
+                            <li><h4>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Text))</h4></li>
+                            <li>@item.Date</li>
+                        </ul>
+                    }
+                    @if (item.Title == null)
+                    {
+                        <h1>er zijn geen nieuwe berichten</h1>
+                    }
+                }
 
-            @foreach (var item in news)
-            {
-                @if (item.Title != null)
-                {
-                    <h3>@item.Title</h3>
-                    <h4>@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Text))</h4>
-                    @item.Date
-                }
-                @if (item.Title == null)
-                {
-                    <h1>er zijn geen nieuwe berichten</h1>
-                }
-            }
-        </div>
-
-        <div class="col-3" id="item" div style="border: 1px solid black; margin-bottom:20px;">
-            @foreach (var item in promotions)
-            {
-                @if (item.Title != null)
-                {
-            <h1>@item.Title </h1>
-                }
-            }
+            </div>
         </div>
 
-        <div class=" col-3" id="item" div style="border: 1px solid black; margin-bottom: 20px;">
+        <div class="col-sm" id="item" div style="border: 1px solid black; margin-bottom:20px;">
+            <div class="row">
+                @foreach (var item in promotions)
+                {
+                    @if (item.Title != null)
+                    {
+                        <h1>@item.Title </h1>
+                        <h1>@item.Discounts</h1>
+                    }
+                }
+            </div>
+        </div>
 
-            <h1> test column 3</h1>
+        <div class=" col-sm" id="item" div style="border: 1px solid black; margin-bottom: 20px;">
+            <div class="row">
+
+            </div>
         </div>
     </div>
 </div>
