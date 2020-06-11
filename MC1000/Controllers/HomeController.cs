@@ -23,6 +23,7 @@ namespace MC1000.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
             ViewData["Banners"] = LoadBanner();
@@ -72,7 +73,6 @@ namespace MC1000.Controllers
 
                 if (!_context.Category.Any(u => u.Name == categoryName)) //check for dupe
                 {
-
                     Category c = new Category();
                     c.Name = category.Descendants("Name").First().Value;
 
@@ -95,7 +95,6 @@ namespace MC1000.Controllers
                         var subSubCategories = category.Descendants("Subsubcategory");
 
                         s.SubSubCategories = new List<SubSubCategory>();
-
 
                         foreach (var subsub in subSubCategories)
                         {
@@ -144,7 +143,6 @@ namespace MC1000.Controllers
                 }
             }
 
-
             //Load deliveryslots into DB
             XDocument xdocDeliveryslot = XDocument.Load("http://supermaco.starwave.nl/api/deliveryslots");
 
@@ -155,8 +153,6 @@ namespace MC1000.Controllers
 
                 if (!_context.DeliverySlot.Any(u => u.DeliveryDate == date))
                 {
-
-
                     DeliverySlot d = new DeliverySlot();
                     {
                         d.DeliveryDate = DateTime.Parse(deliveryslot.Descendants("Date").First().Value);
@@ -209,6 +205,7 @@ namespace MC1000.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
         private List<News> LoadNews()
         {
             var newss = _context.News;
@@ -221,8 +218,8 @@ namespace MC1000.Controllers
                 NewsList.Add(n);
             }
             return NewsList;
-
         }
+
         private List<HomeBanner> LoadBanner()
         {
             var homebanner = _context.HomeBanner;
@@ -236,6 +233,7 @@ namespace MC1000.Controllers
             }
             return BannerList;
         }
+
         private List<Promotion> LoadPromotion()
         {
             var promotion = _context.Promotion;
@@ -248,6 +246,7 @@ namespace MC1000.Controllers
             }
             return PromotionList;
         }
+
         private List<Discount> LoadDiscounts()
         {
             var discounts = _context.Discount;
@@ -263,4 +262,4 @@ namespace MC1000.Controllers
             return DList;
         }
     }
- }
+}
