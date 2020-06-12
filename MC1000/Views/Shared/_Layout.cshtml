@@ -40,85 +40,37 @@
                 </ul>
             </div>
         </div>
+        <partial name="_LoginPartial" />
     </nav>
+    <main>@RenderBody()</main>
 
-    <!-- Masthead-->
-    <header class="masthead bg-primary text-white text-center">
-        <div class="container d-flex align-items-center flex-column">
-            <!-- Masthead Avatar Image-->@*<img class="masthead-avatar mb-5" src="~/banners/home/defaultbanner.jpg" alt="" />*@<!-- Masthead Heading-->
-            <img src="~/banners/home/banner1.jpg" alt="Header banner" />
-            @*<h1 class="masthead-heading text-uppercase mb-0">MC1000</h1>*@
-            <!-- Icon Divider-->
-            @*<div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>*@
-        </div>
-        <!-- Masthead Subheading-->
-        @*<p class="masthead-subheading font-weight-light mb-0">Geen fratsen, dat scheelt.</p>*@
-        </div>
-    </header>
-</body>
-
-<!-- OUDE CODE-->
-@*<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MC1000</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark">Categorieen</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark">Aanbiedingen</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark">Winkelwagen</a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Mijn Bestellingen</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Mijn Bestellingen</a>
-                            </li>
-                        }
-                        @if (User.IsInRole("Admin") || User.IsInRole("Redactie"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="CMS" asp-controller="CMS" asp-action="Index">Beheerderspaneel</a>
-                            </li>
-                        }
-                    </ul>
+    <!-- Footer-->
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <!-- Footer Location-->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4"><a href="#">Contact</a></h4>
+                    <p class="lead mb-0">Kruseman van Eltenweg 4B<br />1817 BC Alkmaar</p>
+                </div>
+                <!-- Footer Social Icons-->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Social Media</h4>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a><a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a><a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a><a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+                </div>
+                <!-- Footer About Text-->
+                <div class="col-lg-4">
+                    <h4 class="text-uppercase mb-4">Links</h4>
+                    <p class="lead mb-0"><a href="#">Algemene Voorwaarden</a></p>
+                    <p class="lead mb-0"><a href="#">Leveren en Verzenden</a></p>
+                    <p class="lead mb-0"><a href="#">Privacy</a></p>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - MC1000 - <a asp-area="" asp-controller="Home" asp-action="AlgemeneVoorwaarden">Algemene Voorwaarden</a> - <a asp-area="" asp-controller="Home" asp-action="LeveringVerzending">Levering & verzending</a> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacybeleid</a> - <a asp-area="" asp-controller="Home" asp-action="OnzeOrganisatie">Onze organisatie</a>
         </div>
-    </footer>*@
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@RenderSection("Scripts", required: false)
-@*</body>*@
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
 </html>
