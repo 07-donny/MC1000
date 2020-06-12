@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MC1000</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
-    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
@@ -16,8 +17,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-
-    @RenderSection("Styles", false)
 </head>
 <body id="page-top">
     <!-- Navigation-->
@@ -37,10 +36,10 @@
                     {
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="CMS" asp-controller="CMS" asp-action="Index">Beheerders Paneel</a></li>
                     }
+                    <partial name="_LoginPartial" />
                 </ul>
             </div>
         </div>
-        <partial name="_LoginPartial" />
     </nav>
     <main>@RenderBody()</main>
 
