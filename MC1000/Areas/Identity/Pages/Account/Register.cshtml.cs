@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using MC1000.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +66,16 @@ namespace MC1000.Areas.Identity.Pages.Account
 
             //[Display(Name = "Stad")]
             //public string City { get; set; }
-
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+            public string Street { get; set; }
+            public string HouseNumber { get; set; }
+            public string ZipCode { get; set; }
+            public string City { get; set; }
+            public string Country { get; set; }
+            public string Image { get; set; }
+            public IFormFile ImageUpload { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -80,6 +91,32 @@ namespace MC1000.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = Input.Email, Email = Input.Email};
+                user.PhoneNumber = Input.PhoneNumber;
+                user.StreetName = Input.Street;
+                user.HouseNumber = Input.HouseNumber;
+                user.ZipCode = Input.ZipCode;
+                user.City = Input.City;
+                user.Country = Input.Country;
+                var imageUpload = Input.ImageUpload;
+                if (imageUpload != null)
+                {
+                    string g = Guid.NewGuid().ToString();
+
+                    var fileExtension = Path.GetExtension(imageUpload.FileName);
+                    var filePath = Url.Content("wwwroot/uploads/images/avatars/" + g + "." + user.Id + fileExtension);
+
+                    var url = g + "." + user.Id + fileExtension;
+                    user.Image = url;
+
+                    if (imageUpload.Length > 0)
+                    {
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imageUpload.CopyToAsync(stream);
+                        }
+                    }
+                    user.Image = url;
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -111,6 +148,7 @@ namespace MC1000.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
 
             // If we got this far, something failed, redisplay form
             return Page();

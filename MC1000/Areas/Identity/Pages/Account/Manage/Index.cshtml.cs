@@ -47,7 +47,6 @@ namespace MC1000.Areas.Identity.Pages.Account.Manage
             public IFormFile ImageUpload { get; set; }
         }
 
-
         private async Task LoadAsync(User user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
