@@ -44,6 +44,11 @@ namespace MC1000.Data
 
             modelBuilder.Entity<OrderLine>()
             .HasOne(p => p.Product);
+
+            //modelBuilder.Entity<Product>()
+            //.HasMany(p => p.Discounts)
+            //.WithOne(c => c.Product)
+            //.OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<DeliverySlot> DeliverySlot { get; set; }

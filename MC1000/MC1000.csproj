@@ -65,6 +65,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\img\avataaars.svg" />
+    <None Include="wwwroot\assets\mail\contact_me.js" />
+    <None Include="wwwroot\assets\mail\contact_me.php" />
+    <None Include="wwwroot\assets\mail\jqBootstrapValidation.js" />
     <None Include="wwwroot\client-app\js\app.js" />
     <None Include="wwwroot\client-app\js\app.js.map" />
     <None Include="wwwroot\client-app\js\chunk-vendors.js" />

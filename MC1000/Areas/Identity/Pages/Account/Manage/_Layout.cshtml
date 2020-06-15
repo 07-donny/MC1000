@@ -8,20 +8,21 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
-
-<h2>Account Beheren</h2>
-<div>
-    <h4>Verander uw gegevens</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+<header>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Gegevens Beheren</h2>
+</header>
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <partial name="_ManageNav" />
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
     @RenderSection("Scripts", required: false)

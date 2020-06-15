@@ -65,9 +65,6 @@ namespace MC1000.Migrations
                     b.Property<string>("EAN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PromotionId")
                         .HasColumnType("int");
 
@@ -75,8 +72,6 @@ namespace MC1000.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.HasIndex("PromotionId");
 
@@ -522,10 +517,6 @@ namespace MC1000.Migrations
 
             modelBuilder.Entity("MC1000.Models.Discount", b =>
                 {
-                    b.HasOne("MC1000.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
                     b.HasOne("MC1000.Models.Promotion", "Promotion")
                         .WithMany("Discounts")
                         .HasForeignKey("PromotionId")
