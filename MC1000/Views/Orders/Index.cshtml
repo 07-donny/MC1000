@@ -1,64 +1,66 @@
 ﻿@model IEnumerable<MC1000.Models.Order>
 
-@{
+    @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    }
 
-<section class="page-section portfolio" id="portfolio">
-    <div class="container">
-        <br />
-        <h3 class="page-section-heading text-center text-uppercase text-secondary mb-0">Huidige Bestellingen</h3>
-        <!-- Icon Divider-->
-        <div class="divider-custom">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-            <div class="divider-custom-line"></div>
-        </div>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DatePlaced)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
-                    @*<th>
+    <section class="page-section portfolio" id="portfolio">
+        <div class="container">
+            <br />
+            <h3 class="page-section-heading text-center text-uppercase text-secondary mb-0">Huidige Bestellingen</h3>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DatePlaced)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        @*
+                        <th>
                             @Html.DisplayNameFor(model => model.DeliverySlot)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.User)
                         </th>*@
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
                     @if (item.Status != "Afgerond")
                     {
 
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DatePlaced)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.DeliverySlot.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.Id)
-                                    </td>*@
-                                <td>
-                                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
-                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                    @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                                </td>
-                            </tr>
-                        }
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DatePlaced)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        @*
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeliverySlot.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Id)
+                        </td>*@
+                        <td>
+                            @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                        </td>
+                    </tr>
+                    }
                     }
                 </tbody>
             </table>
@@ -84,32 +86,33 @@
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
-                        @if (item.Status == "Afgerond")
-                        {
+                    @if (item.Status == "Afgerond")
+                    {
 
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DatePlaced)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Status)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DeliverySlot.Id)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.User.Id)
-                                        </td>*@
-                                    <td>
-                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
-                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DatePlaced)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        @*
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeliverySlot.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Id)
+                        </td>*@
+                        <td>
+                            @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                        </td>
+                    </tr>
+                    }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
