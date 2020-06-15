@@ -17,17 +17,28 @@
     }
 </header>
 
-<!--about us-->
-<section id="about" class="page-section bg-primary text-white mb-0">
+<!-- About Section-->
+<section class="page-section portfolio" id="portfolio">
     <div class="container">
-        <h2 class="page-section-heading text-center text-uppercase text-white">Geen Fratsen, Dat Scheelt</h2>
-        <div class="divider-custom" divider-light>
+        <!-- About Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary">Geen Fratsen, Dat Scheelt.</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content-->
+        <div class="row">
+            <div class="col-lg-4 ml-auto"><p class="lead">Onze klanten kunnen elke dag rekenen op de laagste prijs, de beste kwaliteit en de snelste service. Elke dag zijn onze medewerkers keihard aan het werk om dat waar te maken. Want, beloofd is beloofd.</p></div>
+            <div class="col-lg-4 ml-auto"><p class="lead">Is hetzelfde product in een andere supermarkt toch goedkoper? Laat ons de kassabon zien en we passen zo snel mogelijk onze prijs aan. Beloofd.</p></div>
+            <div class="col-lg-4 mr-auto"><p class="lead">Ben je niet 100% tevreden met je aankoop? Lever het product én de kassabon in en je krijgt gewoon je geld terug. Beloofd.</p></div>
         </div>
     </div>
 </section>
 
 <!-- Promo-->
-<section class="page-section portfolio" id="portfolio">
+<section class="page-section portfolio" id="portfolio" style="background-color: #1abc9c">
     <div class="container">
         @if (promotions.Count() != 0)
         {
