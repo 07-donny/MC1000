@@ -16,14 +16,10 @@ namespace MC1000.Models
         public string FullDescription { get; set; }
         public string Image { get; set; }
         public string Weight { get; set; }
+
         [AllowNull]
         public double Price { get; set; }
 
-        //// Bijbehorende SubSubCategory
-        //public int SubSubCategoryId { get; set; }
-        //public SubSubCategory SubSubCategory { get; set; }
-
-        //public int DiscountId { get; set; }
-        //public Discount Discount { get; set; }
+        //public List<Discount> Discounts { get; set; }
     }
 }

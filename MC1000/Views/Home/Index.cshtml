@@ -9,26 +9,25 @@
 <header>
     @if (banners.Count() != 0)
     {
-        <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
+    <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
     }
     else
     {
-        <img src="~/banners/home/banner1.jpg" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
+    <img src="~/banners/home/banner1.jpg" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
     }
 </header>
 
-<!-- Portfolio Section-->
+<!-- Promo-->
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
-        <!-- Portfolio Section Heading-->
         @if (promotions.Count() != 0)
         {
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@promotions.Last().Title</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@promotions.Last().Title</h2>
 
         }
         else
         {
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Promotie</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Promotie</h2>
         }
         <!-- Icon Divider-->
         <div class="divider-custom">
@@ -36,90 +35,94 @@
             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
             <div class="divider-custom-line"></div>
         </div>
-        <!-- Portfolio Grid Items-->
+        <!-- Promo Grid Items-->
         <div class="row">
-            <!-- Portfolio Item -->
+            <!-- Promo Item -->
             @foreach (var promo in promotions)
             {
-                foreach (var item in promo.Discounts)
+            @if (promo.Discounts != null)
                 {
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="@item.Product.Image" alt="Product met Korting" />
-                        </div>
+
+                    foreach (var item in promo.Discounts)
+                    {
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                     </div>
+                    <img class="img-fluid" src="@item" alt="Product met Korting" />
+                </div>
+            </div>
+                    }
+
+                }
+                else
+                {
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
+                </div>
+            </div>
                 }
             }
         </div>
     </div>
 </section>
 
-@*oude code*@
-@*Search function
-    <div class="SearchBar" div style="border: 1px solid black;">
-        <fieldset>
-            <form asp-controller="Products" asp-action="ProductList">
-                <p>
-                    <input type="text" name="SearchString" class="search" placeholder="Zoek naar een product...">
-                    <input type="submit" class="search-btn" value="Zoek" />
-                </p>
-            </form>
-        </fieldset>
-    </div>
-    <div class="text-center" div style="border: 1px solid black;">
-        <div class="row" id="home">
-            <div class="d-flex justify-content-center">
-                @if (@banners.Last().AfbeeldingUrl != null)
-                {
-                    <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="BannerImg" id="home" />
-                }
-                else
-                {
-                    <img src="~/banners/home/defaultbanner.jpg" alt="Home Banner" class="BannerImg" id="home" />
-                }
-            </div>
+<!-- Promo-->
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Nieuws</h2>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
         </div>
-    </div>
-    <div class="container-fluid">
+        <!-- Promo Grid Items-->
         <div class="row">
-            <div class=" col-sm" id="kolum" div style="border: 1px solid black; margin-bottom:20px;">
-                <div class="row">
+            <!-- Promo Item -->
+            @foreach (var n in news)
+            {
 
-                    <img src="~/uploads/images/Img/discounts.png" alt="Test" class="CatImg" id="home" />
-                    <div class="discountsTekst" id="Tekst">
-                        <a asp-area="" asp-controller="Home" asp-action="Aanbiedingen"><h4>Onze aanbiedingen!</h4></a>
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                     </div>
+                    <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Product met Korting" />
+                    <bold>@n.Title</bold>
+                    <p>Klik hier om dit artikel te lezen!</p>
                 </div>
             </div>
 
-            <div class="col-sm" id="kolum" div style="border: 1px solid black; margin-bottom:20px;">
-                <div class="row">
-                    <img src="~/uploads/images/Img/products.png" alt="Test" class="CatImg" id="home" />
-                    <div class="productTekst" id="Tekst">
-                        <a asp-area="" asp-controller="Home" asp-action="Aanbiedingen"><h4>Onze producten!</h4></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" col-sm" id="kolum" div style="border: 1px solid black; margin-bottom: 20px;">
-                <div class="row">
-                    <img src="~/uploads/images/Img/shoppingcart.png" alt="Test" class="CatImg" id="home" />
-                    <div class="MandTekst" id="Tekst">
-                        <a asp-area="" asp-controller="Products" asp-action="ShowCart"><h4>Winkelwagen</h4></a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
+</section>
 
-    <div class="text-center" div style="border: 1px solid black;">
-        <div class="row" id="home">
-            <img src="~/uploads/images/Img/banner2.jpg" alt="Test" class="Banner2" id="home" />
-        </div>
-    </div>
+@*oude code*@
+@*
 
     <div class="container-fluid">
         <div class="row">
