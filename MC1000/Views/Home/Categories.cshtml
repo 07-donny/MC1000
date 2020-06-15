@@ -4,21 +4,8 @@
     ViewData["Title"] = "Categories";
 }
 
-<h1>Categories</h1>
-@*Search function  *@
-<div class="SearchBar" div style="border: 1px solid black;">
-    <fieldset>
-        <form asp-controller="Products" asp-action="ProductList">
-            <p>
-                <input type="text" name="SearchString" class="search" placeholder="Zoek naar een product...">
-                <input type="submit" class="search-btn" value="Zoek" />
-            </p>
-        </form>
-    </fieldset>
-</div>
-
-<!-- Promo-->
 <section class="page-section portfolio" id="portfolio">
+    <br /> @*schaamteloze br*@
     <div class="container">
         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Categorieën</h2>
         <!-- Icon Divider-->
@@ -29,20 +16,34 @@
         </div>
         <!-- Promo Grid Items-->
         <div class="row">
-            <!-- Promo Item -->
             @foreach (var item in Model)
             {
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="~/banners/categories/@item.BannerImage" alt="Categorie @item.Name" />
+                @if (item.BannerImage != null)
+                {
+                    <!-- Promo Item -->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <a class="portfolio-item mx-auto" asp-action="SubCategories" asp-route-id="@item.Id">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="~/banners/categories/@item.BannerImage" alt="Categorie @item.Name" />
+                            <p style="text-align: center">@item.Name</p>
+                        </a>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <!-- Promo Item -->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <a class="portfolio-item mx-auto" asp-action="SubCategories" asp-route-id="@item.Id">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Categorie @item.Name" />
+                            <p style="text-align: center">@item.Name</p>
+                        </a>
+                    </div>
+                }
             }
         </div>
-    </div>
 </section>
-
-<!-- Promo-->

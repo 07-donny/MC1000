@@ -58,8 +58,10 @@ namespace MC1000.Controllers
 
                 if (!_context.Category.Any(u => u.Name == categoryName)) //check for dupe
                 {
-                    Category c = new Category();
-                    c.Name = category.Descendants("Name").First().Value;
+                    Category c = new Category
+                    {
+                        Name = category.Descendants("Name").First().Value
+                    };
 
                     //Load Subcategories to DB and link to Category
                     var subCategories = category.Descendants("Subcategory");
@@ -101,8 +103,10 @@ namespace MC1000.Controllers
             var promotions = xdocPromo.Descendants("Promotion");
             foreach (var promotion in promotions)
             {
-                Promotion p = new Promotion();
-                p.Title = promotion.Descendants("Title").First().Value;
+                Promotion p = new Promotion
+                {
+                    Title = promotion.Descendants("Title").First().Value
+                };
                 if (!_context.Promotion.Any(u => u.Title == p.Title))
                 {
                     //Load discounts to DB and link to Promotion
@@ -117,14 +121,16 @@ namespace MC1000.Controllers
                         if (!_context.Discount.Any(u => u.DiscountedPrice == discountedPrice &&
                         u.ValidUntil == discountValid && u.EAN == EAN))
                         {
-                            Discount d = new Discount();
-                            d.EAN = discount.Descendants("EAN").First().Value;
-                            //var proId = _context.Product.Where(z => z.EAN == d.EAN).FirstOrDefault().Id;
+                            Discount d = new Discount
+                            {
+                                EAN = discount.Descendants("EAN").First().Value,
+                                //var proId = _context.Product.Where(z => z.EAN == d.EAN).FirstOrDefault().Id;
 
-                            //d.ProductId = proId;
+                                //d.ProductId = proId;
 
-                            d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
-                            d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+                                DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider),
+                                ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value)
+                            };
                             p.Discounts.Add(d);
                         }
                     }
@@ -150,10 +156,12 @@ namespace MC1000.Controllers
                         d.TimeSlots = new List<TimeSlot>();
                         foreach (var timeslot in timeslots)
                         {
-                            TimeSlot t = new TimeSlot();
-                            t.StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value);
-                            t.EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value);
-                            t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider);
+                            TimeSlot t = new TimeSlot
+                            {
+                                StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value),
+                                EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value),
+                                Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider)
+                            };
                             d.TimeSlots.Add(t);
                         }
                     }

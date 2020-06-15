@@ -9,25 +9,34 @@
 <header>
     @if (banners.Count() != 0)
     {
-    <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
+        <img src="~/banners/home/@banners.Last().AfbeeldingUrl" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
     }
     else
     {
-    <img src="~/banners/home/banner1.jpg" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
+        <img src="~/banners/home/banner1.jpg" alt="Home Banner" class="BannerImg" id="home" style="max-width: 100%" />
     }
 </header>
+
+<!--about us-->
+<section id="about" class="page-section bg-primary text-white mb-0">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-white">Geen Fratsen, Dat Scheelt</h2>
+        <div class="divider-custom" divider-light>
+        </div>
+    </div>
+</section>
 
 <!-- Promo-->
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
         @if (promotions.Count() != 0)
         {
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@promotions.Last().Title</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@promotions.Last().Title</h2>
 
         }
         else
         {
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Promotie</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Promotie</h2>
         }
         <!-- Icon Divider-->
         <div class="divider-custom">
@@ -40,48 +49,48 @@
             <!-- Promo Item -->
             @foreach (var promo in promotions)
             {
-            @if (promo.Discounts != null)
+                @if (promo.Discounts != null)
                 {
 
                     foreach (var item in promo.Discounts)
                     {
-            <div class="col-md-6 col-lg-4 mb-5">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                    </div>
-                    <img class="img-fluid" src="@item" alt="Product met Korting" />
-                </div>
-            </div>
+                        <div class="col-md-6 col-lg-4 mb-5">
+                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="@item" alt="Product met Korting" />
+                            </div>
+                        </div>
                     }
 
                 }
                 else
                 {
-            <div class="col-md-6 col-lg-4 mb-5">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
+                        </div>
                     </div>
-                    <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-5">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
+                        </div>
                     </div>
-                    <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-5">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
+                        </div>
                     </div>
-                    <img class="img-fluid" src="~/assets/img/portfolio/cake.png" alt="Placeholder product" />
-                </div>
-            </div>
                 }
             }
         </div>
@@ -105,16 +114,16 @@
             @foreach (var n in news)
             {
 
-            <div class="col-md-6 col-lg-4 mb-5">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Product met Korting" />
+                        <bold>@n.Title</bold>
+                        <p>Klik hier om dit artikel te lezen!</p>
                     </div>
-                    <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Product met Korting" />
-                    <bold>@n.Title</bold>
-                    <p>Klik hier om dit artikel te lezen!</p>
                 </div>
-            </div>
 
             }
         </div>

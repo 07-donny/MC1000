@@ -3,63 +3,78 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EAN)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EAN)
-        </dd>
-        <dt class="col-sm-2">
-            Product
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            Merk
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-        <dt class="col-sm-2">
-            Korte Beschrijving
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ShortDescription)
-        </dd>
-        <dt class="col-sm-2">
-            Lange Beschrijving
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FullDescription)
-        </dd>
-        <dt class="col-sm-2">
-            Afbeelding
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.Image != null)
-            {
+
+<section class="page-section portfolio" id="portfolio">
+    <br />
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.Title</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+    </div>
+</section>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EAN)
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+                Merk
+            </th>
+            <th>
+                Korte Beschrijving
+            </th>
+            <th>
+                Lange Beschrijving
+            </th>
+            <th>
+                Afbeelding
+            </th>
+            <th>
+                Gewicht
+            </th>
+            <th>
+                Prijs
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.EAN)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ShortDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FullDescription)
+            </td>
+            <td>
                 <img src="@Model.Image" height="150px" />
-            }
-        </dd>
-        <dt class="col-sm-2">
-            Gewicht
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Weight)
-        </dd>
-        <dt class="col-sm-2">
-            Prijs
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
-</div>
-<div>
-    @*<a asp-controller="Home" asp-action="SubSubCategories" asp-route-id="@Html.DisplayFor(model => model.)">Terug naar subsubcategory</a>*@
-</div>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Price)
+            </td>
+            <td>
+                <a class="btn btn-success btn-block" asp-action="AddToCart" asp-route-id="@Model.Id">Aan winkelwagen toevoegen</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

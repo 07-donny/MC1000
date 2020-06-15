@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Aanbiedingen";
     Layout = "~/Views/Shared/_Layout.cshtml";
     IEnumerable<Promotion> promos = ViewData["Promotions"] as IEnumerable<Promotion>;
@@ -7,41 +6,50 @@
 
 }
 
-<h1>Aanbiedingen</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Titel promotie:
-            </th>
-            <th>
-                Kortingen:
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var p in promos)
-        {
-            <tr>
-                <td>
-                    @p.Title
-                </td>
-                <td>
-                    @foreach (var d in discounts)
-                    {
-                        <ul>
-                            @if (d.PromotionId == p.Id)
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Aanbiedingen</h2>
+<!-- Icon Divider-->
+<div class="divider-custom">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Titel promotie:
+                    </th>
+                    <th>
+                        Kortingen:
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in promos)
+                {
+                    <tr>
+                        <td>
+                            @p.Title
+                        </td>
+                        <td>
+                            @foreach (var d in discounts)
                             {
-                                <li>Product: @d.EAN</li>
-                                <li>Prijs: @d.DiscountedPrice</li>
-                                <li>Geldig tot: @d.ValidUntil</li>
+                                <ul>
+                                    @if (d.PromotionId == p.Id)
+                                    {
+                                        <li>Product: @d.EAN</li>
+                                        <li>Prijs: @d.DiscountedPrice</li>
+                                        <li>Geldig tot: @d.ValidUntil</li>
+                                    }
+                                </ul>
                             }
-                        </ul>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
