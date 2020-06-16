@@ -28,9 +28,10 @@ namespace MC1000.Controllers
             {
                 return NotFound();
             }
+            var subsub = _context.SubSubCategory.FirstOrDefault(s => s.Id == id);
 
             var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.SubSub == subsub.Name);
             if (product == null)
             {
                 return NotFound();

@@ -13,6 +13,7 @@ namespace MC1000.Models
 
         // Bijbehorende SubCategory
         public int SubCategoryId { get; set; }
+
         public SubCategory SubCategory { get; set; }
         //public List<Product> Products { get; set; }
     }

@@ -79,17 +79,18 @@ namespace MC1000.Controllers
                         }
 
                         //Load SubSubcategories to DB and link to SubCategory
-                        var subSubCategories = category.Descendants("Subsubcategory");
+                        var subSubCategories = sub.Descendants("Subsubcategory");
 
                         s.SubSubCategories = new List<SubSubCategory>();
 
                         foreach (var subsub in subSubCategories)
                         {
+                            //elke subsub.name zit momenteel in elke sub
                             var subsubcategoryName = subsub.Descendants("Name").First().Value;
                             SubSubCategory u = new SubSubCategory();
                             if (!_context.SubSubCategory.Any(u => u.Name == subsubcategoryName)) //check for dupe
                             {
-                                u.Name = subsub.Descendants("Name").First().Value;
+                                u.Name = subsubcategoryName;
                                 u.SubCategory = s;
                                 s.SubSubCategories.Add(u);
                             }

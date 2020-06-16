@@ -4,14 +4,16 @@ using MC1000.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MC1000.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200616080920_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,8 +205,11 @@ namespace MC1000.Migrations
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SubSub")
+                    b.Property<string>("SubSubCategory")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubSubCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -213,6 +218,8 @@ namespace MC1000.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubSubCategoryId");
 
                     b.ToTable("Product");
                 });
@@ -560,6 +567,13 @@ namespace MC1000.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MC1000.Models.Product", b =>
+                {
+                    b.HasOne("MC1000.Models.SubSubCategory", null)
+                        .WithMany("Products")
+                        .HasForeignKey("SubSubCategoryId");
                 });
 
             modelBuilder.Entity("MC1000.Models.SubCategory", b =>

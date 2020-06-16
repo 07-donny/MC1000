@@ -47,14 +47,3 @@
             }
         </div>
 </section>
-
-@*@foreach (var item in Model)
-    {
-        <div class="category">
-            @if (item.BannerImage != null)
-            {
-                <img src="~/banners/subsubcategories/@item.BannerImage" alt="Test" class="categoryImg" />
-            }
-            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><p class="categoryText">@item.Name</p></a>
-        </div>
-    }*@

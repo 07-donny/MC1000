@@ -21,5 +21,8 @@ namespace MC1000.Models
         public double Price { get; set; }
 
         //public List<Discount> Discounts { get; set; }
+
+        //public SubSubCategory SubSubCategory { get; set; }
+        public string SubSub { get; set; }
     }
 }
