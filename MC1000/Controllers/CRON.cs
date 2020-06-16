@@ -41,7 +41,8 @@ namespace MC1000.Controllers
                         FullDescription = product.Descendants("Fulldescription").First().Value,
                         Image = product.Descendants("Image").First().Value,
                         Weight = product.Descendants("Weight").First().Value,
-                        Price = double.Parse(product.Descendants("Price").First().Value, style, provider)
+                        Price = double.Parse(product.Descendants("Price").First().Value, style, provider),
+                        SubSub = product.Descendants("Subsubcategory").First().Value
                     };
                     _context.Add(p);
                 }
