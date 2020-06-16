@@ -54,20 +54,20 @@ namespace MC1000.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Het wachtwoord moet teminste {2} en maximaal {1} characters lang zijn.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Het wachtwoord en het bevestigde wachtwoord komt niet overeen.")]
             public string ConfirmPassword { get; set; }
 
             //[Display(Name = "Stad")]
             //public string City { get; set; }
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Telefoonnummer")]
             public string PhoneNumber { get; set; }
             public string Street { get; set; }
             public string HouseNumber { get; set; }
