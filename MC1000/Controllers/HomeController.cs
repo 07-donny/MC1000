@@ -38,6 +38,21 @@ namespace MC1000.Controllers
             return View();
         }
 
+        public IActionResult AlgemeneVoorwaarden()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult LeverenVerzenden()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> CategoriesAsync()
         {
             return View(await _context.Category.ToListAsync());
