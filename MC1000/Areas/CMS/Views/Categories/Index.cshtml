@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MC1000.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Categorieën";
 }
 
-<h1>Index</h1>
+    <h1>Categorieën</h1>
 
 <!--<p>
     <a asp-action="Create">Create New</a>
@@ -13,31 +13,32 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Naam
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BannerImage)
+                Banner Afbeelding
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @if (item.BannerImage != null)
-                {
-                    <!--Toont de bannerfoto-->
-                    <img src="~/banners/categories/@Html.DisplayFor(modelItem => item.BannerImage)" width="100" height="100" />
-                }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit Banner</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (item.BannerImage != null)
+                    {
+                        <!--Toont de bannerfoto-->
+                        <img src="~/banners/categories/@Html.DisplayFor(modelItem => item.BannerImage)" width="100" height="100" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Bewerk Banner</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MC1000.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200612122028_asod")]
-    partial class asod
+    [Migration("20200616093457_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,9 +67,6 @@ namespace MC1000.Migrations
                     b.Property<string>("EAN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PromotionId")
                         .HasColumnType("int");
 
@@ -77,8 +74,6 @@ namespace MC1000.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.HasIndex("PromotionId");
 
@@ -524,12 +519,6 @@ namespace MC1000.Migrations
 
             modelBuilder.Entity("MC1000.Models.Discount", b =>
                 {
-                    b.HasOne("MC1000.Models.Product", "Product")
-                        .WithMany("Discounts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MC1000.Models.Promotion", "Promotion")
                         .WithMany("Discounts")
                         .HasForeignKey("PromotionId")

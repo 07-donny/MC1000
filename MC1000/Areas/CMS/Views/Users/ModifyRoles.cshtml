@@ -1,14 +1,14 @@
 ﻿@model MC1000.Models.UserViewModel
 
 @{
-    ViewData["Title"] = "ModifyRoles";
+    ViewData["Title"] = "Rollen aanpassen";
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Modify Roles</h1>
+<h1>Rollen aanpassen</h1>
 
             
-<h4>Selected User: </h4>
+<h4>Geselecteerde gebruiker: </h4>
 <h5>@Model.Email</h5>
 <hr />
 <div class="row">
@@ -33,13 +33,13 @@
                 <br />
             }
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Opslaan" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Terug</a>
 </div>
 

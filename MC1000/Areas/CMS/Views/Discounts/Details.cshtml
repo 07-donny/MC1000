@@ -8,23 +8,23 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Discount</h4>
+    <h4>Korting</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiscountedPrice)
+        <dt class="col-sm-2">
+            Nieuwe prijs
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DiscountedPrice)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValidUntil)
+            Geldig tot
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ValidUntil)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Promotion)
+            Aanbieding
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Promotion.Id)
@@ -38,6 +38,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-area="CMS" asp-controller="Promotions" asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Bewerken</a> |
+    <a asp-area="CMS" asp-controller="Promotions" asp-action="Index">Terug</a>
 </div>

@@ -8,11 +8,11 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Order</h4>
+    <h4>Bestelling</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatePlaced)
+            Datum geplaatst
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DatePlaced)
@@ -30,7 +30,7 @@
             @Html.DisplayFor(model => model.DeliverySlot.Id)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+            Gebruiker
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.User.Id)
@@ -38,6 +38,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Bewerken</a> |
+    <a asp-action="Index">Terug</a>
 </div>
