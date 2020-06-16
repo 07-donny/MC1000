@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MC1000.Models.DeliverySlot>
+
+@{
+    ViewData["Title"] = "Bezorgdatum";
+}
+
+<h1>Bezorgdatum overzicht</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    <a asp-action="TimeSlot" asp-route-id="@item.Id">Kies een tijdstip</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
