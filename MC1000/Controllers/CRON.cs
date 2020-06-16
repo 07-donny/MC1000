@@ -151,11 +151,17 @@ namespace MC1000.Controllers
                         d.TimeSlots = new List<TimeSlot>();
                         foreach (var timeslot in timeslots)
                         {
-                            TimeSlot t = new TimeSlot();
-                            t.StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value);
-                            t.EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value);
-                            t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider);
-                            d.TimeSlots.Add(t);
+                            //var startTime = DateTime.Parse(timeslot.Descendants("StartTime").First().Value);
+                            //var endTime = DateTime.Parse(timeslot.Descendants("EndTime").First().Value);
+
+                            //if (!_context.TimeSlot.Any(u => u.StartTime == startTime) && (!_context.TimeSlot.Any(u => u.EndTime == endTime)))
+                            {
+                                TimeSlot t = new TimeSlot();
+                                t.StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value);
+                                t.EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value);
+                                t.Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider);
+                                d.TimeSlots.Add(t);
+                            }
                         }
                     }
                     _context.Add(d);

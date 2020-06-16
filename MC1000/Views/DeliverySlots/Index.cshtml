@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<MC1000.Models.DeliverySlot>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bezorgdatum";
 }
 
-<h1>Index</h1>
+<h1>Bezorgdatum overzicht</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -19,15 +16,16 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDate)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    <a asp-action="TimeSlot" asp-route-id="@item.Id">Kies een tijdstip</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

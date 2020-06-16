@@ -25,22 +25,10 @@ namespace MC1000.Controllers
             return View(await _context.DeliverySlot.ToListAsync());
         }
 
-        // GET: DeliverySlots/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: DeliverySlots/TimeSlot/5
+        public async Task<IActionResult> TimeSlot(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var deliverySlot = await _context.DeliverySlot
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (deliverySlot == null)
-            {
-                return NotFound();
-            }
-
-            return View(deliverySlot);
+            return View(await _context.TimeSlot.Where(t => t.DeliverySlotId == id).ToListAsync());
         }
 
         private bool DeliverySlotExists(int id)
