@@ -110,6 +110,11 @@ ul#news {
     padding-top: 110px;
 }
 
+#Algemenevoorwaarden.container{
+    margin-top:100px;
+    margin-bottom:50px;
+}
+
 :root {
     --black: #000;
 }
