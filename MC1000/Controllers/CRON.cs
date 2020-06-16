@@ -148,23 +148,31 @@ namespace MC1000.Controllers
             {
                 var date = DateTime.Parse(deliveryslot.Descendants("Date").First().Value);
 
-                if (!_context.DeliverySlot.Any(u => u.DeliveryDate == date))
+                if (!_context.DeliverySlot.Any(u => u.DeliveryDate == date)) // check for dupe
                 {
                     DeliverySlot d = new DeliverySlot();
                     {
                         d.DeliveryDate = DateTime.Parse(deliveryslot.Descendants("Date").First().Value);
 
-                        var timeslots = xdocDeliveryslot.Descendants("Timeslot");
+                        var timeslots = deliveryslot.Descendants("Timeslot");
+
                         d.TimeSlots = new List<TimeSlot>();
                         foreach (var timeslot in timeslots)
                         {
-                            TimeSlot t = new TimeSlot
+                            var startTime = DateTime.Parse(timeslot.Descendants("StartTime").First().Value);
+                            var endTime = DateTime.Parse(timeslot.Descendants("EndTime").First().Value);
+                            var price = Decimal.Parse(timeslot.Descendants("Price").First().Value, style, provider);
+
+                            if (!_context.TimeSlot.Any(t => t.Price == price && t.StartTime == startTime && t.EndTime == endTime)) // check for dupe
                             {
-                                StartTime = DateTime.Parse(deliveryslot.Descendants("StartTime").First().Value),
-                                EndTime = DateTime.Parse(deliveryslot.Descendants("EndTime").First().Value),
-                                Price = Decimal.Parse(deliveryslot.Descendants("Price").First().Value, style, provider)
-                            };
-                            d.TimeSlots.Add(t);
+                                TimeSlot t = new TimeSlot
+                                {
+                                    StartTime = DateTime.Parse(timeslot.Descendants("StartTime").First().Value),
+                                    EndTime = DateTime.Parse(timeslot.Descendants("EndTime").First().Value),
+                                    Price = Decimal.Parse(timeslot.Descendants("Price").First().Value, style, provider)
+                                };
+                                d.TimeSlots.Add(t);
+                            }
                         }
                     }
                     _context.Add(d);
