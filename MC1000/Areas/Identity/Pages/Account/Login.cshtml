@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <section>
                     <form id="account" method="post">
-                        <h4>Use a local account to log in.</h4>
+                        <h4>Log hier met uw account in.</h4>
                         <hr />
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">
@@ -21,7 +21,7 @@
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Input.Password"></label>
+                            <label asp-for="Input.Password">Wachtwoord</label>
                             <input asp-for="Input.Password" class="form-control" />
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
@@ -29,7 +29,7 @@
                             <div class="checkbox">
                                 <label asp-for="Input.RememberMe">
                                     <input asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    Onthouden
                                 </label>
                             </div>
                         </div>
@@ -38,13 +38,13 @@
                         </div>
                         <div class="form-group">
                             <p>
-                                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                                <a id="forgot-password" asp-page="./ForgotPassword">Wachtwoord vergeten?</a>
                             </p>
                             <p>
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Nieuwe gebruiker registreren</a>
                             </p>
                             <p>
-                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Bevestigings email opnieuw verzenden</a>
                             </p>
                         </div>
                     </form>
