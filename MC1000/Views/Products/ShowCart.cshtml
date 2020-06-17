@@ -74,7 +74,8 @@
         <!-- END PRODUCT -->
         <div class="card-footer">
             <div class="pull-right" style="margin: 10px">
-                <a class="btn btn-outline-danger btn-xs" asp-action="PlaceOrder">Order Plaatsen</a>
+                @*<a class="btn btn-outline-danger btn-xs" asp-action="PlaceOrder">Order Plaatsen</a>*@
+                <a class="btn btn-outline-danger btn-xs" asp-controller="DeliverySlots" asp-action="Index">Bezorgmoment kiezen</a>
             </div>
         </div>
     </div>
