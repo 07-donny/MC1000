@@ -9,16 +9,20 @@ using MC1000.Data;
 using MC1000.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace MC1000.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Products/Details/5
@@ -99,33 +103,32 @@ namespace MC1000.Controllers
             var cartStr = HttpContext.Session.GetString("cart");
             if (cartStr != null)
             {
+                //cart is een list met een amount en productId
                 cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
             }
-            List<CartItemViewModel> civm = (from product in _context.Product.AsEnumerable()
-                                            join cartItem in cart
-                                            on product.Id equals cartItem.ProductId
-                                            select new CartItemViewModel
-                                            {
-                                                Amount = cartItem.Amount,
-                                                Title = product.Title,
-                                                Price = product.Price,
-                                                ProductId = cartItem.ProductId,
-                                                Image = product.Image
-                                            }).ToList();
+
             Order o = new Order();
             o.DatePlaced = DateTime.Now;
             o.Status = "Verwerken";
+            o.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            foreach (var item in civm)
+            List<OrderLine> orderLineList = new List<OrderLine>();
+
+            foreach (var item in cart)
             {
                 OrderLine ol = new OrderLine();
                 ol.ProductId = item.ProductId;
                 ol.Amount = item.Amount;
-                ol.OrderId = o.Id;
-                o.OrderLines.Add(ol);
+                orderLineList.Add(ol);
             }
-            ViewBag["Order"] = o;
-            return View("Index", "DeliverySlots");
+
+            o.OrderLines = orderLineList;
+            ViewData["DeliverySlots"] = LoadDSlots();
+
+            _context.Add(o);
+            _context.SaveChanges();
+
+            return View(o);
         }
 
         public IActionResult IncreaseAmount(int id)
@@ -185,6 +188,30 @@ namespace MC1000.Controllers
             HttpContext.Session.SetString("cart", cartStr);
 
             return RedirectToAction("ShowCart");
+        }
+
+        private List<DeliverySlot> LoadDSlots()
+        {
+            var deliveries = _context.DeliverySlot;
+            List<DeliverySlot> DList = new List<DeliverySlot>();
+            foreach (var item in deliveries)
+            {
+                DeliverySlot d = new DeliverySlot();
+                d.DeliveryDate = item.DeliveryDate;
+                List<TimeSlot> timelist = new List<TimeSlot>();
+
+                foreach (var time in _context.TimeSlot)
+                {
+                    if (time.DeliverySlotId == item.Id)
+                    {
+                        timelist.Add(time);
+                    }
+                }
+                d.TimeSlots = timelist;
+
+                DList.Add(d);
+            }
+            return DList;
         }
     }
 }

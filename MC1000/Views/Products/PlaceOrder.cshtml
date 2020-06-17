@@ -1,0 +1,80 @@
+﻿@model MC1000.Models.Order
+
+@{
+    ViewData["Title"] = "PlaceOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<DeliverySlot> delivery = ViewData["DeliverySlots"] as IEnumerable<DeliverySlot>;
+
+}
+
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <br />
+        <header>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Uw Bestelling</h2>
+        </header>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.DatePlaced)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DatePlaced)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.TimeSlot)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TimeSlot.Id)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.User)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UserId)
+                </dd>
+            </dl>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            Aantal
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.OrderLines)
+                    {
+                        <tr>
+                            <td>@item.ProductId</td>
+                            <td>@item.Amount</td>
+                        </tr>
+
+                    }
+            </table>
+        </div>
+
+        <h1>Kies een Bezorgmoment</h1>
+        <div>
+            @*//plaats hier functionaliteit voor timeslot kiezen*@
+        </div>
+
+        <div>
+            <a asp-action="ShowCart">Terug naar winkelwagen</a>
+        </div>
+    </div>
+</section>
