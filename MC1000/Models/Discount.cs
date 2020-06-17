@@ -18,6 +18,7 @@ namespace MC1000.Models
         public Promotion Promotion { get; set; }
         public int PromotionId { get; set; }
         public string EAN { get; set; }
+        public string ImageURL { get; set; }
 
         //[ForeignKey("Product")]
         //public int ProductId { get; set; }

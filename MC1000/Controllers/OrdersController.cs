@@ -28,7 +28,7 @@ namespace MC1000.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var applicationDbContext = _context.Order.Include(o => o.DeliverySlot).Include(o => o.User).Where(o => o.UserId == userId);
+            var applicationDbContext = _context.Order.Include(o => o.TimeSlot).Include(o => o.User).Where(o => o.UserId == userId);
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -42,7 +42,7 @@ namespace MC1000.Controllers
             }
 
             var order = await _context.Order
-                .Include(o => o.DeliverySlot)
+                .Include(o => o.TimeSlot)
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)

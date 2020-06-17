@@ -1,10 +1,23 @@
 ﻿@model IEnumerable<MC1000.Models.DeliverySlot>
 
 @{
+    IEnumerable<Order> order = ViewData["Order"] as IEnumerable<Order>;
     ViewData["Title"] = "Bezorgdatum";
 }
 
 <h1>Bezorgdatum overzicht</h1>
+
+@foreach (var item in order)
+{
+    @item.Id
+    @item.Status
+    foreach (var i in item.OrderLines)
+    {
+        @i.ProductId
+        @i.Amount
+
+    }
+}
 
 <table class="table">
     <thead>

@@ -23,7 +23,7 @@ namespace MC1000.Areas.CMS.Controllers
         // GET: CMS/Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Order.Include(o => o.DeliverySlot).Include(o => o.User);
+            var applicationDbContext = _context.Order.Include(o => o.TimeSlot).Include(o => o.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace MC1000.Areas.CMS.Controllers
             }
 
             var order = await _context.Order
-                .Include(o => o.DeliverySlot)
+                .Include(o => o.TimeSlot)
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
@@ -56,7 +56,7 @@ namespace MC1000.Areas.CMS.Controllers
         }
 
         // POST: CMS/Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,7 +68,7 @@ namespace MC1000.Areas.CMS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.DeliverySlotId);
+            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.TimeSlot);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
@@ -86,13 +86,13 @@ namespace MC1000.Areas.CMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.DeliverySlotId);
+            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.TimeSlot);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
 
         // POST: CMS/Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -123,7 +123,7 @@ namespace MC1000.Areas.CMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.DeliverySlotId);
+            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.TimeSlot);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
@@ -137,7 +137,7 @@ namespace MC1000.Areas.CMS.Controllers
             }
 
             var order = await _context.Order
-                .Include(o => o.DeliverySlot)
+                .Include(o => o.TimeSlot)
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)

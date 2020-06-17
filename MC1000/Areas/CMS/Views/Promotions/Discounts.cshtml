@@ -35,9 +35,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ValidUntil)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Promotion.Id)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.EAN)
                 </td>
@@ -45,11 +43,9 @@
                     <a asp-area="CMS" asp-controller="Discounts" asp-action="Edit" asp-route-id="@item.Id">Bewerken</a> |
                     <a asp-area="CMS" asp-controller="Discounts" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-area="CMS" asp-controller="Discounts" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a> |
-                    <a asp-action="DiscountCreate" asp-route-promoid="@item.PromotionId">Maak nog een korting aan</a>
-
+                    <a asp-action="DiscountCreate" asp-route-promoid="">Maak nog een korting aan</a>
                 </td>
             </tr>
         }
     </tbody>
-
 </table>

@@ -123,16 +123,15 @@ namespace MC1000.Controllers
                         if (!_context.Discount.Any(u => u.DiscountedPrice == discountedPrice &&
                         u.ValidUntil == discountValid && u.EAN == EAN))
                         {
-                            Discount d = new Discount
-                            {
-                                EAN = discount.Descendants("EAN").First().Value,
-                                //var proId = _context.Product.Where(z => z.EAN == d.EAN).FirstOrDefault().Id;
+                            Discount d = new Discount();
 
-                                //d.ProductId = proId;
+                            d.EAN = discount.Descendants("EAN").First().Value;
+                            string dImg = products.Where(x => x.Descendants("EAN").First().Value == d.EAN).Descendants("Image").FirstOrDefault().Value;
+                            d.ImageURL = dImg;
 
-                                DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider),
-                                ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value)
-                            };
+                            d.DiscountedPrice = Decimal.Parse(discount.Descendants("DiscountPrice").First().Value, style, provider);
+                            d.ValidUntil = DateTime.Parse(discount.Descendants("ValidUntil").First().Value);
+
                             p.Discounts.Add(d);
                         }
                     }

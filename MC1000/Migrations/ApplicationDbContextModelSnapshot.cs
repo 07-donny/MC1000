@@ -65,6 +65,9 @@ namespace MC1000.Migrations
                     b.Property<string>("EAN")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PromotionId")
                         .HasColumnType("int");
 
@@ -135,18 +138,18 @@ namespace MC1000.Migrations
                     b.Property<DateTime>("DatePlaced")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeliverySlotId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TimeSlotId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliverySlotId");
+                    b.HasIndex("TimeSlotId");
 
                     b.HasIndex("UserId");
 
@@ -536,9 +539,9 @@ namespace MC1000.Migrations
 
             modelBuilder.Entity("MC1000.Models.Order", b =>
                 {
-                    b.HasOne("MC1000.Models.DeliverySlot", "DeliverySlot")
+                    b.HasOne("MC1000.Models.TimeSlot", "TimeSlot")
                         .WithMany()
-                        .HasForeignKey("DeliverySlotId")
+                        .HasForeignKey("TimeSlotId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

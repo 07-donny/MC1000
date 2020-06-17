@@ -12,9 +12,9 @@ namespace MC1000.Models
         public string Status { get; set; }
 
         // Bijbehorende DeliverySlot
-        public int DeliverySlotId { get; set; }
+        public int TimeSlotId { get; set; }
 
-        public DeliverySlot DeliverySlot { get; set; }
+        public TimeSlot TimeSlot { get; set; }
 
         // Gekoppelde gebruiker
         public string UserId { get; set; }

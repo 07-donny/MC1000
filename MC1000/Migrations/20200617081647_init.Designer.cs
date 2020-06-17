@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MC1000.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200615093226_yeet2")]
-    partial class yeet2
+    [Migration("20200617081647_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,8 +67,8 @@ namespace MC1000.Migrations
                     b.Property<string>("EAN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PromotionId")
                         .HasColumnType("int");
@@ -77,8 +77,6 @@ namespace MC1000.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.HasIndex("PromotionId");
 
@@ -142,18 +140,18 @@ namespace MC1000.Migrations
                     b.Property<DateTime>("DatePlaced")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeliverySlotId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TimeSlotId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliverySlotId");
+                    b.HasIndex("TimeSlotId");
 
                     b.HasIndex("UserId");
 
@@ -208,6 +206,9 @@ namespace MC1000.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("ShortDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubSub")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -524,10 +525,6 @@ namespace MC1000.Migrations
 
             modelBuilder.Entity("MC1000.Models.Discount", b =>
                 {
-                    b.HasOne("MC1000.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
                     b.HasOne("MC1000.Models.Promotion", "Promotion")
                         .WithMany("Discounts")
                         .HasForeignKey("PromotionId")
@@ -544,9 +541,9 @@ namespace MC1000.Migrations
 
             modelBuilder.Entity("MC1000.Models.Order", b =>
                 {
-                    b.HasOne("MC1000.Models.DeliverySlot", "DeliverySlot")
+                    b.HasOne("MC1000.Models.TimeSlot", "TimeSlot")
                         .WithMany()
-                        .HasForeignKey("DeliverySlotId")
+                        .HasForeignKey("TimeSlotId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

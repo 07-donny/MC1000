@@ -106,7 +106,8 @@ namespace MC1000.Migrations
                     FullDescription = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     Weight = table.Column<string>(nullable: true),
-                    Price = table.Column<double>(nullable: false)
+                    Price = table.Column<double>(nullable: false),
+                    SubSub = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -277,34 +278,6 @@ namespace MC1000.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DatePlaced = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
-                    DeliverySlotId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Order_DeliverySlot_DeliverySlotId",
-                        column: x => x.DeliverySlotId,
-                        principalTable: "DeliverySlot",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Order_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TimeSlot",
                 columns: table => new
                 {
@@ -335,7 +308,8 @@ namespace MC1000.Migrations
                     DiscountedPrice = table.Column<decimal>(nullable: false),
                     ValidUntil = table.Column<DateTime>(nullable: false),
                     PromotionId = table.Column<int>(nullable: false),
-                    EAN = table.Column<string>(nullable: true)
+                    EAN = table.Column<string>(nullable: true),
+                    ImageURL = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -367,6 +341,34 @@ namespace MC1000.Migrations
                         principalTable: "SubCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DatePlaced = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
+                    TimeSlotId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_TimeSlot_TimeSlotId",
+                        column: x => x.TimeSlotId,
+                        principalTable: "TimeSlot",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -446,9 +448,9 @@ namespace MC1000.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_DeliverySlotId",
+                name: "IX_Order_TimeSlotId",
                 table: "Order",
-                column: "DeliverySlotId");
+                column: "TimeSlotId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_UserId",
@@ -514,9 +516,6 @@ namespace MC1000.Migrations
                 name: "SubSubCategory");
 
             migrationBuilder.DropTable(
-                name: "TimeSlot");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -532,13 +531,16 @@ namespace MC1000.Migrations
                 name: "SubCategory");
 
             migrationBuilder.DropTable(
-                name: "DeliverySlot");
+                name: "TimeSlot");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "DeliverySlot");
         }
     }
 }

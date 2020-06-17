@@ -93,6 +93,41 @@ namespace MC1000.Controllers
             return View(civm);
         }
 
+        public IActionResult PlaceOrder()
+        {
+            List<CartItem> cart = new List<CartItem>();
+            var cartStr = HttpContext.Session.GetString("cart");
+            if (cartStr != null)
+            {
+                cart = JsonConvert.DeserializeObject<List<CartItem>>(cartStr);
+            }
+            List<CartItemViewModel> civm = (from product in _context.Product.AsEnumerable()
+                                            join cartItem in cart
+                                            on product.Id equals cartItem.ProductId
+                                            select new CartItemViewModel
+                                            {
+                                                Amount = cartItem.Amount,
+                                                Title = product.Title,
+                                                Price = product.Price,
+                                                ProductId = cartItem.ProductId,
+                                                Image = product.Image
+                                            }).ToList();
+            Order o = new Order();
+            o.DatePlaced = DateTime.Now;
+            o.Status = "Verwerken";
+
+            foreach (var item in civm)
+            {
+                OrderLine ol = new OrderLine();
+                ol.ProductId = item.ProductId;
+                ol.Amount = item.Amount;
+                ol.OrderId = o.Id;
+                o.OrderLines.Add(ol);
+            }
+            ViewBag["Order"] = o;
+            return View("Index", "DeliverySlots");
+        }
+
         public IActionResult IncreaseAmount(int id)
         {
             List<CartItem> cart = new List<CartItem>();
