@@ -6,7 +6,11 @@
 }
 
 <h1>Kortingen</h1>
-
+@{
+    var url = Url.Action();
+    var spliturl = url.Split("CMS/Promotions/Discounts/");
+}
+<a asp-action="DiscountCreate" asp-route-promoid="@spliturl[1]">Voeg een korting toe</a>
 <table class="table">
     <thead>
         <tr>
@@ -43,7 +47,6 @@
                     <a asp-area="CMS" asp-controller="Discounts" asp-action="Edit" asp-route-id="@item.Id">Bewerken</a> |
                     <a asp-area="CMS" asp-controller="Discounts" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-area="CMS" asp-controller="Discounts" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a> |
-                    <a asp-action="DiscountCreate" asp-route-promoid="">Maak nog een korting aan</a>
                 </td>
             </tr>
         }

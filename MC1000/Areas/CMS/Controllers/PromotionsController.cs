@@ -129,7 +129,7 @@ namespace MC1000.Areas.CMS.Controllers
         }
         //===============================================================================================================
         //Discount beheer
-        public async Task<IActionResult> Discounts(int? id) //index
+        public async Task<IActionResult> Discounts(int id) //index
         {
             if (id == null)
             {
