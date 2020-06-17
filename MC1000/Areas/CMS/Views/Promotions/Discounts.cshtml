@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<MC1000.Models.Discount>
 
 @{
-    ViewData["Title"] = "Discounts";
+    ViewData["Title"] = "Kortingen";
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Discounts</h1>
+<h1>Kortingen</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DiscountedPrice)
+                Nieuwe prijs
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValidUntil)
+                Geldig tot
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Promotion)
+                Aanbieding
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EAN)
@@ -42,10 +42,10 @@
                     @Html.DisplayFor(modelItem => item.EAN)
                 </td>
                 <td>
-                    <a asp-area="CMS" asp-controller="Discounts" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-area="CMS" asp-controller="Discounts" asp-action="Edit" asp-route-id="@item.Id">Bewerken</a> |
                     <a asp-area="CMS" asp-controller="Discounts" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-area="CMS" asp-controller="Discounts" asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                    <a asp-action="DiscountCreate" asp-route-promoid="@item.PromotionId">Create another discount</a>
+                    <a asp-area="CMS" asp-controller="Discounts" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a> |
+                    <a asp-action="DiscountCreate" asp-route-promoid="@item.PromotionId">Maak nog een korting aan</a>
 
                 </td>
             </tr>

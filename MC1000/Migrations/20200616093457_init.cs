@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class asod : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -335,18 +335,11 @@ namespace MC1000.Migrations
                     DiscountedPrice = table.Column<decimal>(nullable: false),
                     ValidUntil = table.Column<DateTime>(nullable: false),
                     PromotionId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false),
                     EAN = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discount", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Discount_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Discount_Promotion_PromotionId",
                         column: x => x.PromotionId,
@@ -441,11 +434,6 @@ namespace MC1000.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Discount_ProductId",
-                table: "Discount",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discount_PromotionId",

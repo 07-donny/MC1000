@@ -8,13 +8,13 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nieuwe aanmaken</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Titel
             </th>
             <th></th>
         </tr>
@@ -26,9 +26,9 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit Name</a> |
-                <a asp-action="Discounts" asp-route-id="@item.Id">Discounts</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Bewerken</a> |
+                <a asp-action="Discounts" asp-route-id="@item.Id">Kortingen</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
 
             </td>
         </tr>
