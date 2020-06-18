@@ -10,13 +10,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StartTime)
+                Van
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndTime)
+                Tot
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Prijs
             </th>
         </tr>
     </thead>
@@ -31,10 +31,10 @@
                     @Html.DisplayFor(modelItem => item.EndTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    €@Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a asp-action="PlaceOrder" asp-route-id="@item.Id">Kies dit tijdstip</a>        
+                    <a class="btn btn-outline-danger btn-xs" asp-controller="Products" asp-action="PlaceOrder" asp-route-id="@item.Id">Kies dit tijdstip en plaats de bestelling</a>
                 </td>
             </tr>
         }

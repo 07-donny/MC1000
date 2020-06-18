@@ -97,7 +97,7 @@ namespace MC1000.Controllers
             return View(civm);
         }
 
-        public IActionResult PlaceOrder()
+        public IActionResult PlaceOrder(int id)
         {
             List<CartItem> cart = new List<CartItem>();
             var cartStr = HttpContext.Session.GetString("cart");
@@ -111,6 +111,7 @@ namespace MC1000.Controllers
             o.DatePlaced = DateTime.Now;
             o.Status = "Verwerken";
             o.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            o.TimeSlotId = id;
 
             List<OrderLine> orderLineList = new List<OrderLine>();
 

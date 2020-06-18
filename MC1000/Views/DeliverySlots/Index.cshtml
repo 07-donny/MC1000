@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DeliveryDate)
+                Bezorgdatum
             </th>
             <th></th>
         </tr>
@@ -23,7 +23,7 @@
                     @Html.DisplayFor(modelItem => item.DeliveryDate)
                 </td>
                 <td>
-                    <a asp-action="TimeSlot" asp-route-id="@item.Id">Kies een tijdstip</a>
+                    <a class="btn btn-outline-danger btn-xs" asp-action="TimeSlot" asp-route-id="@item.Id">Kies deze dag</a>
                 </td>
             </tr>
         }
