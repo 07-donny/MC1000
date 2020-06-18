@@ -22,5 +22,10 @@ namespace MC1000.Models
         public User User { get; set; }
 
         public List<OrderLine> OrderLines { get; set; }
+
+        internal Task Include()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
