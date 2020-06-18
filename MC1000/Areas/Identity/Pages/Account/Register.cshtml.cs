@@ -56,11 +56,11 @@ namespace MC1000.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "Het wachtwoord moet teminste {2} en maximaal {1} characters lang zijn.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Wachtwoord")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Wachtwoord bevestigen")]
             [Compare("Password", ErrorMessage = "Het wachtwoord en het bevestigde wachtwoord komt niet overeen.")]
             public string ConfirmPassword { get; set; }
 
