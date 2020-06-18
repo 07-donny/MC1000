@@ -53,6 +53,7 @@ namespace MC1000.Controllers
             {
                 products = products.Where(v => v.Title.Contains(searchString));
             }
+
             return View(products);
         }
 

@@ -62,14 +62,7 @@
                         </td>
 
                         <td>
-                            @{
-                                var temp = Convert.ToString(item.TotalPrice);
-                                var temp2 = temp.Split(',');
-                                var temp3 = temp2[1].PadRight(2, '0');
-                                var temp4 = temp3.Substring(0, 2);
-                                var total = temp2[0] + "," + temp4;
-                                }
-                                €@Html.DisplayFor(modelItem => total)
+                            €@Html.DisplayFor(modelItem => item.TotalPrice)
                         </td>
                         <td>
                             <a class="btn btn-outline-danger btn-xs" asp-action="DeleteFromCart" asp-route-id="@item.ProductId"><i class="fa fa-trash" aria-hidden="true"></i></a>
