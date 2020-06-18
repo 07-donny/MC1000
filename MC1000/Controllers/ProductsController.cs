@@ -154,6 +154,7 @@ namespace MC1000.Controllers
             HttpContext.Session.SetString("cart", cartStr);
 
             return RedirectToAction("ShowCart");
+            // ignore dit
         }
 
         public IActionResult DecreaseAmount(int id)
