@@ -122,18 +122,19 @@
         <!-- Promo Grid Items-->
         <div class="row">
             <!-- Promo Item -->
-            @foreach (var n in news)
+            @foreach (var item in Model)
             {
-
                 <div class="col-md-6 col-lg-4 mb-5">
+                    <a asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@item.Id">
                     <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                             <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                         </div>
                         <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Product met Korting" />
-                        <bold>@n.Title</bold>
+                        <bold>@item.Title</bold>
                         <p>Klik hier om dit artikel te lezen!</p>
                     </div>
+                    </a>
                 </div>
 
             }

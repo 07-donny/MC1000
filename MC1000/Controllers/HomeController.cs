@@ -12,16 +12,19 @@ using System.ComponentModel;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using System.Dynamic;
+using Microsoft.AspNetCore.Identity;
 
 namespace MC1000.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -29,8 +32,9 @@ namespace MC1000.Controllers
             ViewData["Banners"] = LoadBanner();
             ViewData["News"] = LoadNews();
             ViewData["Promotions"] = LoadPromotion();
+            var applicationDbContext = _context.News.Include(n => n.User);
 
-            return View();
+            return View(applicationDbContext.ToListAsync().Result);
         }
 
         public IActionResult Privacy()
@@ -51,6 +55,24 @@ namespace MC1000.Controllers
         public IActionResult LeverenVerzenden()
         {
             return View();
+        }
+
+        public async Task<IActionResult> News(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var news = await _context.News
+                .Include(n => n.User)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (news == null)
+            {
+                return NotFound();
+            }
+
+            return View(news);
         }
 
         public async Task<IActionResult> CategoriesAsync()

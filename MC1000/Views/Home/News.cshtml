@@ -1,7 +1,41 @@
-﻿
+﻿@model MC1000.Models.News
+
 @{
-    ViewData["Title"] = "Nieuws";
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Nieuws</h1>
+    <section class="page-section portfolio" id="portfolio">
+        <br />
+        <div class="container">
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.Title</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <dl class="row">
+            <dt class="col-sm-2">
+            </dt>
+            <dd class="col-sm-10">
+                @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Text))
+            </dd>
+            <dt class="col-sm-2">
+                Gepubliceerd op:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class="col-sm-2">
+                Auteur:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+        </dl>
+    </div>
 
