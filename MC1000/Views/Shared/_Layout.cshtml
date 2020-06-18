@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -34,6 +38,7 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Categories">Categorieën</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Aanbiedingen">Aanbiedingen</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Products" asp-action="ShowCart">Winkelwagen</a></li>
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Orders" asp-action="Index">Bestellingen</a></li>
@@ -42,6 +47,30 @@
                     {
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="CMS" asp-controller="CMS" asp-action="Index">CMS</a></li>
                     }
+
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            var user = await UserManager.GetUserAsync(User);
+                            var img = user.Image;
+
+                            @if (img != null)
+                            {
+                                <img class="img-profile rounded-circle" src="~/uploads/images/avatars/@img" style="width: 50px; height: 50px;">
+
+                            }
+                            else
+                            {
+                                <img class="img-profile rounded-circle" src="~/uploads/images/avatars/default.webp" style="width: 50px; height: 50px;">
+                            }
+                        }
+                        else
+                        {
+                            <img class="img-profile rounded-circle" src="~/uploads/images/avatars/default.webp" style="width: 50px; height: 50px;">
+                        }
+
+                    }
+
                     <partial name="_LoginPartial" />
                 </ul>
             </div>

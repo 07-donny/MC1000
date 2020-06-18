@@ -8,6 +8,7 @@
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
+
     <div class="col-md-6">
         <form id="profile-form" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -49,7 +50,6 @@
                 <label asp-for="Input.ImageUpload"></label>
                 <input asp-for="Input.ImageUpload" type="file" class="form-control" />
                 <span asp-validation-for="Input.ImageUpload"></span>
-
             </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
