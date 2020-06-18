@@ -9,10 +9,12 @@ using MC1000.Data;
 using MC1000.Models;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MC1000.Areas.CMS
 {
     [Area("CMS")]
+    [Authorize(Roles = "Admin, Redactie")]
     public class HomeBannersController : Controller
     {
         private readonly ApplicationDbContext _context;

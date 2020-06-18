@@ -9,10 +9,12 @@ using MC1000.Data;
 using MC1000.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MC1000.Areas.CMS.Controllers
 {
     [Area("CMS")]
+    [Authorize(Roles = "Admin, Redactie")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;

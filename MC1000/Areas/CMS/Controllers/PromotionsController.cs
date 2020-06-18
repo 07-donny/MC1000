@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MC1000.Data;
 using MC1000.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MC1000.Areas.CMS.Controllers
 {
     [Area("CMS")]
+    [Authorize(Roles = "Admin, Redactie")]
     public class PromotionsController : Controller
     {
         private readonly ApplicationDbContext _context;
