@@ -17,6 +17,7 @@ namespace MC1000.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Category>()
             .HasMany(p => p.SubCategories)
             .WithOne(c => c.Category)

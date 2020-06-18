@@ -44,6 +44,7 @@ namespace MC1000.Controllers
             var order = await _context.Order
                 .Include(o => o.TimeSlot)
                 .Include(o => o.User)
+                .Include(o => o.OrderLines)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
