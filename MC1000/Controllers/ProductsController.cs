@@ -115,6 +115,8 @@ namespace MC1000.Controllers
             var currentUser = _userManager.FindByIdAsync(o.UserId).Result;
             o.User = currentUser;
             o.TimeSlotId = id;
+            var currentUser = _userManager.FindByIdAsync(o.UserId).Result;
+            o.User = currentUser;
 
             List<OrderLine> orderLineList = new List<OrderLine>();
 
@@ -123,10 +125,12 @@ namespace MC1000.Controllers
                 OrderLine ol = new OrderLine();
                 ol.ProductId = item.ProductId;
                 ol.Amount = item.Amount;
+                ol.Product = _context.Product.Where(p => p.Id == item.ProductId).FirstOrDefault();
                 orderLineList.Add(ol);
             }
 
             o.OrderLines = orderLineList;
+
             ViewData["DeliverySlots"] = LoadDSlots();
 
             _context.Add(o);

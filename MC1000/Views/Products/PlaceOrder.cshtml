@@ -23,7 +23,7 @@
             <hr />
             <dl class="row">
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.DatePlaced)
+                    Datum geplaatst
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.DatePlaced)
@@ -35,16 +35,22 @@
                     @Html.DisplayFor(model => model.Status)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.TimeSlot)
+                    Bezorgdatum
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.TimeSlot.Id)
+                    @Html.DisplayFor(model => model.TimeSlot.DeliverySlot.DeliveryDate)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User)
+                    Bezorgings tijdsvak
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.User.UserName)
+                    @Html.DisplayFor(model => model.TimeSlot.StartTime) - @Html.DisplayFor(model => model.TimeSlot.EndTime)
+                </dd>
+                <dt class="col-sm-2">
+                    Gebruiker
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.User.Email)
                 </dd>
             </dl>
             <table class="table">
@@ -56,12 +62,16 @@
                         <th>
                             Aantal
                         </th>
+                        <th>
+                            Prijs
+                        </th>
                     </tr>
                     @foreach (var item in Model.OrderLines)
                     {
                         <tr>
-                            <td>@item.ProductId</td>
+                            <td>@item.Product.Title</td>
                             <td>@item.Amount</td>
+                            <td>@(@item.Product.Price*@item.Amount)</td>
                         </tr>
 
                     }
