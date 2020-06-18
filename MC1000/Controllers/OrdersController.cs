@@ -41,15 +41,7 @@ namespace MC1000.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Order
-                .Include(o => o.TimeSlot)
-                .Include(o => o.User)
-                .Include(o => o.OrderLines)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
+            var order = _context.Order.Where(i => i.Id == id);
 
             return View(order);
         }

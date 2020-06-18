@@ -559,7 +559,7 @@ namespace MC1000.Migrations
                         .IsRequired();
 
                     b.HasOne("MC1000.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("OrderLines")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

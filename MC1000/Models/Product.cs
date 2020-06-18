@@ -21,5 +21,6 @@ namespace MC1000.Models
         public double Price { get; set; }
 
         public string SubSub { get; set; }
+        public List<OrderLine> OrderLines { get; set; }
     }
 }
