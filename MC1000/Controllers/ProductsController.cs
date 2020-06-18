@@ -111,6 +111,8 @@ namespace MC1000.Controllers
             o.DatePlaced = DateTime.Now;
             o.Status = "Verwerken";
             o.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUser = _userManager.FindByIdAsync(o.UserId).Result;
+            o.User = currentUser;
             o.TimeSlotId = id;
 
             List<OrderLine> orderLineList = new List<OrderLine>();

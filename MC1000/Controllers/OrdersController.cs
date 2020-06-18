@@ -34,7 +34,7 @@ namespace MC1000.Controllers
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsAsync(int? id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace MC1000.Controllers
             var order = await _context.Order
                 .Include(o => o.TimeSlot)
                 .Include(o => o.User)
-                .Include(o => o.OrderLines)
+                .Include(o => o.OrderLines).ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
