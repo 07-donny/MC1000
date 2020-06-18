@@ -4,63 +4,50 @@
     ViewData["Title"] = "Bezorgtijd";
 }
 
-<h1>Bezorgtijd overzicht</h1>
+<section class="page-section portfolio" id="portfolio">
+    <br /> @*schaamteloze br*@
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Bezorgmomenten</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Van
-            </th>
-            <th>
-                Tot
-            </th>
-            <th>
-                Prijs
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndTime)
-                </td>
-                <td>
-                    €@Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <a class="btn btn-outline-danger btn-xs" asp-controller="Products" asp-action="PlaceOrder" asp-route-id="@item.Id">Kies dit tijdstip en plaats de bestelling</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DeliveryDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeliveryDate)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Kies een tijdstip</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>*@
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Van
+                    </th>
+                    <th>
+                        Tot
+                    </th>
+                    <th>
+                        Prijs
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            €@Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-danger btn-xs" asp-controller="Products" asp-action="PlaceOrder" asp-route-id="@item.Id">Kies dit tijdstip en plaats de bestelling</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

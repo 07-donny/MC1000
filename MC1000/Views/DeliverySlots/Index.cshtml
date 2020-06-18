@@ -4,28 +4,46 @@
     ViewData["Title"] = "Bezorgdatum";
 }
 
-<h1>Bezorgdatum overzicht</h1>
+<section class="page-section portfolio" id="portfolio">
+    <br /> @*schaamteloze br*@
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Bezorgdatum Overzicht</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Bezorgdatum
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeliveryDate)
-                </td>
-                <td>
-                    <a class="btn btn-outline-danger btn-xs" asp-action="TimeSlot" asp-route-id="@item.Id">Kies deze dag</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Bezorgdatum
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeliveryDate)
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-danger btn-xs" asp-action="TimeSlot" asp-route-id="@item.Id">Kies deze dag</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
