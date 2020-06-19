@@ -115,8 +115,6 @@ namespace MC1000.Controllers
             var currentUser = _userManager.FindByIdAsync(o.UserId).Result;
             o.User = currentUser;
             o.TimeSlotId = id;
-            var currentUser = _userManager.FindByIdAsync(o.UserId).Result;
-            o.User = currentUser;
 
             List<OrderLine> orderLineList = new List<OrderLine>();
 

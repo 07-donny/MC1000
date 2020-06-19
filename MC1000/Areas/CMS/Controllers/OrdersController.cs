@@ -52,7 +52,7 @@ namespace MC1000.Areas.CMS.Controllers
         // GET: CMS/Orders/Create
         public IActionResult Create()
         {
-            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id");
+            ViewData["TimeSlotId"] = new SelectList(_context.TimeSlot, "Id", "Id");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -62,7 +62,7 @@ namespace MC1000.Areas.CMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DatePlaced,Status,DeliverySlotId,UserId")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,DatePlaced,Status,TimeSlotId,UserId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace MC1000.Areas.CMS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.TimeSlot);
+            ViewData["TimeSlotId"] = new SelectList(_context.TimeSlot, "Id", "Id", order.TimeSlotId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
@@ -88,7 +88,7 @@ namespace MC1000.Areas.CMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.TimeSlot);
+            ViewData["TimeSlotId"] = new SelectList(_context.TimeSlot, "Id", "Id", order.TimeSlotId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
@@ -98,7 +98,7 @@ namespace MC1000.Areas.CMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DatePlaced,Status,DeliverySlotId,UserId")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DatePlaced,Status,TimeSlotId,UserId")] Order order)
         {
             if (id != order.Id)
             {
@@ -125,7 +125,7 @@ namespace MC1000.Areas.CMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeliverySlotId"] = new SelectList(_context.DeliverySlot, "Id", "Id", order.TimeSlot);
+            ViewData["TimeSlotId"] = new SelectList(_context.TimeSlot, "Id", "Id", order.TimeSlotId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
             return View(order);
         }
