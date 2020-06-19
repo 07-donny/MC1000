@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MC1000.Migrations
 {
-    public partial class bruh : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,7 +106,7 @@ namespace MC1000.Migrations
                     FullDescription = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     Weight = table.Column<string>(nullable: true),
-                    Price = table.Column<double>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
                     SubSub = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

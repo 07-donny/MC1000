@@ -13,41 +13,41 @@
         <form id="profile-form" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username"></label>
+                <label asp-for="Username">Gebruikersnaam</label>
                 <input asp-for="Username" class="form-control" disabled />
             </div>
             <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
+                <label asp-for="Input.PhoneNumber">Telefoon</label>
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Street"></label>
+                <label asp-for="Input.Street">Straat</label>
                 <input asp-for="Input.Street" class="form-control" />
                 <span asp-validation-for="Input.Street" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.HouseNumber"></label>
+                <label asp-for="Input.HouseNumber">Huisnummer</label>
                 <input asp-for="Input.HouseNumber" class="form-control" />
                 <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ZipCode"></label>
+                <label asp-for="Input.ZipCode">Postcode</label>
                 <input asp-for="Input.ZipCode" class="form-control" />
                 <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.City"></label>
+                <label asp-for="Input.City">Stad</label>
                 <input asp-for="Input.City" class="form-control" />
                 <span asp-validation-for="Input.City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Country"></label>
+                <label asp-for="Input.Country">Land</label>
                 <input asp-for="Input.Country" class="form-control" />
                 <span asp-validation-for="Input.Country" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ImageUpload"></label>
+                <label asp-for="Input.ImageUpload">Avatar</label>
                 <input asp-for="Input.ImageUpload" type="file" class="form-control" />
                 <span asp-validation-for="Input.ImageUpload"></span>
             </div>

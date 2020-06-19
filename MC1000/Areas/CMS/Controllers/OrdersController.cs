@@ -49,32 +49,6 @@ namespace MC1000.Areas.CMS.Controllers
             return View(order);
         }
 
-        // GET: CMS/Orders/Create
-        public IActionResult Create()
-        {
-            ViewData["TimeSlotId"] = new SelectList(_context.TimeSlot, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
-        }
-
-        // POST: CMS/Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DatePlaced,Status,TimeSlotId,UserId")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TimeSlotId"] = new SelectList(_context.TimeSlot, "Id", "Id", order.TimeSlotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
-            return View(order);
-        }
-
         // GET: CMS/Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
