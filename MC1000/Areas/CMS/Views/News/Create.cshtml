@@ -14,7 +14,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -39,7 +39,10 @@
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" class="form-control" value="@UserManager.GetUserName(User)" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
-
+            </div>
+            <div class="form-group">
+                <label class="control-label">Afbeelding</label>
+                <input type="file" name="Afbeelding" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Aanmaken" class="btn btn-primary" />

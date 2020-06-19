@@ -9,6 +9,8 @@ using MC1000.Data;
 using MC1000.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace MC1000.Areas.CMS.Controllers
 {
@@ -57,7 +59,7 @@ namespace MC1000.Areas.CMS.Controllers
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "Id");
-           
+
             return View();
         }
 
@@ -66,10 +68,24 @@ namespace MC1000.Areas.CMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text,Date,UserId,UserName")] News news)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,Date,UserId,UserName,AfbeeldingUrl")] News news, IFormFile Afbeelding)
         {
             if (ModelState.IsValid)
             {
+                // Code voor het toevoegen van een afbeelding
+                if (Afbeelding != null && Afbeelding.Length > 0)
+                {
+                    string fileGuid = Guid.NewGuid().ToString();
+                    string extension = Path.GetExtension(Afbeelding.FileName);
+                    string filePath = Url.Content($"wwwroot/uploads/images/nieuws/{fileGuid}{extension}");
+
+                    news.AfbeeldingUrl = $"{fileGuid}{extension}";
+
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        Afbeelding.CopyTo(stream);
+                    }
+                }
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -104,7 +120,7 @@ namespace MC1000.Areas.CMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Date,UserId,UserName")] News news)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Date,UserId,UserName,AfbeeldingUrl")] News news, IFormFile Afbeelding)
         {
             if (id != news.Id)
             {
@@ -115,6 +131,19 @@ namespace MC1000.Areas.CMS.Controllers
             {
                 try
                 {
+                    if (Afbeelding != null && Afbeelding.Length > 0)
+                    {
+                        string fileGuid = Guid.NewGuid().ToString();
+                        string extension = Path.GetExtension(Afbeelding.FileName);
+                        string filePath = Url.Content($"wwwroot/uploads/images/nieuws/{fileGuid}{extension}");
+
+                        news.AfbeeldingUrl = $"{fileGuid}{extension}";
+
+                        using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            Afbeelding.CopyTo(stream);
+                        }
+                    }
                     _context.Update(news);
                     await _context.SaveChangesAsync();
                 }

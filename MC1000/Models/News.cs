@@ -17,5 +17,6 @@ namespace MC1000.Models
         public string UserId { get; set; }
         public string UserName { get; set; }
         public User User { get; set; }
+        public string AfbeeldingUrl { get; set; }
     }
 }

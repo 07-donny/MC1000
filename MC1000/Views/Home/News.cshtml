@@ -22,13 +22,22 @@
         <dt class="col-sm-2">
         </dt>
         <dd class="col-sm-10">
+            <!--Toont de bannerfoto-->
+            @if (!string.IsNullOrEmpty(Model.AfbeeldingUrl))
+            {
+                <img src="~/uploads/images/nieuws/@Model.AfbeeldingUrl" width="250" height="250" />
+            }
+        </dd>
+        <dt class="col-sm-2">
+        </dt>
+        <dd class="col-sm-10">
             @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Text))
         </dd>
         <dt class="col-sm-2">
             Gepubliceerd op:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Date)
+            @Model.Date.ToString("dd/MM/yyyy")
         </dd>
         <dt class="col-sm-2">
             Auteur:

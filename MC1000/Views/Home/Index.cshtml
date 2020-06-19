@@ -126,14 +126,19 @@
             {
                 <div class="col-md-6 col-lg-4 mb-5">
                     <a asp-area="" asp-controller="Home" asp-action="News" asp-route-id="@item.Id">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            @if (item.AfbeeldingUrl != null)
+                            {
+                                <img class="img-fluid" src="~/uploads/images/nieuws/@item.AfbeeldingUrl" style="min-height: 332px; min-width: 332px" alt="Product met Korting" />
+                            } else {
+                                <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Product met Korting" />
+                            }
+                            <bold>@item.Title</bold>
+                            <p>Klik hier om dit artikel te lezen!</p>
                         </div>
-                        <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Product met Korting" />
-                        <bold>@item.Title</bold>
-                        <p>Klik hier om dit artikel te lezen!</p>
-                    </div>
                     </a>
                 </div>
 

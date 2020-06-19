@@ -2,25 +2,43 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name</a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="btn btn-secondary btn-sm">Log uit</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="Identity" asp-page="/Account/Register">Registreer</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-        </li>
-    }
-</ul>
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var user = await UserManager.GetUserAsync(User);
+                    var img = user.Image;
+
+                    @if (img != null)
+                    {
+                        <img class="img-profile rounded-circle" src="~/uploads/images/avatars/@img" style="width: 50px; height: 50px;">
+
+                    }
+                    else
+                    {
+                        <img class="img-profile rounded-circle" src="~/uploads/images/avatars/default.webp" style="width: 50px; height: 50px;">
+                    }
+                }
+                else
+                {
+                    <img class="img-profile rounded-circle" src="~/uploads/images/avatars/default.webp" style="width: 50px; height: 50px;">
+                }
+            </a>
+            <li class="nav-item mx-0 mx-lg-1">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="btn btn-secondary btn-sm">Log uit</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="Identity" asp-page="/Account/Register">Registreer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+            </li>
+        }
+    </ul>
