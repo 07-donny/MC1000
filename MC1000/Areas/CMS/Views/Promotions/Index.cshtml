@@ -5,7 +5,7 @@
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Promoties</h1>
 
 <p>
     <a asp-action="Create">Nieuwe aanmaken</a>
@@ -20,18 +20,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Bewerken</a> |
-                <a asp-action="Discounts" asp-route-id="@item.Id">Kortingen</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
-
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Bewerken</a> |
+                    <a asp-action="Discounts" asp-route-id="@item.Id">Kortingen</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

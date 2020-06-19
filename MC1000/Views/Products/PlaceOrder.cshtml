@@ -6,6 +6,7 @@
     IEnumerable<DeliverySlot> delivery = ViewData["DeliverySlots"] as IEnumerable<DeliverySlot>;
 
 }
+<script type="text/javascript" src="https://kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
@@ -53,8 +54,8 @@
                     @Html.DisplayFor(model => model.User.Email)
                 </dd>
             </dl>
-            <table class="table">
-                <thead class="thead-light">
+            <table id="sorttable" class="sortable table" cellspacing="0" width="100%">
+                <thead class="thead-dark">
                     <tr>
                         <th>
                             Product
@@ -83,3 +84,10 @@
         </div>
     </div>
 </section>
+
+<script>
+    $(document).ready(function () {
+        $('#sorttable').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
