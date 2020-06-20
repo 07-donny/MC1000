@@ -5,81 +5,109 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script type="text/javascript" src="https://kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<link rel="stylesheet" href="~/css/klantfb.css">
 
 <section class="page-section portfolio" id="portfolio">
     <br /> @*schaamteloze br*@
+<div class="container">
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Winkelwagen</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+
     <div class="container">
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Winkelwagen</h2>
-        <!-- Icon Divider-->
-        <div class="divider-custom">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-            <div class="divider-custom-line"></div>
-        </div>
-        <!-- PRODUCT -->
-        <table id="sorttable" class="sortable table" cellspacing="0" width="100%">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        Afbeelding
-                    </th>
-                    <th class="th-sm">
-                        Product
-                    </th>
-                    <th class="th-sm">
-                        Prijs
-                    </th>
-                    <th class="th-sm">
-                        Aantal
-                    </th>
-                    <th class="th-sm">
-                        Totale Prijs
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            <img class="img-responsive" src="@item.Image" alt="preview" width="120" height="80">
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
+        <button onclick="goBack()">Terug</button>
 
-                        <td>
-                            €@Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            <div class="col-4 col-sm-4 col-md-4">
-                                <div class="quantity">
-                                    <a class="btn btn-sm" asp-action="increaseAmount" asp-route-id="@item.ProductId">+</a>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                    <a class="btn btn-sm" asp-action="DecreaseAmount" asp-route-id="@item.ProductId">-</a>
-                                </div>
-                            </div>
-                        </td>
 
-                        <td>
-                            €@Html.DisplayFor(modelItem => item.TotalPrice)
-                        </td>
-                        <td>
-                            <a class="btn btn-outline-danger btn-xs" asp-action="DeleteFromCart" asp-route-id="@item.ProductId"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <!-- END PRODUCT -->
-        <div class="card-footer">
-            <div class="pull-right" style="margin: 10px">
-                @*<a class="btn btn-outline-danger btn-xs" asp-action="PlaceOrder">Order Plaatsen</a>*@
-                <a class="btn btn-outline-danger btn-xs" asp-controller="DeliverySlots" asp-action="Index">Bezorgmoment kiezen</a>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                <span class="sr-only">70% Complete</span>
             </div>
         </div>
     </div>
+
+    <!-- PRODUCT -->
+    <table id="sorttable" class="sortable table" cellspacing="0" width="100%">
+        <thead class="thead-dark" style="cursor: pointer">
+            <tr>
+                <th>
+                    Afbeelding
+                </th>
+                <th class="th-sm">
+                    Product
+                </th>
+                <th class="th-sm">
+                    Prijs
+                </th>
+                <th class="th-sm">
+                    Aantal
+                </th>
+                <th class="th-sm">
+                    Totale Prijs
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img class="img-responsive" src="@item.Image" alt="preview" width="120" height="80">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+
+                    <td>
+                        €@Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <div class="col-4">
+                            <div class="quantity">
+                                <div class="row" id="klantfb">
+                                    <div class="col">
+                                        <a class="btn btn-sm" asp-action="increaseAmount" asp-route-id="@item.ProductId">+</a>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn btn-sm" asp-action="DecreaseAmount" asp-route-id="@item.ProductId">-</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        €@Html.DisplayFor(modelItem => item.TotalPrice)
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-danger btn-xs" asp-action="DeleteFromCart" asp-route-id="@item.ProductId"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- END PRODUCT -->
+    <div class="card-footer">
+        <div class="pull-right" style="margin: 10px">
+            @*<a class="btn btn-outline-danger btn-xs" asp-action="PlaceOrder">Order Plaatsen</a>*@
+            <a class="btn btn-outline-danger btn-xs" asp-controller="DeliverySlots" asp-action="Index">Bezorgmoment kiezen</a>
+        </div>
+    </div>
+</div>
 </section>
 
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>

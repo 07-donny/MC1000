@@ -6,53 +6,71 @@
 
 <script type="text/javascript" src="https://kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 
+
 <section class="page-section portfolio" id="portfolio">
     <br /> @*schaamteloze br*@
-    <div class="container">
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Bezorgmomenten</h2>
-        <!-- Icon Divider-->
-        <div class="divider-custom">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-            <div class="divider-custom-line"></div>
-        </div>
-
-        <table id="sorttable" class="sortable table" cellspacing="0" width="100%">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        Van
-                    </th>
-                    <th>
-                        Tot
-                    </th>
-                    <th>
-                        Prijs
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndTime)
-                        </td>
-                        <td>
-                            €@Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            <a class="btn btn-outline-danger btn-xs" asp-controller="Products" asp-action="PlaceOrder" asp-route-id="@item.Id">Kies dit tijdstip en plaats de bestelling</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<div class="container">
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Bezorgmomenten</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
     </div>
+    <div class="container">
+        <button onclick="goBack()">Terug</button>
+
+
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                <span class="sr-only">70% Complete</span>
+            </div>
+        </div>
+    </div>
+
+    <table id="sorttable" class="sortable table" cellspacing="0" width="100%">
+        <thead class="thead-dark"  style="cursor: pointer">
+            <tr>
+                <th>
+                    Van
+                </th>
+                <th>
+                    Tot
+                </th>
+                <th>
+                    Prijs
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        €@Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-danger btn-xs" asp-controller="Products" asp-action="PlaceOrder" asp-route-id="@item.Id">Kies dit tijdstip en plaats de bestelling</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 </section>
 
 <script>
