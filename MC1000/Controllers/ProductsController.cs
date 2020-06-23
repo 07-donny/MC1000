@@ -104,7 +104,7 @@ namespace MC1000.Controllers
             return View(civm);
         }
 
-        public IActionResult PlaceOrder(int id)
+        public async Task<IActionResult> PlaceOrder(int id)
         {
             List<CartItem> cart = new List<CartItem>();
             var cartStr = HttpContext.Session.GetString("cart");
@@ -124,23 +124,28 @@ namespace MC1000.Controllers
 
             List<OrderLine> orderLineList = new List<OrderLine>();
 
+            decimal totalPrice = new decimal();
+
             foreach (var item in cart)
             {
                 OrderLine ol = new OrderLine();
                 ol.ProductId = item.ProductId;
                 ol.Amount = item.Amount;
                 ol.Product = _context.Product.Where(p => p.Id == item.ProductId).FirstOrDefault();
+                totalPrice += ol.Product.Price * item.Amount;
                 orderLineList.Add(ol);
             }
 
             o.OrderLines = orderLineList;
+            o.TotalPrice = totalPrice;
 
             ViewData["DeliverySlots"] = LoadDSlots();
 
             _context.Add(o);
             _context.SaveChanges();
 
-            return View(o);
+            //return RedirectToAction("Details", "Orders", o.Id);   //this should work, but it doesn't. I cry.
+            return Redirect("/Orders/Details/" + o.Id); //Dan maar zo
         }
 
         public IActionResult IncreaseAmount(int id)
@@ -158,7 +163,6 @@ namespace MC1000.Controllers
             HttpContext.Session.SetString("cart", cartStr);
 
             return RedirectToAction("ShowCart");
-            // ignore dit
         }
 
         public IActionResult DecreaseAmount(int id)
