@@ -22,7 +22,6 @@ namespace MC1000.Models
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
-        public string SubSub { get; set; }
         public SubSubCategory SubSubCategory { get; set; }
         public int SubSubCategoryId { get; set; }
         public List<OrderLine> OrderLines { get; set; }

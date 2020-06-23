@@ -332,7 +332,8 @@ namespace MC1000.Migrations
                     DatePlaced = table.Column<DateTime>(nullable: false),
                     Status = table.Column<string>(nullable: true),
                     TimeSlotId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    TotalPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {

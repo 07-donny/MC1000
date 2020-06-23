@@ -212,9 +212,6 @@ namespace MC1000.Migrations
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SubSub")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SubSubCategoryId")
                         .HasColumnType("int");
 

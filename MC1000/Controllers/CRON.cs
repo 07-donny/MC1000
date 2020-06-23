@@ -32,79 +32,86 @@ namespace MC1000.Controllers
             var categories = xdocCategory.Descendants("Category");
             foreach (var category in categories)
             {
-                var categoryName = category.Descendants("Name").First().Value;
-
-                if (!_context.Category.Any(u => u.Name == categoryName)) //check for dupe
+                Category c = new Category
                 {
-                    Category c = new Category
+                    Name = category.Descendants("Name").First().Value,
+                };
+
+                //Load Subcategories to DB and link to Category
+                var subCategories = category.Descendants("Subcategory");
+
+                c.SubCategories = new List<SubCategory>();
+                foreach (var sub in subCategories)
+                {
+                    var subcategoryName = sub.Descendants("Name").First().Value;
+
+                    SubCategory s = new SubCategory();
+
+                    s.Name = sub.Descendants("Name").First().Value;
+                    s.CategoryId = c.Id;
+                    c.SubCategories.Add(s);
+
+                    //Load SubSubcategories to DB and link to SubCategory
+                    var subSubCategories = sub.Descendants("Subsubcategory");
+
+                    s.SubSubCategories = new List<SubSubCategory>();
+                    foreach (var subsub in subSubCategories)
                     {
-                        Name = category.Descendants("Name").First().Value,
-                    };
+                        var subsubcategoryName = subsub.Descendants("Name").First().Value;
+                        SubSubCategory u = new SubSubCategory();
 
-                    //Load Subcategories to DB and link to Category
-                    var subCategories = category.Descendants("Subcategory");
+                        u.Name = subsub.Descendants("Name").First().Value;
+                        u.SubCategory = s;
+                        u.Products = new List<Product>();
+                        s.SubSubCategories.Add(u);
 
-                    c.SubCategories = new List<SubCategory>();
-                    foreach (var sub in subCategories)
-                    {
-                        var subcategoryName = sub.Descendants("Name").First().Value;
-                        SubCategory s = new SubCategory();
-                        if (!_context.SubCategory.Any(u => u.Name == subcategoryName)) //check for dupe
+                        //Load products into DB
+                        foreach (var product in products)
                         {
-                            s.Name = sub.Descendants("Name").First().Value;
-                            s.Category = c;
-                            c.SubCategories.Add(s);
-                        }
-
-                        //Load SubSubcategories to DB and link to SubCategory
-                        var subSubCategories = sub.Descendants("Subsubcategory");
-
-                        s.SubSubCategories = new List<SubSubCategory>();
-                        foreach (var subsub in subSubCategories)
-                        {
-                            var subsubcategoryName = subsub.Descendants("Name").First().Value;
-                            SubSubCategory u = new SubSubCategory();
-                            if (!_context.SubSubCategory.Any(u => u.Name == subsubcategoryName)) //check for dupe
+                            if (product.Descendants("Subsubcategory").First().Value == subsubcategoryName)
                             {
-                                u.Name = subsub.Descendants("Name").First().Value;
-                                u.SubCategory = s;
-                                s.SubSubCategories.Add(u);
+                                var productEAN = product.Descendants("EAN").First().Value;
 
-                                //Load products into DB
-                                foreach (var product in products)
+                                if (!_context.Product.Any(q => q.EAN == productEAN))
                                 {
-                                    if (product.Descendants("Subsubcategory").First().Value == subsubcategoryName)
+                                    Product p = new Product
                                     {
-                                        List<Product> productList = new List<Product>();
-                                        var productEAN = product.Descendants("EAN").First().Value;
+                                        EAN = product.Descendants("EAN").First().Value,
+                                        Title = product.Descendants("Title").First().Value,
+                                        Brand = product.Descendants("Brand").First().Value,
+                                        ShortDescription = product.Descendants("Shortdescription").First().Value,
+                                        FullDescription = product.Descendants("Fulldescription").First().Value,
+                                        Image = product.Descendants("Image").First().Value,
+                                        Weight = product.Descendants("Weight").First().Value,
+                                        Price = decimal.Parse(product.Descendants("Price").First().Value, style, provider),
+                                        SubSubCategory = u,
+                                    };
 
-                                        if (!_context.Product.Any(q => q.EAN == productEAN))
-                                        {
-                                            Product p = new Product
-                                            {
-                                                EAN = product.Descendants("EAN").First().Value,
-                                                Title = product.Descendants("Title").First().Value,
-                                                Brand = product.Descendants("Brand").First().Value,
-                                                ShortDescription = product.Descendants("Shortdescription").First().Value,
-                                                FullDescription = product.Descendants("Fulldescription").First().Value,
-                                                Image = product.Descendants("Image").First().Value,
-                                                Weight = product.Descendants("Weight").First().Value,
-                                                Price = decimal.Parse(product.Descendants("Price").First().Value, style, provider),
-                                                SubSub = product.Descendants("Subsubcategory").First().Value,
-                                                SubSubCategory = u,
-                                            };
-                                            productList.Add(p);
-                                            _context.Add(p);
-                                        }
-                                        u.Products = productList;
+                                    u.Products.Add(p);
+
+                                    if (!_context.Product.Where(x => x.EAN == p.EAN).Any())
+                                    {
+                                        _context.Add(p);
                                     }
-                                } //Product loaded
+                                }
                             }
                         }
+                        if (!_context.SubSubCategory.Where(x => x.Name == u.Name).Any())
+                        {
+                            _context.Add(u);
+                        }
+                        if (!_context.SubCategory.Where(x => x.Name == s.Name).Any())
+                        {
+                            _context.Add(s);
+                        }
+                        if (!_context.Category.Where(x => x.Name == c.Name).Any())
+                        {
+                            _context.Add(c);
+                        }
                     }
-                    _context.Add(c);
                 }
             }
+
             //Load promotions to DB
             XDocument xdocPromo = XDocument.Load("http://supermaco.starwave.nl/api/promotions");
             var promotions = xdocPromo.Descendants("Promotion");
