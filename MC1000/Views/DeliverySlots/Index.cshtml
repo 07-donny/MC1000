@@ -17,15 +17,6 @@
         <div class="divider-custom-line"></div>
     </div>
     <div class="container">
-        <button onclick="goBack()">Terug</button>
-
-
-
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
 
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width:35%">
@@ -35,7 +26,7 @@
     </div>
 
     <table id="sorttable" class="sortable table" cellspacing="0" width="100%">
-        <thead class="thead-dark"  style="cursor: pointer">
+        <thead class="thead-dark" style="cursor: pointer">
             <tr>
                 <th>
                     Bezorgdatum
@@ -57,6 +48,7 @@
             }
         </tbody>
     </table>
+    <button class="btn btn-outline-danger btn-xs" onclick="goBack()">Terug</button>
 </div>
 </section>
 
@@ -64,5 +56,9 @@
     $(document).ready(function () {
         $('#sorttable').DataTable();
         $('.dataTables_length').addClass('bs-select');
+
+        function goBack() {
+            window.history.back();
+        }
     });
 </script>
