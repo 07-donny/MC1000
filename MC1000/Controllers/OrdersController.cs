@@ -45,6 +45,7 @@ namespace MC1000.Controllers
                 .Include(o => o.TimeSlot)
                 .Include(o => o.User)
                 .Include(o => o.OrderLines).ThenInclude(i => i.Product)
+                .Include(o => o.TimeSlot.DeliverySlot)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {

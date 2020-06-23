@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Bestelling";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<DeliverySlot> delivery = ViewData["DeliverySlots"] as IEnumerable<DeliverySlot>;
+
 }
 
 <section class="page-section portfolio" id="portfolio">
@@ -21,30 +23,24 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>
-                            Order ID
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
                             Bestelling geplaatst op
                         </th>
                         <th>
                             Status
                         </th>
                         <th>
+                            Bezorgdatum
+                        </th>
+                        <th>
                             Levering tussen
+                        </th>
+                        <th>
+                            Bezorgkosten
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(model => model.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.User.UserName)
-                        </td>
                         <td>
                             @Html.DisplayFor(model => model.DatePlaced)
                         </td>
@@ -52,7 +48,13 @@
                             @Html.DisplayFor(model => model.Status)
                         </td>
                         <td>
+                            @Html.DisplayFor(model => model.TimeSlot.DeliverySlot.DeliveryDate)
+                        </td>
+                        <td>
                             @Html.DisplayFor(model => model.TimeSlot.StartTime) en @Html.DisplayFor(model => model.TimeSlot.EndTime)
+                        </td>
+                        <td>
+                            €@Html.DisplayFor(model => model.TimeSlot.Price)
                         </td>
                     </tr>
                 </tbody>
@@ -60,27 +62,29 @@
 
             @if (Model.OrderLines != null)
             {
-
-                @foreach (var item in Model.OrderLines)
-                {
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>
-                                    Product
-                                </th>
-                                <th>
-                                    Merk
-                                </th>
-                                <th>
-                                    Prijs
-                                </th>
-                                <th>
-                                    Aantal
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>
+                                Product
+                            </th>
+                            <th>
+                                Merk
+                            </th>
+                            <th>
+                                Prijs per stuk
+                            </th>
+                            <th>
+                                Aantal
+                            </th>
+                            <th>
+                                Prijs
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderLines)
+                        {
                             <tr>
                                 <td>
                                     @item.Product.Title
@@ -89,15 +93,25 @@
                                     @item.Product.Brand
                                 </td>
                                 <td>
-                                    @item.Product.Price
+                                    €@item.Product.Price
                                 </td>
                                 <td>
                                     @item.Amount
                                 </td>
+                                <td>
+                                    €@(@item.Product.Price * @item.Amount)
+                                </td>
                             </tr>
-                        </tbody>
-                    </table>
-                }
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Totaal prijs:</td>
+                            <td>@Html.DisplayFor(model => model.TotalPrice)</td>
+                        </tr>
+                    </tbody>
+                </table>
             }
             else
             {
