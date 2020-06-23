@@ -73,7 +73,6 @@
     <Folder Include="wwwroot\banners\subsubcategories\" />
     <Folder Include="wwwroot\banners\subcategories\" />
     <Folder Include="wwwroot\uploads\images\nieuws\" />
-    <Folder Include="wwwroot\uploads\images\nieuws\" />
   </ItemGroup>
 
   <ItemGroup>
