@@ -15,6 +15,6 @@ namespace MC1000.Models
         public int SubCategoryId { get; set; }
 
         public SubCategory SubCategory { get; set; }
-        //public List<Product> Products { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

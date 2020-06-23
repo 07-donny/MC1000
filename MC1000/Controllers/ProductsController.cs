@@ -32,14 +32,20 @@ namespace MC1000.Controllers
             {
                 return NotFound();
             }
-            var subsub = _context.SubSubCategory.FirstOrDefault(s => s.Id == id);
 
             var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.SubSub == subsub.Name);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
             }
+
+            var subsub = _context.SubSubCategory.FirstOrDefault(s => s.Id == product.SubSubCategoryId);
+            var sub = _context.SubCategory.FirstOrDefault(s => s.Id == subsub.SubCategoryId);
+            var c = _context.Category.FirstOrDefault(s => s.Id == sub.CategoryId);
+            var banner = c.BannerImage;
+
+            ViewData["BannerImage"] = banner;
 
             return View(product);
         }

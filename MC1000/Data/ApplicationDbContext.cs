@@ -28,6 +28,11 @@ namespace MC1000.Data
             .WithOne(c => c.SubCategory)
             .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Product>()
+            .HasOne(p => p.SubSubCategory)
+            .WithMany(o => o.Products)
+            .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Promotion>()
             .HasMany(p => p.Discounts)
             .WithOne(c => c.Promotion)

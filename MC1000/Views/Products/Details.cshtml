@@ -1,80 +1,75 @@
 ﻿@model MC1000.Models.Product
 
 @{
+    string banner = ViewData["BannerImage"] as string;
     ViewData["Title"] = Html.DisplayFor(model => model.Title);
 }
-
+<header>
+    <img src="~/banners/categories/@banner" alt="Category Banner" class="BannerImg" id="home" style="max-width: 100%" />
+</header>
 <section class="page-section portfolio" id="portfolio">
-    <br />
     <div class="container">
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.Title</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary">@Model.Title</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
             <div class="divider-custom-line"></div>
         </div>
+        <div class="row">
+            <div class="flex-md-column">
+                <img src="@Model.Image" style="max-height: 332px; max-width: 332px" alt="Product afbeelding" />
+                <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.FullDescription))</p>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EAN)
+                        </th>
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            Merk
+                        </th>
+                        <th>
+                            Korte Beschrijving
+                        </th>
+                        <th>
+                            Gewicht
+                        </th>
+                        <th>
+                            Prijs
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.EAN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ShortDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Weight)
+                        </td>
+                        <td style="width: 5%">
+                            @Html.DisplayFor(model => model.Price)
+                        </td>
+                        <td>
+                            <a class="btn btn-success btn-block" asp-action="AddToCart" asp-route-id="@Model.Id">Aan winkelwagen toevoegen</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EAN)
-            </th>
-            <th>
-                Product
-            </th>
-            <th>
-                Merk
-            </th>
-            <th>
-                Korte Beschrijving
-            </th>
-            <th>
-                Lange Beschrijving
-            </th>
-            <th>
-                Afbeelding
-            </th>
-            <th>
-                Gewicht
-            </th>
-            <th>
-                Prijs
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(model => model.EAN)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.ShortDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.FullDescription)
-            </td>
-            <td>
-                <img src="@Model.Image" height="150px" />
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Weight)
-            </td>
-            <td style="width: 5%">
-                @Html.DisplayFor(model => model.Price)
-            </td>
-            <td>
-                <a class="btn btn-success btn-block" asp-action="AddToCart" asp-route-id="@Model.Id">Aan winkelwagen toevoegen</a>
-            </td>
-        </tr>
-    </tbody>
-</table>

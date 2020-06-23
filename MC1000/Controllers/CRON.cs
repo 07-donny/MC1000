@@ -23,31 +23,8 @@ namespace MC1000.Controllers
             var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
             var provider = new CultureInfo("en-GB");
 
-            //Load products into DB
             XDocument xdocProduct = XDocument.Load("http://supermaco.starwave.nl/api/products");
-
             var products = xdocProduct.Descendants("Product");
-            foreach (var product in products)
-            {
-                var productEAN = product.Descendants("EAN").First().Value;
-                if (!_context.Product.Any(u => u.EAN == productEAN))
-                {
-                    Product p = new Product
-                    {
-                        EAN = product.Descendants("EAN").First().Value,
-                        Title = product.Descendants("Title").First().Value,
-                        Brand = product.Descendants("Brand").First().Value,
-                        ShortDescription = product.Descendants("Shortdescription").First().Value,
-                        FullDescription = product.Descendants("Fulldescription").First().Value,
-                        Image = product.Descendants("Image").First().Value,
-                        Weight = product.Descendants("Weight").First().Value,
-                        Price = decimal.Parse(product.Descendants("Price").First().Value, style, provider),
-                        SubSub = product.Descendants("Subsubcategory").First().Value
-                    };
-                    _context.Add(p);
-                }
-            }
-            //=========================
 
             //Load Categories into DB
             XDocument xdocCategory = XDocument.Load("http://supermaco.starwave.nl/api/categories");
@@ -61,7 +38,7 @@ namespace MC1000.Controllers
                 {
                     Category c = new Category
                     {
-                        Name = category.Descendants("Name").First().Value
+                        Name = category.Descendants("Name").First().Value,
                     };
 
                     //Load Subcategories to DB and link to Category
@@ -83,17 +60,45 @@ namespace MC1000.Controllers
                         var subSubCategories = sub.Descendants("Subsubcategory");
 
                         s.SubSubCategories = new List<SubSubCategory>();
-
                         foreach (var subsub in subSubCategories)
                         {
-                            //elke subsub.name zit momenteel in elke sub
                             var subsubcategoryName = subsub.Descendants("Name").First().Value;
                             SubSubCategory u = new SubSubCategory();
                             if (!_context.SubSubCategory.Any(u => u.Name == subsubcategoryName)) //check for dupe
                             {
-                                u.Name = subsubcategoryName;
+                                u.Name = subsub.Descendants("Name").First().Value;
                                 u.SubCategory = s;
                                 s.SubSubCategories.Add(u);
+
+                                //Load products into DB
+                                foreach (var product in products)
+                                {
+                                    if (product.Descendants("Subsubcategory").First().Value == subsubcategoryName)
+                                    {
+                                        List<Product> productList = new List<Product>();
+                                        var productEAN = product.Descendants("EAN").First().Value;
+
+                                        if (!_context.Product.Any(q => q.EAN == productEAN))
+                                        {
+                                            Product p = new Product
+                                            {
+                                                EAN = product.Descendants("EAN").First().Value,
+                                                Title = product.Descendants("Title").First().Value,
+                                                Brand = product.Descendants("Brand").First().Value,
+                                                ShortDescription = product.Descendants("Shortdescription").First().Value,
+                                                FullDescription = product.Descendants("Fulldescription").First().Value,
+                                                Image = product.Descendants("Image").First().Value,
+                                                Weight = product.Descendants("Weight").First().Value,
+                                                Price = decimal.Parse(product.Descendants("Price").First().Value, style, provider),
+                                                SubSub = product.Descendants("Subsubcategory").First().Value,
+                                                SubSubCategory = u,
+                                            };
+                                            productList.Add(p);
+                                            _context.Add(p);
+                                        }
+                                        u.Products = productList;
+                                    }
+                                } //Product loaded
                             }
                         }
                     }
