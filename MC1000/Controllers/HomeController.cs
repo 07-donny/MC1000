@@ -90,7 +90,7 @@ namespace MC1000.Controllers
 
         public async Task<IActionResult> SubCategories(int id)
         {
-            return View(await _context.SubCategory.Where(sc => sc.CategoryId == id).ToListAsync());
+            return View(await _context.Category.Where(c => c.Id == id).Include(c => c).ThenInclude(s => s.SubCategories).ThenInclude(ss => ss.SubSubCategories).ThenInclude(p => p.Products).ToListAsync());
         }
 
         public async Task<IActionResult> SubSubCategories(int id)
