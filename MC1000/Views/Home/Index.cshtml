@@ -132,9 +132,11 @@
                             </div>
                             @if (item.AfbeeldingUrl != null)
                             {
-                                <img class="img-fluid" src="~/uploads/images/nieuws/@item.AfbeeldingUrl" style="min-height: 332px; min-width: 332px" alt="Product met Korting" />
-                            } else {
-                                <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Product met Korting" />
+                                <img class="img-fluid" src="~/uploads/images/nieuws/@item.AfbeeldingUrl" style="min-height: 332px; min-width: 332px" alt="Nieuwsartikel" />
+                            }
+                            else
+                            {
+                                <img class="img-fluid" src="~/uploads/images/avatars/default.webp" alt="Nieuwsartikel" />
                             }
                             <bold>@item.Title</bold>
                             <p>Klik hier om dit artikel te lezen!</p>

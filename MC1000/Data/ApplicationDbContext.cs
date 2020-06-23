@@ -28,6 +28,11 @@ namespace MC1000.Data
             .WithOne(c => c.SubCategory)
             .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<SubSubCategory>()
+            .HasOne(p => p.SubCategory)
+            .WithMany(c => c.SubSubCategories)
+            .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Promotion>()
             .HasMany(p => p.Discounts)
             .WithOne(c => c.Promotion)
@@ -46,6 +51,11 @@ namespace MC1000.Data
             modelBuilder.Entity<OrderLine>()
             .HasOne(p => p.Product)
             .WithMany(o => o.OrderLines)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Product>()
+            .HasOne(p => p.SubSubCategory)
+            .WithMany(o => o.Products)
             .OnDelete(DeleteBehavior.Cascade);
         }
 

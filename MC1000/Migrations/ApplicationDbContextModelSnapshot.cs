@@ -212,6 +212,9 @@ namespace MC1000.Migrations
                     b.Property<string>("SubSub")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SubSubCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -219,6 +222,8 @@ namespace MC1000.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubSubCategoryId");
 
                     b.ToTable("Product");
                 });
@@ -564,6 +569,15 @@ namespace MC1000.Migrations
                     b.HasOne("MC1000.Models.Product", "Product")
                         .WithMany("OrderLines")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MC1000.Models.Product", b =>
+                {
+                    b.HasOne("MC1000.Models.SubSubCategory", "SubSubCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("SubSubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
